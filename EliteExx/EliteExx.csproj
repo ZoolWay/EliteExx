@@ -38,6 +38,12 @@
     <StartupObject>Zw.EliteExx.App</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Akka, Version=1.3.13.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Akka.1.3.13\lib\net45\Akka.dll</HintPath>
+    </Reference>
+    <Reference Include="Akka.Logger.log4net, Version=1.3.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Akka.Logger.log4net.1.3.1\lib\net45\Akka.Logger.log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Caliburn.Micro, Version=3.2.0.0, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
       <HintPath>..\packages\Caliburn.Micro.Core.3.2.0\lib\net45\Caliburn.Micro.dll</HintPath>
     </Reference>
@@ -54,6 +60,10 @@
       <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Collections.Immutable, Version=1.2.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Collections.Immutable.1.5.0\lib\netstandard2.0\System.Collections.Immutable.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Caliburn.Micro.3.2.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
@@ -77,16 +87,29 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Configuration.cs" />
+    <Compile Include="Core\ActorSystemManager.cs" />
+    <Compile Include="Core\ConnectorManagerActor.cs" />
     <Compile Include="Core\Config\Config.cs" />
+    <Compile Include="Core\Config\Env.cs" />
     <Compile Include="Core\Config\Locations.cs" />
     <Compile Include="Core\Config\WindowLayout.cs" />
-    <Compile Include="Env.cs" />
+    <Compile Include="Core\ConnectorManagerMessage.cs" />
+    <Compile Include="Core\UiMessengerActor.cs" />
+    <Compile Include="Core\UiMessengerMessage.cs" />
+    <Compile Include="EliteDangerous\ConnectorActor.cs" />
+    <Compile Include="EliteDangerous\ConnectorMessage.cs" />
+    <Compile Include="EliteDangerous\LogEvent.cs" />
+    <Compile Include="EnvManager.cs" />
     <Compile Include="Ui\Config\Config.cs" />
     <Compile Include="Ui\Config\Locations.cs" />
     <Compile Include="Ui\Config\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ui\Config\MainViewModel.cs" />
+    <Compile Include="Ui\EliteDangerous\MainView.xaml.cs">
+      <DependentUpon>MainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\EliteDangerous\MainViewModel.cs" />
     <Compile Include="Ui\Events\ConfigurationChanged.cs" />
     <Compile Include="Ui\IShell.cs" />
     <Compile Include="Ui\ShellView.xaml.cs">
@@ -99,6 +122,10 @@
     </Compile>
     <Compile Include="CmBootstrapper.cs" />
     <Page Include="Ui\Config\MainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\EliteDangerous\MainView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

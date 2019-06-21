@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Caliburn.Micro;
-using Zw.EliteExx.Ui;
 
 namespace Zw.EliteExx
 {
@@ -22,9 +21,11 @@ namespace Zw.EliteExx
 
             container.Singleton<IWindowManager, WindowManager>();
             container.Singleton<IEventAggregator, EventAggregator>();
-            container.Singleton<Env>();
+            container.Singleton<EnvManager>();
             container.Singleton<Configuration>();
-            container.PerRequest<IShell, ShellViewModel>();
+            container.Singleton<Core.ActorSystemManager>();
+            container.PerRequest<Ui.IShell, Ui.ShellViewModel>();
+            container.PerRequest<Ui.EliteDangerous.MainViewModel>();
             container.PerRequest<Ui.Config.MainViewModel>();
         }
 
@@ -51,7 +52,7 @@ namespace Zw.EliteExx
         {
             System.Windows.Application.Current.DispatcherUnhandledException += Current_DispatcherUnhandledException;
             System.AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
-            DisplayRootViewFor<IShell>();
+            DisplayRootViewFor<Ui.IShell>();
         }
 
         private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)

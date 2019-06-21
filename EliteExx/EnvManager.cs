@@ -4,30 +4,31 @@ using System.Reflection;
 
 namespace Zw.EliteExx
 {
-    public class Env
+    public class EnvManager
     {
         private static readonly log4net.ILog log = global::log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public string AppFolder { get; private set; }
+        public Core.Config.Env Instance { get; private set; }
 
-        public Env()
+        public EnvManager()
         {
-            InitAppFolder();
+            Init();
         }
 
-        private void InitAppFolder()
+        private void Init()
         {
+            string appFolder = String.Empty;
             try
             {
                 Uri assemblyLocation = new Uri(Assembly.GetExecutingAssembly().Location);
-                this.AppFolder = Path.GetDirectoryName(assemblyLocation.AbsolutePath);
-                log.Debug($"Detected app folder: {AppFolder}");
+                appFolder = Path.GetDirectoryName(assemblyLocation.AbsolutePath);
+                log.Debug($"Detected app folder: {appFolder}");
             }
             catch (Exception ex)
             {
                 log.Fatal("Could not detect app folder location!", ex);
-                this.AppFolder = String.Empty;
             }
+            this.Instance = new Core.Config.Env(appFolder);
         }
     }
 }

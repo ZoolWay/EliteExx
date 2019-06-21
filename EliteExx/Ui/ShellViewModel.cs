@@ -17,6 +17,7 @@ namespace Zw.EliteExx.Ui
         private double windowTop;
         private double windowWidth;
         private double windowHeight;
+        private object content;
 
         public double WindowLeft
         {
@@ -62,12 +63,24 @@ namespace Zw.EliteExx.Ui
             }
         }
 
+        public object Content
+        {
+            get => this.content;
+            set
+            {
+                if (Object.ReferenceEquals(value, this.content)) return;
+                this.content = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
         public ShellViewModel(Configuration configuration, IWindowManager windowManager)
         {
             log.Debug("Creating Shell");
             this.configuration = configuration;
             this.windowManager = windowManager;
             InitWindowLayout();
+            this.Content = IoC.Get<EliteDangerous.MainViewModel>();
         }
 
         public void TitleMouseDown(System.Windows.Input.MouseButtonEventArgs e)
