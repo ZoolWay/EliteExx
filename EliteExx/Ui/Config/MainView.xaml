@@ -18,7 +18,7 @@
                 <ScrollViewer>
                     <StackPanel Style="{StaticResource DialogRows}">
                         <DockPanel>
-                            <Label>Elite Dangerous Log-Folder</Label>
+                            <Label>Elite Dangerous Journal-Folder</Label>
                             <TextBox Text="{Binding Config.Locations.FolderLogs}" />
                         </DockPanel>
                         <DockPanel>
