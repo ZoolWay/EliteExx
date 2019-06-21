@@ -22,6 +22,8 @@ namespace Zw.EliteExx
 
             container.Singleton<IWindowManager, WindowManager>();
             container.Singleton<IEventAggregator, EventAggregator>();
+            container.Singleton<Env>();
+            container.Singleton<Configuration>();
             container.PerRequest<IShell, ShellViewModel>();
         }
 
