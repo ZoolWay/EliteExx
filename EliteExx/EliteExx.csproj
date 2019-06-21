@@ -101,6 +101,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Ui\Fonts.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Ui\ShellView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -136,6 +140,10 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Resource Include="Ui\Fonts\FontAwesome5Brands-Regular-400.otf" />
+    <Resource Include="Ui\Fonts\FontAwesome5Pro-Light-300.otf" />
+    <Resource Include="Ui\Fonts\FontAwesome5Pro-Regular-400.otf" />
+    <Resource Include="Ui\Fonts\FontAwesome5Pro-Solid-900.otf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

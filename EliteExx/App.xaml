@@ -10,6 +10,7 @@
                     <local:CmBootstrapper x:Key="bootstrapper" />
                 </ResourceDictionary>
                 <ResourceDictionary Source="Ui/Styles.xaml" />
+                <ResourceDictionary Source="Ui/Fonts.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

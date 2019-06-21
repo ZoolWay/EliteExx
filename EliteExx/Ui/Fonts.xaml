@@ -1,0 +1,8 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Zw.EliteExx.Ui">
+    <FontFamily x:Key="FontAwesomeBrands">/Ui/Fonts/FontAwesome5Brands-Regular-400.otf#Font Awesome 5 Brands Regular</FontFamily>
+    <FontFamily x:Key="FontAwesomeLight">/Ui/Fonts/FontAwesome5Pro-Light-300.otf#Font Awesome 5 Pro Light</FontFamily>
+    <FontFamily x:Key="FontAwesomeRegular">/Ui/Fonts/FontAwesome5Pro-Regular-400.otf#Font Awesome 5 Pro Regular</FontFamily>
+    <FontFamily x:Key="FontAwesomeSolid">/Ui/Fonts/FontAwesome5Pro-Solid-900.otf#Font Awesome 5 Pro Solid</FontFamily>
+</ResourceDictionary>
