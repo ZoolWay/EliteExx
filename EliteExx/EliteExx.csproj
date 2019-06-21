@@ -80,6 +80,12 @@
     <Compile Include="Core\Config\Config.cs" />
     <Compile Include="Core\Config\Locations.cs" />
     <Compile Include="Env.cs" />
+    <Compile Include="Ui\Config\Config.cs" />
+    <Compile Include="Ui\Config\Locations.cs" />
+    <Compile Include="Ui\Config\MainView.xaml.cs">
+      <DependentUpon>MainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\Config\MainViewModel.cs" />
     <Compile Include="Ui\Events\ConfigurationChanged.cs" />
     <Compile Include="Ui\IShell.cs" />
     <Compile Include="Ui\ShellView.xaml.cs">
@@ -91,6 +97,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="CmBootstrapper.cs" />
+    <Page Include="Ui\Config\MainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Ui\ShellView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

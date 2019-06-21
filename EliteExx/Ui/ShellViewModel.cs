@@ -11,11 +11,23 @@ namespace Zw.EliteExx.Ui
     {
         private static readonly log4net.ILog log = global::log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly Configuration configuration;
+        private readonly IWindowManager windowManager;
 
-        public ShellViewModel(Configuration configuration)
+        public ShellViewModel(Configuration configuration, IWindowManager windowManager)
         {
             log.Debug("Creating Shell");
             this.configuration = configuration;
+            this.windowManager = windowManager;
+        }
+
+        public void Configuration()
+        {
+            this.windowManager.ShowDialog(IoC.Get<Ui.Config.MainViewModel>());
+        }
+
+        public void Exit()
+        {
+            TryClose();
         }
     }
 }

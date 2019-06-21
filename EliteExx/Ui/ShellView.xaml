@@ -5,7 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Zw.EliteExx.Ui"
         mc:Ignorable="d"
+        xmlns:cal="http://www.caliburnproject.org"
         Title="Elite Exx" Height="450" Width="800">
+    <Window.ContextMenu>
+        <ContextMenu>
+            <MenuItem Header="Configuration" cal:Message.Attach="Configuration" />
+            <Separator />
+            <MenuItem Header="Exit" cal:Message.Attach="Exit" />
+        </ContextMenu>
+    </Window.ContextMenu>
     <Grid>
         
     </Grid>

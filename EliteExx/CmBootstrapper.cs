@@ -25,6 +25,7 @@ namespace Zw.EliteExx
             container.Singleton<Env>();
             container.Singleton<Configuration>();
             container.PerRequest<IShell, ShellViewModel>();
+            container.PerRequest<Ui.Config.MainViewModel>();
         }
 
         protected override object GetInstance(Type service, string key)

@@ -20,6 +20,7 @@ namespace Zw.EliteExx
         {
             this.env = env;
             this.eventAggregator = eventAggregator;
+            Load();
         }
 
         public void Load()
@@ -38,7 +39,7 @@ namespace Zw.EliteExx
             }            
         }
         
-        public void Save(Core.Config.Config configInstance)
+        public bool Save(Core.Config.Config configInstance)
         {
             string configFile = CONFIGFILE_NAME;
             try
@@ -48,10 +49,12 @@ namespace Zw.EliteExx
                 File.WriteAllText(configFile, contents, CONFIGFILE_ENCODING);
                 this.Instance = configInstance;
                 NotifyChangedConfiguration();
+                return true;
             }
             catch (Exception ex)
             {
                 log.Fatal($"Failed to load configuration from: {configFile}", ex);
+                return false;
             }
         }
 

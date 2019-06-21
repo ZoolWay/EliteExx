@@ -1,5 +1,45 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:Zw.EliteExx.Ui">
-    
+    <Style x:Key="DialogWindow" TargetType="Window">
+    </Style>
+    <Style x:Key="DialogMainGrid" TargetType="Grid">
+        <Setter Property="Margin" Value="2" />
+        <Style.Resources>
+            <Style TargetType="{x:Type ScrollViewer}">
+                <Setter Property="HorizontalScrollBarVisibility" Value="Hidden" />
+                <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
+            </Style>
+        </Style.Resources>
+    </Style>
+    <Style x:Key="DialogRows" TargetType="StackPanel">
+        <Setter Property="Orientation" Value="Vertical" />
+        <Style.Resources>
+            <Style TargetType="{x:Type DockPanel}">
+                <Setter Property="LastChildFill" Value="True" />
+                <Setter Property="Margin" Value="0,0,0,2" />
+            </Style>
+            <Style TargetType="{x:Type Label}">
+                <Setter Property="Width" Value="200" />
+                <Setter Property="Margin" Value="2" />
+            </Style>
+            <Style TargetType="{x:Type TextBox}">
+                <Setter Property="Margin" Value="2" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="Padding" Value="2" />
+            </Style>
+        </Style.Resources>
+    </Style>
+    <Style x:Key="DialogControls" TargetType="StackPanel">
+        <Setter Property="Margin" Value="0,10,0,0" />
+        <Setter Property="Orientation" Value="Horizontal" />
+        <Setter Property="HorizontalAlignment" Value="Right" />
+        <Style.Resources>
+            <Style TargetType="{x:Type Button}">
+                <Setter Property="Margin" Value="4,0,0,0" />
+                <Setter Property="Padding" Value="4,2,4,2" />
+            </Style>
+        </Style.Resources>
+    </Style>
 </ResourceDictionary>
+    
