@@ -9,7 +9,8 @@
         WindowStyle="None" Margin="0" Padding="0"
         AllowsTransparency="True" ResizeMode="CanResizeWithGrip"
         BorderThickness="1" BorderBrush="Black"
-        Title="Elite Exx" Height="450" Width="800">
+        Left="{Binding WindowLeft, Mode=TwoWay}" Top="{Binding WindowTop, Mode=TwoWay}" Width="{Binding WindowWidth, Mode=TwoWay}" Height="{Binding WindowHeight, Mode=TwoWay}" WindowStartupLocation="Manual"
+        Title="Elite Exx">
     <Window.ContextMenu>
         <ContextMenu>
             <MenuItem Header="Configuration" cal:Message.Attach="Configuration" />
@@ -28,5 +29,14 @@
                        cal:Message.Attach="[Event MouseDown] = [Action CloseMouseUp($eventArgs)]" />
             <Label Grid.Row="0" FontWeight="Bold" cal:Message.Attach="[Event MouseDown] = [Action TitleMouseDown($eventArgs)]">Elite Exx</Label>
         </DockPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="10">
+            <TextBlock Text="{Binding WindowLeft}" />
+            <TextBlock> x </TextBlock>
+            <TextBlock Text="{Binding WindowTop}" />
+            <TextBlock> - </TextBlock>
+            <TextBlock Text="{Binding WindowWidth}" />
+            <TextBlock> x </TextBlock>
+            <TextBlock Text="{Binding WindowHeight}" />
+        </StackPanel>
     </Grid>
 </Window>

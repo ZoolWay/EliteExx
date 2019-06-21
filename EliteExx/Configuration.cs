@@ -3,6 +3,7 @@ using System.IO;
 using System.Text;
 using Caliburn.Micro;
 using Newtonsoft.Json;
+using Zw.EliteExx.Core.Config;
 
 namespace Zw.EliteExx
 {
@@ -38,7 +39,14 @@ namespace Zw.EliteExx
                 log.Fatal($"Failed to load configuration from: {configFile}", ex);
             }            
         }
-        
+
+        public bool SaveWindowLayout(WindowLayout newWindowLayout)
+        {
+            var newInstance = new Config(this.Instance.Locations, newWindowLayout);
+            return Save(newInstance);
+        }
+
+
         public bool Save(Core.Config.Config configInstance)
         {
             string configFile = CONFIGFILE_NAME;

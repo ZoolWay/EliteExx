@@ -18,10 +18,10 @@ namespace Zw.EliteExx.Ui.Config
             this.Locations.FolderScreenshots = configurationModel?.Locations?.FolderScreenshots;
         }
 
-        public Core.Config.Config BuildModel()
+        public Core.Config.Config BuildModel(Core.Config.WindowLayout existingWindowLayout)
         {
             Core.Config.Locations locations = new Core.Config.Locations(this.Locations.FolderLogs, this.Locations.FolderScreenshots);
-            Core.Config.Config configModel = new Core.Config.Config(locations);
+            Core.Config.Config configModel = new Core.Config.Config(locations, existingWindowLayout);
             return configModel;
         }
     }

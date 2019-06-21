@@ -19,7 +19,7 @@ namespace Zw.EliteExx.Ui.Config
         public void Save()
         {
             log.Info("Saving new configuration");
-            var newConfig = this.Config.BuildModel();
+            var newConfig = this.Config.BuildModel(this.configuration.Instance.WindowLayout);
             bool success = this.configuration.Save(newConfig);
             if (success) TryClose(true);
         }

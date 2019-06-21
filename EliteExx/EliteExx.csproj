@@ -79,6 +79,7 @@
     <Compile Include="Configuration.cs" />
     <Compile Include="Core\Config\Config.cs" />
     <Compile Include="Core\Config\Locations.cs" />
+    <Compile Include="Core\Config\WindowLayout.cs" />
     <Compile Include="Env.cs" />
     <Compile Include="Ui\Config\Config.cs" />
     <Compile Include="Ui\Config\Locations.cs" />
