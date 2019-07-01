@@ -94,13 +94,36 @@ namespace Zw.EliteExx.Ui.EliteDangerous
             }
             else if (entry is EntryScanDetailed ds)
             {
-                bool isHighlighted = false;
-                if (ds.WasDiscovered == false) isHighlighted = true;                
-                this.events.Add(new DisplayEvent() { Text = $"Scanned {ds.BodyName} ({ds.PlanetClass}) {ds.WasDiscovered} {ds.WasMapped} {ds.TerraformState} {ds.Landable}", IsHighlighted = isHighlighted });
+                DisplayEvent de = new DisplayEvent()
+                {
+                    Text = $"Scanned {ds.BodyName} ({ds.PlanetClass}) {ds.WasDiscovered} {ds.WasMapped} {ds.TerraformState} {ds.Landable}",
+                    EventType = DisplayEventType.Scan,
+                };
+                if (ds.WasDiscovered == false)
+                {
+                    de.IsHighlighted = true;
+                    de.Symbol2 = '\xf890'; // sparkles
+                }
+                if (String.Compare(ds.TerraformState, "Terraformable", true) == 0)
+                {
+                    de.IsHighlighted = true;
+                    de.Symbol1 = '\xf7a2'; // globe-europe
+                }
+                this.events.Add(de);
             }
             else if (entry is EntryScanAutoScan @as)
             {
-                this.events.Add(new DisplayEvent() { Text = $"Auto-Scanned {@as.BodyName} {@as.WasDiscovered} {@as.WasMapped}" });
+                DisplayEvent de = new DisplayEvent()
+                {
+                    Text = $"Auto-Scanned {@as.BodyName} {@as.WasDiscovered} {@as.WasMapped}",
+                    EventType = DisplayEventType.Scan,
+                };
+                if (@as.WasDiscovered == false)
+                {
+                    de.IsHighlighted = true;
+                    de.Symbol2 = '\xf890'; // sparkles
+                }
+                this.events.Add(de);
             }
             else if (entry is EntryFssAllBodiesFound fabf)
             {

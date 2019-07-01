@@ -139,7 +139,10 @@
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ui\Config\MainViewModel.cs" />
+    <Compile Include="Ui\Converters\ZeroToEmptyConverter.cs" />
     <Compile Include="Ui\EliteDangerous\DisplayEvent.cs" />
+    <Compile Include="Ui\EliteDangerous\DisplayEventType.cs" />
+    <Compile Include="Ui\EliteDangerous\DisplayEventTypeConverter.cs" />
     <Compile Include="Ui\EliteDangerous\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>

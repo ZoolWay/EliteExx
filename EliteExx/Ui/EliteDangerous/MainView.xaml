@@ -4,8 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Zw.EliteExx.Ui.EliteDangerous"
+             xmlns:converters="clr-namespace:Zw.EliteExx.Ui.Converters"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="800" d:DesignWidth="450">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -17,28 +18,72 @@
             <Button>pos</Button>
         </StackPanel>
 
-        <StackPanel Orientation="Vertical" Grid.Row="1">
+        <DockPanel LastChildFill="True" Grid.Row="1">
 
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" DockPanel.Dock="Top">
                 <TextBlock>Pos:</TextBlock>
                 <TextBlock Text="{Binding PositionSystem}" FontWeight="Bold" ToolTip="dbl click for clipboard" />
                 <TextBlock Text="{Binding PositionStarPos}" />
             </StackPanel>
 
-            <DockPanel LastChildFill="True">
-                <ListView ItemsSource="{Binding Events}">
+            <DockPanel LastChildFill="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <ListView ItemsSource="{Binding Events}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <ListView.Resources>
+                        <local:DisplayEventTypeConverter x:Key="DisplayEventTypeConverter" />
+                        <converters:ZeroToEmptyConverter x:Key="ZeroToEmptyConverter" />
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ListViewItem">
+                                        <Border BorderThickness="0" SnapsToDevicePixels="True">
+                                            <Border.Style>
+                                                <Style TargetType="Border">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding IsHighlighted}" Value="True">
+                                                            <Setter Property="Background" Value="Yellow" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Border.Style>
+                                            <GridViewRowPresenter VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListView.Resources>
                     <ListView.View>
                         <GridView>
                             <GridView.Columns>
-                                <GridViewColumn Header="T" />
-                                <GridViewColumn Header="Txt" />
+                                <GridViewColumn Header="T" Width="24">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Path=., Converter={StaticResource DisplayEventTypeConverter}}" FontFamily="{StaticResource FontAwesomeSolid}" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="1" Width="24">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Path=Symbol1, Converter={StaticResource ZeroToEmptyConverter}}" FontFamily="{StaticResource FontAwesomeSolid}" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="2" Width="24">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Path=Symbol2, Converter={StaticResource ZeroToEmptyConverter}}" FontFamily="{StaticResource FontAwesomeSolid}" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Txt" DisplayMemberBinding="{Binding Text}" />
                             </GridView.Columns>
                         </GridView>
                     </ListView.View>
                 </ListView>
             </DockPanel>
-            
-            
-        </StackPanel>
+
+
+        </DockPanel>
     </Grid>
 </UserControl>
