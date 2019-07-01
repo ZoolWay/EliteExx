@@ -47,7 +47,7 @@ namespace Zw.EliteExx.EliteDangerous.Journal
             ScanType = scanType;
             BodyName = bodyName;
             BodyID = bodyID;
-            Parents = parents.ToImmutableArray();
+            Parents = parents.ToImmutableArrayOrEmpty();
             DistanceFromArrivalLS = distanceFromArrivalLS;
             WasDiscovered = wasDiscovered;
             WasMapped = wasMapped;
