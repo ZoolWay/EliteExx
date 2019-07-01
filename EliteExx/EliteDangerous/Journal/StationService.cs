@@ -29,5 +29,6 @@ namespace Zw.EliteExx.EliteDangerous.Journal
         SearchAndRescue,
         StationMenu,
         Powerplay,
+        OnDockMission,
     }
 }
