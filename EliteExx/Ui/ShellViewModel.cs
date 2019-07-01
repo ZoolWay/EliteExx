@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using Caliburn.Micro;
+using Zw.EliteExx.Core;
 
 namespace Zw.EliteExx.Ui
 {
@@ -13,6 +14,7 @@ namespace Zw.EliteExx.Ui
         private static readonly log4net.ILog log = global::log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly Configuration configuration;
         private readonly IWindowManager windowManager;
+        private readonly ActorSystemManager actorSystemManager;
         private double windowLeft;
         private double windowTop;
         private double windowWidth;
@@ -74,13 +76,26 @@ namespace Zw.EliteExx.Ui
             }
         }
 
-        public ShellViewModel(Configuration configuration, IWindowManager windowManager)
+        public ShellViewModel(Configuration configuration, IWindowManager windowManager, ActorSystemManager actorSystemManager)
         {
             log.Debug("Creating Shell");
             this.configuration = configuration;
             this.windowManager = windowManager;
+            this.actorSystemManager = actorSystemManager;
             InitWindowLayout();
-            this.Content = IoC.Get<EliteDangerous.MainViewModel>();
+            var edMain = IoC.Get<EliteDangerous.MainViewModel>();
+            this.Content = edMain;
+            ScreenExtensions.ActivateWith(edMain, this);
+        }
+
+        protected override void OnInitialize()
+        {
+            this.actorSystemManager.Init();
+        }
+
+        protected override void OnActivate()
+        {
+            
         }
 
         public void TitleMouseDown(System.Windows.Input.MouseButtonEventArgs e)

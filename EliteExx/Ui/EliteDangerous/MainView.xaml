@@ -21,7 +21,8 @@
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
                 <TextBlock>Pos:</TextBlock>
-                <TextBlock Text="{Binding Position}" FontWeight="Bold" ToolTip="dbl click for clipboard" />
+                <TextBlock Text="{Binding PositionSystem}" FontWeight="Bold" ToolTip="dbl click for clipboard" />
+                <TextBlock Text="{Binding PositionStarPos}" />
             </StackPanel>
 
             <DockPanel LastChildFill="True">

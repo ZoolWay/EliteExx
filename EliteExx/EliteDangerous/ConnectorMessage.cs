@@ -16,5 +16,21 @@ namespace Zw.EliteExx.EliteDangerous
         public class Init : ConnectorMessage
         {
         }
+
+        /// <summary>
+        /// Publishes a parsed journal entry.
+        /// Sent by: JournalProcessor.
+        /// Received by: Connector.
+        /// Frequence: Unlimited.
+        /// </summary>
+        public class JournalEntry : ConnectorMessage
+        {
+            public Journal.Entry Entry { get; }
+
+            public JournalEntry(Journal.Entry entry)
+            {
+                this.Entry = entry;
+            }
+        }
     }
 }

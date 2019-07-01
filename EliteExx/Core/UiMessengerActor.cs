@@ -4,6 +4,10 @@ using Caliburn.Micro;
 
 namespace Zw.EliteExx.Core
 {
+    /// <summary>
+    /// Sends events to the UI EventAggregator.
+    /// Actor instance must use a synchronized dispatcher.
+    /// </summary>
     internal class UiMessengerActor : ReceiveActor
     {
         private readonly Akka.Event.ILoggingAdapter log = Akka.Event.Logging.GetLogger(Context);

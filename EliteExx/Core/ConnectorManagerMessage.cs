@@ -18,6 +18,16 @@ namespace Zw.EliteExx.Core
         }
 
         /// <summary>
+        /// Message to start the Elite Dangerous Connector.
+        /// Sent by: ActorSystemManager.
+        /// Received by: ConnectorManager.
+        /// Frequence: Only once.
+        /// </summary>
+        public class InitEliteDangerous : ConnectorManagerMessage
+        {
+        }
+
+        /// <summary>
         /// Message to notify about an updated configuration.
         /// Sent by: Configuration, ConnectorManager.
         /// Received by: ConnectorManager, connector actors.

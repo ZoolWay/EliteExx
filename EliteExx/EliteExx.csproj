@@ -65,6 +65,9 @@
     </Reference>
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Caliburn.Micro.3.2.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
     </Reference>
@@ -94,11 +97,41 @@
     <Compile Include="Core\Config\Locations.cs" />
     <Compile Include="Core\Config\WindowLayout.cs" />
     <Compile Include="Core\ConnectorManagerMessage.cs" />
+    <Compile Include="Core\EnumerableExtensions.cs" />
+    <Compile Include="Core\KeyValuePairExtensions.cs" />
+    <Compile Include="Core\NdJsonFileReaderActor.cs" />
     <Compile Include="Core\UiMessengerActor.cs" />
     <Compile Include="Core\UiMessengerMessage.cs" />
     <Compile Include="EliteDangerous\ConnectorActor.cs" />
     <Compile Include="EliteDangerous\ConnectorMessage.cs" />
-    <Compile Include="EliteDangerous\LogEvent.cs" />
+    <Compile Include="Core\SequenceFilesReaderActor.cs" />
+    <Compile Include="Core\ReaderMessage.cs" />
+    <Compile Include="EliteDangerous\JournalActor.cs" />
+    <Compile Include="EliteDangerous\Journal\AtmosphereComponent.cs" />
+    <Compile Include="EliteDangerous\Journal\BodyType.cs" />
+    <Compile Include="EliteDangerous\Journal\Composition.cs" />
+    <Compile Include="EliteDangerous\Journal\DynamicBodyIdentifier.cs" />
+    <Compile Include="EliteDangerous\Journal\Entry.cs" />
+    <Compile Include="EliteDangerous\Journal\EntryDocked.cs" />
+    <Compile Include="EliteDangerous\Journal\EntryFsdJump.cs" />
+    <Compile Include="EliteDangerous\Journal\EntryFsdTarget.cs" />
+    <Compile Include="EliteDangerous\Journal\EntryFssAllBodiesFound.cs" />
+    <Compile Include="EliteDangerous\Journal\EntryFssDiscoveryScan.cs" />
+    <Compile Include="EliteDangerous\Journal\EntryLocation.cs" />
+    <Compile Include="EliteDangerous\Journal\EntryScanAutoScan.cs" />
+    <Compile Include="EliteDangerous\Journal\EntryScanDetailed.cs" />
+    <Compile Include="EliteDangerous\Journal\EntryUndocked.cs" />
+    <Compile Include="EliteDangerous\Journal\Event.cs" />
+    <Compile Include="EliteDangerous\JournalProcessorActor.cs" />
+    <Compile Include="EliteDangerous\Journal\MaterialComponent.cs" />
+    <Compile Include="EliteDangerous\Journal\Ring.cs" />
+    <Compile Include="EliteDangerous\Journal\ScanType.cs" />
+    <Compile Include="EliteDangerous\Journal\StarPos.cs" />
+    <Compile Include="EliteDangerous\Journal\StarPosJsonConverter.cs" />
+    <Compile Include="EliteDangerous\Journal\StationEconomy.cs" />
+    <Compile Include="EliteDangerous\Journal\StationFaction.cs" />
+    <Compile Include="EliteDangerous\Journal\StationFactionConverter.cs" />
+    <Compile Include="EliteDangerous\Journal\StationService.cs" />
     <Compile Include="EnvManager.cs" />
     <Compile Include="Ui\Config\Config.cs" />
     <Compile Include="Ui\Config\Locations.cs" />
@@ -106,6 +139,7 @@
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ui\Config\MainViewModel.cs" />
+    <Compile Include="Ui\EliteDangerous\DisplayEvent.cs" />
     <Compile Include="Ui\EliteDangerous\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
