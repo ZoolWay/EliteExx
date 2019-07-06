@@ -133,6 +133,7 @@
     <Compile Include="EliteDangerous\Journal\StationFactionConverter.cs" />
     <Compile Include="EliteDangerous\Journal\StationService.cs" />
     <Compile Include="EnvManager.cs" />
+    <Compile Include="Ui\Behaviors\ScrollToBottomBehavior.cs" />
     <Compile Include="Ui\Config\Config.cs" />
     <Compile Include="Ui\Config\Locations.cs" />
     <Compile Include="Ui\Config\MainView.xaml.cs">

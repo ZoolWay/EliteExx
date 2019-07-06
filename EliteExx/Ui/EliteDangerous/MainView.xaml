@@ -5,6 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Zw.EliteExx.Ui.EliteDangerous"
              xmlns:converters="clr-namespace:Zw.EliteExx.Ui.Converters"
+             xmlns:cal="http://www.caliburnproject.org"
+             xmlns:b="clr-namespace:Zw.EliteExx.Ui.Behaviors"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="450">
     <Grid>
@@ -14,20 +17,47 @@
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Horizontal" Grid.Row="0">
-            <ToggleButton>Pos</ToggleButton>
+            <StackPanel.Resources>
+                <Style TargetType="Button">
+                    <Setter Property="Margin" Value="0,0,1,0" />
+                    <Setter Property="Padding" Value="4,2,4,2" />
+                </Style>
+                <Style TargetType="ToggleButton">
+                    <Setter Property="Margin" Value="0,0,1,0" />
+                    <Setter Property="Padding" Value="6,2,6,2" />
+                </Style>
+            </StackPanel.Resources>
+            <ToggleButton FontFamily="{StaticResource FontAwesomeLight}" IsChecked="{Binding IsScrollBottom}">&#xf33d;</ToggleButton>
             <Button>pos</Button>
         </StackPanel>
 
         <DockPanel LastChildFill="True" Grid.Row="1">
 
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" DockPanel.Dock="Top">
-                <TextBlock>Pos:</TextBlock>
-                <TextBlock Text="{Binding PositionSystem}" FontWeight="Bold" ToolTip="dbl click for clipboard" />
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" DockPanel.Dock="Top" Margin="2">
+                <StackPanel.Resources>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Margin" Value="0,0,4,0" />
+                        <Style.Triggers>
+                            <Trigger Property="Text" Value="">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </Trigger>
+                            <Trigger Property="Text" Value="{x:Null}">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </StackPanel.Resources>
+                <TextBlock Text="Pos" />
+                <TextBlock Text="{Binding PositionStation}" TextDecorations="Underline" cal:Message.Attach="[Event MouseLeftButtonDown] = [Action CopyPosStationNameToClip($eventArgs)]" />
+                <TextBlock Text="{Binding PositionSystem}" FontWeight="Bold" cal:Message.Attach="[Event MouseLeftButtonDown] = [Action CopyPosSysNameToClip($eventArgs)]" />
                 <TextBlock Text="{Binding PositionStarPos}" />
             </StackPanel>
 
             <DockPanel LastChildFill="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <ListView ItemsSource="{Binding Events}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <ListView ItemsSource="{Binding Events}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" b:ScrollToBottomBehavior.IsScrollToBottom="{Binding IsScrollBottom}">
+                    <i:Interaction.Behaviors>
+                        <b:ScrollToBottomBehavior />
+                    </i:Interaction.Behaviors>
                     <ListView.Resources>
                         <local:DisplayEventTypeConverter x:Key="DisplayEventTypeConverter" />
                         <converters:ZeroToEmptyConverter x:Key="ZeroToEmptyConverter" />

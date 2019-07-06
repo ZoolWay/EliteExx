@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Input;
 using Caliburn.Micro;
 using Zw.EliteExx.Core;
 using Zw.EliteExx.EliteDangerous.Journal;
@@ -16,6 +17,7 @@ namespace Zw.EliteExx.Ui.EliteDangerous
         private string positionStation;
         private BindableCollection<DisplayEvent> events;
         private long countProcessedEntries;
+        private bool isScrollBottom;
 
         public string PositionSystem
         {
@@ -61,6 +63,17 @@ namespace Zw.EliteExx.Ui.EliteDangerous
             }
         }
 
+        public bool IsScrollBottom
+        {
+            get => this.isScrollBottom;
+            set
+            {
+                if (this.isScrollBottom == value) return;
+                this.isScrollBottom = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
         public BindableCollection<DisplayEvent> Events => this.events;
 
         public MainViewModel(IEventAggregator eventAggregator, IWindowManager windowManager, ActorSystemManager actorSystemManager)
@@ -74,6 +87,7 @@ namespace Zw.EliteExx.Ui.EliteDangerous
             this.positionStation = String.Empty;
             this.events = new BindableCollection<DisplayEvent>();
             this.countProcessedEntries = 0;
+            this.isScrollBottom = true;
         }
 
         public void Handle(Entry entry)
@@ -133,6 +147,18 @@ namespace Zw.EliteExx.Ui.EliteDangerous
             {
                 this.events.Add(new DisplayEvent() { Text = $"{fds.Progress * 100}% {fds.BodyCount} bodies, {fds.NonBodyCount} non-bodies" });
             }
+        }
+
+        public void CopyPosSysNameToClip(MouseButtonEventArgs e)
+        {
+            if (e == null || e.ClickCount < 2 || e.ChangedButton != MouseButton.Left) return;
+            System.Windows.Clipboard.SetText(this.PositionSystem);
+        }
+
+        public void CopyPosStationNameToClip(MouseButtonEventArgs e)
+        {
+            if (e == null || e.ClickCount < 2 || e.ChangedButton != MouseButton.Left) return;
+            System.Windows.Clipboard.SetText(this.PositionStation);
         }
 
         protected override void OnInitialize()
