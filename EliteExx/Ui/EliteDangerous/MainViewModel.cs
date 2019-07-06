@@ -16,6 +16,7 @@ namespace Zw.EliteExx.Ui.EliteDangerous
         private string positionStarPos;
         private string positionStation;
         private BindableCollection<DisplayEvent> events;
+        private DisplayEvent selectedEvent;
         private long countProcessedEntries;
         private bool isScrollBottom;
 
@@ -70,6 +71,17 @@ namespace Zw.EliteExx.Ui.EliteDangerous
             {
                 if (this.isScrollBottom == value) return;
                 this.isScrollBottom = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
+        public DisplayEvent SelectedEvent
+        {
+            get => this.selectedEvent;
+            set
+            {
+                if (Object.ReferenceEquals(value, this.selectedEvent)) return;
+                this.selectedEvent = value;
                 NotifyOfPropertyChange();
             }
         }
