@@ -23,6 +23,8 @@ namespace Zw.EliteExx.Core
         private readonly string filenamePattern;
         private readonly IActorRef reader;
         private readonly Dictionary<string, DateTime> processedFileTimestamps;
+        private FileSystemWatcher fileSystemWatcher;
+        private bool firstScanCompleted;
 
         public SequenceFilesReaderActor(Env env, string id, string directory, string filenamePattern, IActorRef reader)
         {
@@ -32,14 +34,30 @@ namespace Zw.EliteExx.Core
             this.filenamePattern = filenamePattern;
             this.reader = reader;
             this.processedFileTimestamps = new Dictionary<string, DateTime>();
+            this.firstScanCompleted = false;
 
             Receive((Action<ReaderMessage.ScanFiles>)ReceivedScanFiles);
             Receive((Action<ReaderMessage.Processed>)ReceivedProcessed);
         }
 
+        protected override void PreStart()
+        {
+            this.fileSystemWatcher = new FileSystemWatcher()
+            {
+                Path = this.directory,
+                Filter = this.filenamePattern,
+                EnableRaisingEvents = false,
+            };
+            IActorRef eventReceiver = Self;
+            ReaderMessage.ScanFiles eventMessage = new ReaderMessage.ScanFiles();
+            this.fileSystemWatcher.Changed += new FileSystemEventHandler((sender, e) => { eventReceiver.Tell(eventMessage); });
+        }
+
         protected override void PostStop()
         {
-            SaveScanState();
+            this.fileSystemWatcher.EnableRaisingEvents = false;
+            this.fileSystemWatcher.Dispose();
+            this.fileSystemWatcher = null;
         }
 
         private void ReceivedProcessed(ReaderMessage.Processed message)
@@ -50,7 +68,11 @@ namespace Zw.EliteExx.Core
 
         private void ReceivedScanFiles(ReaderMessage.ScanFiles message)
         {
-            LoadScanState();            
+            if (!this.firstScanCompleted)
+            {
+                LoadScanState();
+                this.fileSystemWatcher.EnableRaisingEvents = true;
+            }
 
             string[] filesFound = Directory.GetFiles(this.directory, this.filenamePattern, SearchOption.TopDirectoryOnly);
             FileInfo[] filesOrdered = filesFound
@@ -72,6 +94,7 @@ namespace Zw.EliteExx.Core
                 log.Info("FilesReader-{0}: {1} files found, nothing new, reading last one", this.id, filesFound.Length);
                 this.reader.Tell(new ReaderMessage.QueueFiles(ImmutableArray.Create<string>(filesOrdered.Last().FullName)));
             }
+            this.firstScanCompleted = true;
         }
 
         private bool IsNewOrChanged(FileInfo fi)
