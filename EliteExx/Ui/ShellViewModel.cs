@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using Caliburn.Micro;
 using Zw.EliteExx.Core;
+using Zw.EliteExx.Ui.Events;
 
 namespace Zw.EliteExx.Ui
 {
-    public class ShellViewModel : Screen, IShell
+    public class ShellViewModel : Screen, IShell, IHandle<ShellContextError>
     {
         private static readonly log4net.ILog log = global::log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly Configuration configuration;
@@ -124,6 +121,11 @@ namespace Zw.EliteExx.Ui
         {
             PersistWindowLayout();
             TryClose();
+        }
+
+        public void Handle(ShellContextError message)
+        {
+            MessageBox.Show($"Message: {message.Message}\n\nOrigin: {message.Origin}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         private void PersistWindowLayout()

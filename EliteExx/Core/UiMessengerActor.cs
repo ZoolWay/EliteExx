@@ -18,6 +18,13 @@ namespace Zw.EliteExx.Core
             this.eventAggregator = eventAggregator;
 
             Receive((Action<UiMessengerMessage.Publish>)ReceivedPublish);
+            Receive((Action<UiMessengerMessage.Error>)ReceivedError);
+        }
+
+        private void ReceivedError(UiMessengerMessage.Error message)
+        {
+            log.Info($"Will publish error message: {message.Message}");
+            this.eventAggregator.BeginPublishOnUIThread(new Ui.Events.ShellContextError(message.Message, $"ActorSystem:{Sender.Path.ToStringWithoutAddress()}"));
         }
 
         private void ReceivedPublish(UiMessengerMessage.Publish message)

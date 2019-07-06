@@ -152,6 +152,7 @@
     <Compile Include="Ui\EliteDangerous\MainViewModel.cs" />
     <Compile Include="Ui\Events\ConfigurationChanged.cs" />
     <Compile Include="Ui\Events\ScrollToItemCommand.cs" />
+    <Compile Include="Ui\Events\ShellContextError.cs" />
     <Compile Include="Ui\IShell.cs" />
     <Compile Include="Ui\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
