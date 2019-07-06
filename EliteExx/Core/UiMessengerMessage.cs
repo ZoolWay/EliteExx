@@ -12,7 +12,10 @@ namespace Zw.EliteExx.Core
     public abstract class UiMessengerMessage
     {
         /// <summary>
-        /// Publishes an immutable messenge to the UI.
+        /// Publishes an immutable messenge to the UI (EventAggregator).
+        /// Sent by: Any actor.
+        /// Received by: UiMessenger.
+        /// Rate: Unlimited.
         /// </summary>
         public class Publish : UiMessengerMessage
         {
@@ -26,6 +29,9 @@ namespace Zw.EliteExx.Core
 
         /// <summary>
         /// Publishes an error message from the actor system to the UI.
+        /// Sent by: Any actor.
+        /// Received by: UiMessenger.
+        /// Rate: Unlimited (please never).
         /// </summary>
         public class Error : UiMessengerMessage
         {

@@ -10,6 +10,9 @@ using Zw.EliteExx.Ui.Events;
 
 namespace Zw.EliteExx.Ui.Behaviors
 {
+    /// <summary>
+    /// ListBoxes (and descendants like ListViews) with this behavior will scroll to the last inserted element using debounce method with the UiProcessorActor.
+    /// </summary>
     public class ScrollToBottomBehavior : Behavior<ListBox>, Caliburn.Micro.IHandle<ScrollToItemCommand>
     {
         private static readonly log4net.ILog log = global::log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);

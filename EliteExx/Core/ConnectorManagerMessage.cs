@@ -11,7 +11,7 @@ namespace Zw.EliteExx.Core
         /// Message to initialize the ConnectorManager.
         /// Sent by: ActorSystemManager.
         /// Received by: ConnectorManager.
-        /// Frequence: Only once (per ConnectorManager start).
+        /// Rate: Only once (per ConnectorManager start).
         /// </summary>
         public class Init : ConnectorManagerMessage
         {
@@ -21,7 +21,7 @@ namespace Zw.EliteExx.Core
         /// Message to start the Elite Dangerous Connector.
         /// Sent by: ActorSystemManager.
         /// Received by: ConnectorManager.
-        /// Frequence: Only once.
+        /// Rate: Only once.
         /// </summary>
         public class InitEliteDangerous : ConnectorManagerMessage
         {
@@ -31,7 +31,7 @@ namespace Zw.EliteExx.Core
         /// Message to notify about an updated configuration.
         /// Sent by: Configuration, ConnectorManager.
         /// Received by: ConnectorManager, connector actors.
-        /// Frequence: Unlimited, one on every config change.
+        /// Rate: Unlimited, one on every config change.
         /// </summary>
         public class ConfigUpdated : ConnectorManagerMessage
         {

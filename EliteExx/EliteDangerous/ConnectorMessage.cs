@@ -11,7 +11,7 @@ namespace Zw.EliteExx.EliteDangerous
         /// Message to initialize the Elite Dangerous Connector.
         /// Sent by: ConnectorManager.
         /// Received by: Connector.
-        /// Frequence: Only once (per Connector start).
+        /// Rate: Only once (per Connector start).
         /// </summary>
         public class Init : ConnectorMessage
         {
@@ -21,7 +21,7 @@ namespace Zw.EliteExx.EliteDangerous
         /// Publishes a parsed journal entry.
         /// Sent by: JournalProcessor.
         /// Received by: Connector.
-        /// Frequence: Unlimited.
+        /// Rate: Unlimited.
         /// </summary>
         public class JournalEntry : ConnectorMessage
         {

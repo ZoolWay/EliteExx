@@ -13,7 +13,7 @@ namespace Zw.EliteExx.Core
         /// Orders a directory scanner to scan for files to process.
         /// Sent by: connectors, module connectors (EliteDangerous.Journal), directory scanners.
         /// Received by: directory scanners (SequenceFilesReader).
-        /// Frequence: Unlimited.
+        /// Rate: Unlimited.
         /// </summary>
         public class ScanFiles : ReaderMessage
         {
@@ -23,7 +23,7 @@ namespace Zw.EliteExx.Core
         /// Orders a file reader to read from its queue.
         /// Sent by: file readers.
         /// Received by: file readers (NdJsonFileReader).
-        /// Frequence: Unlimited.
+        /// Rate: Unlimited.
         /// </summary>
         public class Read : ReaderMessage
         {
@@ -33,7 +33,7 @@ namespace Zw.EliteExx.Core
         /// Queues files a directory scanner found for a file reader.
         /// Sent by: directory scanners (SequenceFilesReader).
         /// Received by: file readers (NdJsonFileReader).
-        /// Frequence: Unlimited.
+        /// Rate: Unlimited.
         /// </summary>
         public class QueueFiles : ReaderMessage
         {
@@ -49,7 +49,7 @@ namespace Zw.EliteExx.Core
         /// Notifies a directory scanner about the file processing state.
         /// Sent by: file readers (NdJsonFileReader).
         /// Received by: directory scanners (SequenceFilesReader).
-        /// Frequence: Unlimited.
+        /// Rate: Unlimited.
         /// </summary>
         [DebuggerDisplay("Processed '{Name}' until {ProcessedUntil}")]
         public class Processed : ReaderMessage
@@ -68,7 +68,7 @@ namespace Zw.EliteExx.Core
         /// Sends a read line to a processor.
         /// Sent by: file readers (NdJsonFileReader).
         /// Received by: processors (JournalProcessor).
-        /// Frequence: Unlimited.
+        /// Rate: Unlimited.
         /// </summary>
         public class ProcessLine : ReaderMessage
         {
@@ -88,7 +88,7 @@ namespace Zw.EliteExx.Core
         /// Notifies a connector about a processing error.
         /// Sent by: processors (JournalProcessor).
         /// Received by: connectors (EliteDangerous.Connector).
-        /// Frequence: Unlimited.
+        /// Rate: Unlimited.
         /// </summary>
         public class ProcessError : ReaderMessage
         {
