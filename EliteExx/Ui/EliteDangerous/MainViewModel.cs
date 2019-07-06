@@ -109,14 +109,38 @@ namespace Zw.EliteExx.Ui.EliteDangerous
             {
                 this.PositionSystem = j.StarSystem;
                 this.PositionStarPos = String.Format("({0}/{1}/{2})", j.StarPos.X, j.StarPos.Y, j.StarPos.Z);
+                DisplayEvent de = new DisplayEvent()
+                {
+                    Text = $"Jumped to {j.StarSystem} ({j.JumpDist}ly dist, {j.FuelUsed}t fuel)",
+                    EventType = DisplayEventType.ShipPiloting,
+                    Symbol1 = '\xf6b0', // alicorn
+                    Symbol1Tooltip = "jump",
+                };
+                this.events.Add(de);
             }
             else if (entry is EntryDocked docked)
             {
                 this.PositionStation = docked.StationName;
+                DisplayEvent de = new DisplayEvent()
+                {
+                    Text = $"Docked at {docked.StationName} ({docked.StationType})",
+                    EventType = DisplayEventType.ShipPiloting,
+                    Symbol1 = '\xf5af', // plane-arrival
+                    Symbol1Tooltip = "docked",
+                };
+                this.events.Add(de);
             }
             else if (entry is EntryUndocked ud)
             {
                 this.PositionStation = String.Empty;
+                DisplayEvent de = new DisplayEvent()
+                {
+                    Text = $"Undocked from {ud.StationName}",
+                    EventType = DisplayEventType.ShipPiloting,
+                    Symbol1 = '\xf5b0', // plane-departure
+                    Symbol1Tooltip = "undocked",
+                };
+                this.events.Add(de);
             }
             else if (entry is EntryScanDetailed ds)
             {
@@ -129,11 +153,13 @@ namespace Zw.EliteExx.Ui.EliteDangerous
                 {
                     de.IsHighlighted = true;
                     de.Symbol2 = '\xf890'; // sparkles
+                    de.Symbol2Tooltip = "undiscovered!";
                 }
                 if (String.Compare(ds.TerraformState, "Terraformable", true) == 0)
                 {
                     de.IsHighlighted = true;
                     de.Symbol1 = '\xf7a2'; // globe-europe
+                    de.Symbol1Tooltip = "terraformable!";
                 }
                 this.events.Add(de);
             }
@@ -148,16 +174,25 @@ namespace Zw.EliteExx.Ui.EliteDangerous
                 {
                     de.IsHighlighted = true;
                     de.Symbol2 = '\xf890'; // sparkles
+                    de.Symbol2Tooltip = "undiscovered!";
                 }
                 this.events.Add(de);
             }
             else if (entry is EntryFssAllBodiesFound fabf)
             {
-                this.events.Add(new DisplayEvent() { Text = $"{fabf.Count} bodies in {fabf.SystemName}" });
+                this.events.Add(new DisplayEvent()
+                {
+                    Text = $"{fabf.Count} bodies in {fabf.SystemName}",
+                    EventType = DisplayEventType.Scan,
+                });
             }
             else if (entry is EntryFssDiscoveryScan fds)
             {
-                this.events.Add(new DisplayEvent() { Text = $"{fds.Progress * 100}% {fds.BodyCount} bodies, {fds.NonBodyCount} non-bodies" });
+                this.events.Add(new DisplayEvent()
+                {
+                    Text = $"{fds.Progress * 100}% {fds.BodyCount} bodies, {fds.NonBodyCount} non-bodies",
+                    EventType = DisplayEventType.Scan,
+                });
             }
         }
 

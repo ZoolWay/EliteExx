@@ -11,6 +11,7 @@ namespace Zw.EliteExx.Ui.EliteDangerous
             if (value is DisplayEvent de)
             {
                 if (de.EventType == DisplayEventType.Scan) return "\xf7c0"; // satellite-dish
+                if (de.EventType == DisplayEventType.ShipPiloting) return "\xf197"; // space-shuttle
                 return "\xf564"; // cookie-bite
             }
             return Binding.DoNothing;

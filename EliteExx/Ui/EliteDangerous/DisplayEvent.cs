@@ -11,6 +11,8 @@ namespace Zw.EliteExx.Ui.EliteDangerous
         private bool isSelected;
         private char symbol1;
         private char symbol2;
+        private string symbol1Tooltip;
+        private string symbol2Tooltip;
 
         public string Text
         {
@@ -74,6 +76,28 @@ namespace Zw.EliteExx.Ui.EliteDangerous
             {
                 if (value == this.symbol2) return;
                 this.symbol2 = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
+        public string Symbol1Tooltip
+        {
+            get => this.symbol1Tooltip;
+            set
+            {
+                if (String.Equals(value, this.symbol1Tooltip)) return;
+                this.symbol1Tooltip = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
+        public string Symbol2Tooltip
+        {
+            get => this.symbol2Tooltip;
+            set
+            {
+                if (String.Equals(value, this.symbol2Tooltip)) return;
+                this.symbol2Tooltip = value;
                 NotifyOfPropertyChange();
             }
         }
