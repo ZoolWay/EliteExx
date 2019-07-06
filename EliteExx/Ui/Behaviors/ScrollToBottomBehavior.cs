@@ -3,14 +3,21 @@ using System.Collections.Specialized;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interactivity;
+using Akka.Actor;
+using Caliburn.Micro;
+using Zw.EliteExx.Core;
+using Zw.EliteExx.Ui.Events;
 
 namespace Zw.EliteExx.Ui.Behaviors
 {
-    public class ScrollToBottomBehavior : Behavior<ListBox>
+    public class ScrollToBottomBehavior : Behavior<ListBox>, Caliburn.Micro.IHandle<ScrollToItemCommand>
     {
         private static readonly log4net.ILog log = global::log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public static readonly DependencyProperty IsScrollToBottomProperty = DependencyProperty.RegisterAttached("IsScrollToBottom", typeof(bool), typeof(ScrollToBottomBehavior), new PropertyMetadata(false));
+
+        private IEventAggregator eventAggregator;
+        private ActorSystemManager actorSystemManager;
 
         public static bool GetIsScrollToBottom(DependencyObject d)
         {
@@ -24,6 +31,8 @@ namespace Zw.EliteExx.Ui.Behaviors
 
         protected override void OnAttached()
         {
+            this.eventAggregator = this.eventAggregator ?? IoC.Get<IEventAggregator>();
+            this.eventAggregator.Subscribe(this);
             ListBox listBox = AssociatedObject;
             if (listBox == null)
             {
@@ -41,6 +50,7 @@ namespace Zw.EliteExx.Ui.Behaviors
 
         protected override void OnDetaching()
         {
+            this.eventAggregator.Unsubscribe(this);
             ListBox listBox = AssociatedObject;
             if (listBox == null)
             {
@@ -62,8 +72,15 @@ namespace Zw.EliteExx.Ui.Behaviors
             bool isb = GetIsScrollToBottom(listBox as DependencyObject);
             if ((isb) && (e.Action == NotifyCollectionChangedAction.Add))
             {
-                listBox.ScrollIntoView(e.NewItems[0]);
+                this.actorSystemManager = this.actorSystemManager ?? IoC.Get<ActorSystemManager>();
+                this.actorSystemManager.UiProcessor.Tell(new UiProcessorMessage.QueueBufferedScrollToBottom(listBox, e.NewItems[0]));
             }
+        }
+
+        public void Handle(ScrollToItemCommand message)
+        {
+            if (!Object.ReferenceEquals(message.ListBox, AssociatedObject)) return;
+            AssociatedObject.ScrollIntoView(message.TargetItem);
         }
     }
 }

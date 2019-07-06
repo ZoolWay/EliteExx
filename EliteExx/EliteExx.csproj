@@ -102,6 +102,8 @@
     <Compile Include="Core\NdJsonFileReaderActor.cs" />
     <Compile Include="Core\UiMessengerActor.cs" />
     <Compile Include="Core\UiMessengerMessage.cs" />
+    <Compile Include="Core\UiProcessorActor.cs" />
+    <Compile Include="Core\UiProcessorMessage.cs" />
     <Compile Include="EliteDangerous\ConnectorActor.cs" />
     <Compile Include="EliteDangerous\ConnectorMessage.cs" />
     <Compile Include="Core\SequenceFilesReaderActor.cs" />
@@ -149,6 +151,7 @@
     </Compile>
     <Compile Include="Ui\EliteDangerous\MainViewModel.cs" />
     <Compile Include="Ui\Events\ConfigurationChanged.cs" />
+    <Compile Include="Ui\Events\ScrollToItemCommand.cs" />
     <Compile Include="Ui\IShell.cs" />
     <Compile Include="Ui\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>

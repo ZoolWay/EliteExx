@@ -15,7 +15,10 @@ namespace Zw.EliteExx.Core
         private readonly ActorSystem actorSystem;
         private readonly Configuration configuration;
         private IActorRef uiMessenger;
+        private IActorRef uiProcessor;
         private IActorRef connectorManager;
+
+        public IActorRef UiProcessor => this.uiProcessor;
 
         public ActorSystemManager(IEventAggregator eventAggregator, EnvManager envManager, Configuration configuration)
         {
@@ -24,6 +27,7 @@ namespace Zw.EliteExx.Core
             this.configuration = configuration;
             this.uiMessenger = ActorRefs.Nobody;
             this.connectorManager = ActorRefs.Nobody;
+            this.uiProcessor = ActorRefs.Nobody;
 
             var akkaConfig = Akka.Configuration.ConfigurationFactory.Load().WithFallback(Akka.Configuration.ConfigurationFactory.Default());
             this.actorSystem = ActorSystem.Create("elite-exx", akkaConfig);
@@ -35,6 +39,7 @@ namespace Zw.EliteExx.Core
         public void Init()
         {
             this.uiMessenger = this.actorSystem.ActorOf(Props.Create(() => new UiMessengerActor(this.eventAggregator)).WithDispatcher("akka.actor.synchronized-dispatcher"), "ui-messenger");
+            this.uiProcessor = this.actorSystem.ActorOf(Props.Create(() => new UiProcessorActor(this.uiMessenger)), "ui-processor");
             this.connectorManager = this.actorSystem.ActorOf(Props.Create(() => new ConnectorManagerActor(envManager.Instance, configuration.Instance, this.uiMessenger)), "cn-mng");
             this.connectorManager.Tell(new ConnectorManagerMessage.Init());
         }
