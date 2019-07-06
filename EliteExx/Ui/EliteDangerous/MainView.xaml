@@ -48,9 +48,9 @@
                     </Style>
                 </StackPanel.Resources>
                 <TextBlock Text="Pos" />
-                <TextBlock Text="{Binding PositionStation}" TextDecorations="Underline" cal:Message.Attach="[Event MouseLeftButtonDown] = [Action CopyPosStationNameToClip($eventArgs)]" />
-                <TextBlock Text="{Binding PositionSystem}" FontWeight="Bold" cal:Message.Attach="[Event MouseLeftButtonDown] = [Action CopyPosSysNameToClip($eventArgs)]" />
-                <TextBlock Text="{Binding PositionStarPos}" />
+                <TextBlock Text="{Binding PositionStation}" TextDecorations="Underline" ToolTip="{Binding PositionStation}" cal:Message.Attach="[Event MouseLeftButtonDown] = [Action CopyPosStationNameToClip($eventArgs)]" />
+                <TextBlock Text="{Binding PositionSystem}" FontWeight="Bold" ToolTip="{Binding PositionSystem}" cal:Message.Attach="[Event MouseLeftButtonDown] = [Action CopyPosSysNameToClip($eventArgs)]" />
+                <TextBlock Text="{Binding PositionStarPos}" ToolTip="{Binding PositionStarPos}" />
             </StackPanel>
 
             <DockPanel LastChildFill="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
