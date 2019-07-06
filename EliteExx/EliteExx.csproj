@@ -115,6 +115,7 @@
     <Compile Include="EliteDangerous\Journal\DynamicBodyIdentifier.cs" />
     <Compile Include="EliteDangerous\Journal\Entry.cs" />
     <Compile Include="EliteDangerous\Journal\EntryDocked.cs" />
+    <Compile Include="EliteDangerous\Journal\EntryFileheader.cs" />
     <Compile Include="EliteDangerous\Journal\EntryFsdJump.cs" />
     <Compile Include="EliteDangerous\Journal\EntryFsdTarget.cs" />
     <Compile Include="EliteDangerous\Journal\EntryFssAllBodiesFound.cs" />

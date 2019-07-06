@@ -40,6 +40,7 @@ namespace Zw.EliteExx.EliteDangerous
                 case Journal.Event.Scan:
                 case Journal.Event.Docked:
                 case Journal.Event.Undocked:
+                case Journal.Event.Fileheader:
                     this.uiMessenger.Tell(new UiMessengerMessage.Publish(message.Entry));
                     break;
             }

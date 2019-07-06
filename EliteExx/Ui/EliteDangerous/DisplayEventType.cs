@@ -7,5 +7,6 @@ namespace Zw.EliteExx.Ui.EliteDangerous
         GenericEvent,
         Scan,
         ShipPiloting,
+        GameStart,
     }
 }

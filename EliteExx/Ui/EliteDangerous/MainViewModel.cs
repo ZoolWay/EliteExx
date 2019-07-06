@@ -194,6 +194,14 @@ namespace Zw.EliteExx.Ui.EliteDangerous
                     EventType = DisplayEventType.Scan,
                 });
             }
+            else if (entry is EntryFileheader fh)
+            {
+                this.events.Add(new DisplayEvent()
+                {
+                    Text = $"Fileheader, gameversion {fh.Gameversion}",
+                    EventType = DisplayEventType.GameStart,
+                });
+            }
         }
 
         public void CopyPosSysNameToClip(MouseButtonEventArgs e)

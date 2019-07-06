@@ -68,6 +68,8 @@ namespace Zw.EliteExx.EliteDangerous
                     return o.ToObject<EntryDocked>();
                 case Event.Undocked:
                     return o.ToObject<EntryUndocked>();
+                case Event.Fileheader:
+                    return o.ToObject<EntryFileheader>();
 
                 default:
                     log.Warning($"Not (yet) support event type '{@event}' encountered");
