@@ -52,17 +52,26 @@ namespace Zw.EliteExx.Core
         {
             LoadScanState();            
 
-            var files = Directory.GetFiles(this.directory, this.filenamePattern, SearchOption.TopDirectoryOnly);
-            var filesToProcess = files
+            string[] filesFound = Directory.GetFiles(this.directory, this.filenamePattern, SearchOption.TopDirectoryOnly);
+            FileInfo[] filesOrdered = filesFound
                 .Select((fn) => new FileInfo(fn))
-                .Where((fi) => IsNewOrChanged(fi))
                 .OrderBy((fi) => fi.LastWriteTimeUtc)
+                .ToArray();
+            string[] filesToProcess = filesOrdered
+                .Where((fi) => IsNewOrChanged(fi))
                 .Select((fi) => fi.FullName)
                 .ToArray()
                 ;
-            log.Info("FilesReader-{0}: {1} files found, {2} require processing", this.id, files.Length, filesToProcess.Length);
-
-            this.reader.Tell(new ReaderMessage.QueueFiles(filesToProcess.ToImmutableArray()));
+            if (filesToProcess.Length > 0)
+            {
+                log.Info("FilesReader-{0}: {1} files found, {2} require processing", this.id, filesFound.Length, filesToProcess.Length);
+                this.reader.Tell(new ReaderMessage.QueueFiles(filesToProcess.ToImmutableArray()));
+            }
+            else
+            {
+                log.Info("FilesReader-{0}: {1} files found, nothing new, reading last one", this.id, filesFound.Length);
+                this.reader.Tell(new ReaderMessage.QueueFiles(ImmutableArray.Create<string>(filesOrdered.Last().FullName)));
+            }
         }
 
         private bool IsNewOrChanged(FileInfo fi)
