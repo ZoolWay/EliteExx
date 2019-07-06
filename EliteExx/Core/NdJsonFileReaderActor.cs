@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using Akka.Actor;
 
@@ -96,6 +97,7 @@ namespace Zw.EliteExx.Core
             if (this.reportQueueProcessTo.IsNobody()) this.reportQueueProcessTo = Sender;
             foreach (var filename in message.FilesToQueue)
             {
+                if (String.Equals(this.queuedFiles.LastOrDefault(), filename)) continue; // do not queue if that already at the end of the queue
                 this.queuedFiles.Enqueue(filename);
             }
             log.Info($"Queued {message.FilesToQueue.Length} new files, current queue size is now {this.queuedFiles.Count}");
