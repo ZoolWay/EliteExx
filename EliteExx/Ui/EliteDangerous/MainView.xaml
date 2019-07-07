@@ -33,6 +33,8 @@
             <ToggleButton FontFamily="{StaticResource FontAwesomeLight}" IsChecked="{Binding IsScrollBottom}">&#xf33d;</ToggleButton>
             <ToggleButton FontFamily="{StaticResource FontAwesomeLight}" IsChecked="{Binding ShowPosition}">&#xf3c5;</ToggleButton>
             <ToggleButton FontFamily="{StaticResource FontAwesomeLight}" IsChecked="{Binding ShowShip}">&#xf197;</ToggleButton>
+            <Separator Width="4" />
+            <ToggleButton IsChecked="{Binding FilterHideBoringScans}" ToolTip="Hide Boring Scans">HBS</ToggleButton>
         </StackPanel>
 
         <DockPanel LastChildFill="True" Grid.Row="1">
@@ -68,7 +70,7 @@
             </StackPanel>
 
             <DockPanel LastChildFill="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <ListView ItemsSource="{Binding Events}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" b:ScrollToBottomBehavior.IsScrollToBottom="{Binding IsScrollBottom}"
+                <ListView ItemsSource="{Binding EventsView}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" b:ScrollToBottomBehavior.IsScrollToBottom="{Binding IsScrollBottom}"
                           SelectedItem="{Binding SelectedEvent}">
                     <i:Interaction.Behaviors>
                         <b:ScrollToBottomBehavior />

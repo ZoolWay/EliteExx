@@ -13,6 +13,7 @@ namespace Zw.EliteExx.Ui.EliteDangerous
         private char symbol2;
         private string symbol1Tooltip;
         private string symbol2Tooltip;
+        private bool isBoring;
 
         public string Text
         {
@@ -102,11 +103,23 @@ namespace Zw.EliteExx.Ui.EliteDangerous
             }
         }
 
+        public bool IsBoring
+        {
+            get => this.isBoring;
+            set
+            {
+                if (value == this.isBoring) return;
+                this.isBoring = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
         public DisplayEvent()
         {
             this.eventType = DisplayEventType.GenericEvent;
             this.isSelected = false;
             this.isHighlighted = false;
+            this.isBoring = false;
         }
     }
 }

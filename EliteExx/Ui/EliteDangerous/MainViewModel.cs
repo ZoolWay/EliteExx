@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Windows.Data;
 using System.Windows.Input;
 using Caliburn.Micro;
 using Zw.EliteExx.Core;
@@ -12,16 +14,18 @@ namespace Zw.EliteExx.Ui.EliteDangerous
         private readonly IEventAggregator eventAggregator;
         private readonly IWindowManager windowManager;
         private readonly ActorSystemManager actorSystemManager;
+        private readonly BindableCollection<DisplayEvent> events;
+        private readonly ICollectionView eventsView;
         private string positionSystem;
         private string positionStarPos;
         private string positionStation;
-        private BindableCollection<DisplayEvent> events;
         private DisplayEvent selectedEvent;
         private long countProcessedEntries;
         private bool isScrollBottom;
         private bool showShip;
         private bool showPosition;
         private string shipName;
+        private bool filterHideBoringScans;
 
         public string PositionSystem
         {
@@ -122,7 +126,21 @@ namespace Zw.EliteExx.Ui.EliteDangerous
             }
         }
 
+        public bool FilterHideBoringScans
+        {
+            get => this.filterHideBoringScans;
+            set
+            {
+                if (value == this.filterHideBoringScans) return;
+                this.filterHideBoringScans = value;
+                NotifyOfPropertyChange();
+                this.eventsView.Refresh();
+            }
+        }
+
         public BindableCollection<DisplayEvent> Events => this.events;
+
+        public ICollectionView EventsView => this.eventsView;
 
         public MainViewModel(IEventAggregator eventAggregator, IWindowManager windowManager, ActorSystemManager actorSystemManager)
         {
@@ -134,10 +152,13 @@ namespace Zw.EliteExx.Ui.EliteDangerous
             this.positionStarPos = String.Empty;
             this.positionStation = String.Empty;
             this.events = new BindableCollection<DisplayEvent>();
+            this.eventsView = CollectionViewSource.GetDefaultView(this.events);
+            this.eventsView.Filter = FilterDisplayEvents;
             this.countProcessedEntries = 0;
             this.isScrollBottom = true;
             this.showPosition = true;
             this.showShip = true;
+            this.filterHideBoringScans = false;
         }
 
         public void Handle(Entry entry)
@@ -218,6 +239,7 @@ namespace Zw.EliteExx.Ui.EliteDangerous
             {
                 Text = $"Fileheader, gameversion {fh.Gameversion}",
                 EventType = DisplayEventType.GameStart,
+                IsBoring = true,
             });
         }
 
@@ -227,6 +249,7 @@ namespace Zw.EliteExx.Ui.EliteDangerous
             {
                 Text = $"{fds.Progress * 100}% {fds.BodyCount} bodies, {fds.NonBodyCount} non-bodies",
                 EventType = DisplayEventType.Scan,
+                IsBoring = true,
             });
         }
 
@@ -252,6 +275,10 @@ namespace Zw.EliteExx.Ui.EliteDangerous
                 de.Symbol2 = '\xf890'; // sparkles
                 de.Symbol2Tooltip = "undiscovered!";
             }
+            else
+            {
+                de.IsBoring = true;
+            }
             this.events.Add(de);
         }
 
@@ -274,6 +301,7 @@ namespace Zw.EliteExx.Ui.EliteDangerous
                 de.Symbol1 = '\xf7a2'; // globe-europe
                 de.Symbol1Tooltip = "terraformable!";
             }
+            de.IsBoring = !de.IsHighlighted;
             this.events.Add(de);
         }
 
@@ -338,6 +366,14 @@ namespace Zw.EliteExx.Ui.EliteDangerous
         private void CreateDisplayEventForLoadGame(EntryLoadGame lg)
         {
             this.ShipName = lg.ShipName;
+        }
+
+        private bool FilterDisplayEvents(object o)
+        {
+            if (!this.filterHideBoringScans) return true;
+            DisplayEvent de = o as DisplayEvent;
+            if ((de.EventType == DisplayEventType.Scan) && (de.IsBoring)) return false;
+            return true;
         }
 
         private string GetCombinedStarPos(StarPos starPos)
