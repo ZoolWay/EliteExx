@@ -301,6 +301,28 @@ namespace Zw.EliteExx.Ui.EliteDangerous
                 de.Symbol1 = '\xf7a2'; // globe-europe
                 de.Symbol1Tooltip = "terraformable!";
             }
+            if (String.Compare(ds.PlanetClass, "Water world", true) == 0)
+            {
+                de.IsHighlighted = true;
+                de.Symbol1 = '\xf7a2';
+                de.Symbol1Tooltip = "water world";
+                if (de.Symbol2.IsDefaultOrWhitespace())
+                {
+                    de.Symbol2 = '\xf773'; // water
+                    de.Symbol2Tooltip = "water world";
+                }
+            }
+            else if (String.Compare(ds.PlanetClass, "Earthlike body") == 0)
+            {
+                de.IsHighlighted = true;
+                de.Symbol1 = '\xf7a2';
+                de.Symbol1Tooltip = "earth-like";
+                if (de.Symbol2.IsDefaultOrWhitespace())
+                {
+                    de.Symbol2 = '\xf6bb'; // campground
+                    de.Symbol2Tooltip = "earth-like";
+                }
+            }
             de.IsBoring = !de.IsHighlighted;
             this.events.Add(de);
         }
