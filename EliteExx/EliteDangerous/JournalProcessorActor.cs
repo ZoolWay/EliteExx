@@ -69,6 +69,10 @@ namespace Zw.EliteExx.EliteDangerous
                     return o.ToObject<EntryUndocked>();
                 case Event.Fileheader:
                     return o.ToObject<EntryFileheader>();
+                case Event.LoadGame:
+                    return o.ToObject<EntryLoadGame>();
+                case Event.Loadout:
+                    return o.ToObject<EntryLoadout>();
 
                 default:
                     log.Warning($"Not (yet) support event type '{@event}' encountered");

@@ -179,6 +179,14 @@ namespace Zw.EliteExx.Ui.EliteDangerous
             {
                 CreateDisplayEventForLocation(l);
             }
+            else if (entry is EntryLoadGame lg)
+            {
+                CreateDisplayEventForLoadGame(lg);
+            }
+            else if (entry is EntryLoadout lo)
+            {
+                CreateDisplayEventForLoadout(lo);
+            }
         }
 
         public void CopyPosSysNameToClip(MouseButtonEventArgs e)
@@ -320,6 +328,16 @@ namespace Zw.EliteExx.Ui.EliteDangerous
                 Symbol1 = '\xf3c5', // map-marker-alt
             };
             this.events.Add(de);
+        }
+
+        private void CreateDisplayEventForLoadout(EntryLoadout lo)
+        {
+            this.ShipName = lo.ShipName;
+        }
+
+        private void CreateDisplayEventForLoadGame(EntryLoadGame lg)
+        {
+            this.ShipName = lg.ShipName;
         }
 
         private string GetCombinedStarPos(StarPos starPos)

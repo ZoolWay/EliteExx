@@ -123,6 +123,8 @@
     <Compile Include="EliteDangerous\Journal\EntryFsdTarget.cs" />
     <Compile Include="EliteDangerous\Journal\EntryFssAllBodiesFound.cs" />
     <Compile Include="EliteDangerous\Journal\EntryFssDiscoveryScan.cs" />
+    <Compile Include="EliteDangerous\Journal\EntryLoadGame.cs" />
+    <Compile Include="EliteDangerous\Journal\EntryLoadout.cs" />
     <Compile Include="EliteDangerous\Journal\EntryLocation.cs" />
     <Compile Include="EliteDangerous\Journal\EntryScanAutoScan.cs" />
     <Compile Include="EliteDangerous\Journal\EntryScanDetailed.cs" />

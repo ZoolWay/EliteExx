@@ -41,6 +41,8 @@ namespace Zw.EliteExx.EliteDangerous
                 case Journal.Event.Docked:
                 case Journal.Event.Undocked:
                 case Journal.Event.Fileheader:
+                case Journal.Event.LoadGame:
+                case Journal.Event.Loadout:
                     this.uiMessenger.Tell(new UiMessengerMessage.Publish(message.Entry));
                     break;
             }
