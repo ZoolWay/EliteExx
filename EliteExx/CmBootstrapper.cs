@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Caliburn.Micro;
+using Zw.EliteExx.Core;
 
 namespace Zw.EliteExx
 {
@@ -50,9 +51,16 @@ namespace Zw.EliteExx
 
         protected override void OnStartup(object sender, System.Windows.StartupEventArgs e)
         {
+            log.Info("Bootrstrapper starting");
             System.Windows.Application.Current.DispatcherUnhandledException += Current_DispatcherUnhandledException;
             System.AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+            System.Windows.Application.Current.ShutdownMode = System.Windows.ShutdownMode.OnExplicitShutdown;
             DisplayRootViewFor<Ui.IShell>();
+        }
+
+        protected override void OnExit(object sender, EventArgs e)
+        {
+            log.Info("Bootstrapper exiting");
         }
 
         private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)

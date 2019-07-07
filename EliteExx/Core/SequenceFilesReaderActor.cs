@@ -25,6 +25,7 @@ namespace Zw.EliteExx.Core
         private readonly Dictionary<string, DateTime> processedFileTimestamps;
         private FileSystemWatcher fileSystemWatcher;
         private bool firstScanCompleted;
+        private ICancelable debouncedSave;
 
         public SequenceFilesReaderActor(Env env, string id, string directory, string filenamePattern, IActorRef reader)
         {
@@ -38,6 +39,7 @@ namespace Zw.EliteExx.Core
 
             Receive((Action<ReaderMessage.ScanFiles>)ReceivedScanFiles);
             Receive((Action<ReaderMessage.Processed>)ReceivedProcessed);
+            Receive((Action<ReaderMessage.SaveState>)ReceivedSaveState);
         }
 
         protected override void PreStart()
@@ -55,15 +57,24 @@ namespace Zw.EliteExx.Core
 
         protected override void PostStop()
         {
+            this.debouncedSave.CancelIfNotNull();
             this.fileSystemWatcher.EnableRaisingEvents = false;
             this.fileSystemWatcher.Dispose();
             this.fileSystemWatcher = null;
+            SaveScanState();
         }
 
         private void ReceivedProcessed(ReaderMessage.Processed message)
         {
             var name = Path.GetFileName(message.Name);
             this.processedFileTimestamps[name] = message.ProcessedUntil;
+            if (this.debouncedSave == null) this.debouncedSave = Context.System.Scheduler.ScheduleTellOnceCancelable(1000, Self, new ReaderMessage.SaveState(), Self);
+        }
+
+        private void ReceivedSaveState(ReaderMessage.SaveState message)
+        {
+            this.debouncedSave = null;
+            SaveScanState();
         }
 
         private void ReceivedScanFiles(ReaderMessage.ScanFiles message)

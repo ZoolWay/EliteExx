@@ -9,6 +9,7 @@ namespace Zw.EliteExx.Ui
 {
     public class ShellViewModel : Screen, IShell, IHandle<ShellContextError>
     {
+        private const int EXITCODE_OKAY = 0;
         private static readonly log4net.ILog log = global::log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly Configuration configuration;
         private readonly IWindowManager windowManager;
@@ -94,6 +95,15 @@ namespace Zw.EliteExx.Ui
         protected override void OnActivate()
         {
             
+        }
+
+        protected override async void OnDeactivate(bool close)
+        {
+            if (close)
+            {
+                await this.actorSystemManager.Shutdown();
+                System.Windows.Application.Current.Shutdown(EXITCODE_OKAY);
+            }
         }
 
         public void TitleMouseDown(System.Windows.Input.MouseButtonEventArgs e)

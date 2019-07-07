@@ -20,6 +20,16 @@ namespace Zw.EliteExx.Core
         }
 
         /// <summary>
+        /// Saves the current state. Primarly used to debounce saves after receiving Processed-messages.
+        /// Sent by: SequenceFilesReaderActor.
+        /// Received by: SequenceFilesReaderActor.
+        /// Rate: Unlimited.
+        /// </summary>
+        public class SaveState : ReaderMessage
+        {
+        }
+
+        /// <summary>
         /// Orders a file reader to read from its queue.
         /// Sent by: file readers.
         /// Received by: file readers (NdJsonFileReader).

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Akka.Actor;
 using Caliburn.Micro;
 
@@ -17,6 +18,7 @@ namespace Zw.EliteExx.Core
         private IActorRef uiMessenger;
         private IActorRef uiProcessor;
         private IActorRef connectorManager;
+        private bool isInited;
 
         public IActorRef UiProcessor => this.uiProcessor;
 
@@ -28,6 +30,7 @@ namespace Zw.EliteExx.Core
             this.uiMessenger = ActorRefs.Nobody;
             this.connectorManager = ActorRefs.Nobody;
             this.uiProcessor = ActorRefs.Nobody;
+            this.isInited = false;
 
             var akkaConfig = Akka.Configuration.ConfigurationFactory.Load().WithFallback(Akka.Configuration.ConfigurationFactory.Default());
             this.actorSystem = ActorSystem.Create("elite-exx", akkaConfig);
@@ -42,6 +45,7 @@ namespace Zw.EliteExx.Core
             this.uiProcessor = this.actorSystem.ActorOf(Props.Create(() => new UiProcessorActor(this.uiMessenger)), "ui-processor");
             this.connectorManager = this.actorSystem.ActorOf(Props.Create(() => new ConnectorManagerActor(envManager.Instance, configuration.Instance, this.uiMessenger)), "cn-mng");
             this.connectorManager.Tell(new ConnectorManagerMessage.Init());
+            this.isInited = true;
         }
 
         /// <summary>
@@ -50,6 +54,12 @@ namespace Zw.EliteExx.Core
         public void InitEliteDangerousConnector()
         {
             this.connectorManager.Tell(new ConnectorManagerMessage.InitEliteDangerous());
+        }
+
+        public Task Shutdown()
+        {
+            if (this.actorSystem == null) return Task.CompletedTask;
+            return this.actorSystem.Terminate();
         }
 
         /// <summary>
