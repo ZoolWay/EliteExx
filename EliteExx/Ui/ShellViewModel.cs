@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows;
 using Caliburn.Micro;
 using Zw.EliteExx.Core;
@@ -115,6 +116,11 @@ namespace Zw.EliteExx.Ui
         public void Configuration()
         {
             this.windowManager.ShowDialog(IoC.Get<Ui.Config.MainViewModel>());
+        }
+
+        public void OpenJournalFolder()
+        {
+            Process.Start(this.configuration.Instance.Locations.FolderLogs);
         }
 
         public void Exit()
