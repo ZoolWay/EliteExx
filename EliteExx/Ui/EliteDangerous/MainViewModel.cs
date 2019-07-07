@@ -19,6 +19,9 @@ namespace Zw.EliteExx.Ui.EliteDangerous
         private DisplayEvent selectedEvent;
         private long countProcessedEntries;
         private bool isScrollBottom;
+        private bool showShip;
+        private bool showPosition;
+        private string shipName;
 
         public string PositionSystem
         {
@@ -86,6 +89,39 @@ namespace Zw.EliteExx.Ui.EliteDangerous
             }
         }
 
+        public bool ShowPosition
+        {
+            get => this.showPosition;
+            set
+            {
+                if (value == this.showPosition) return;
+                this.showPosition = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
+        public bool ShowShip
+        {
+            get => this.showShip;
+            set
+            {
+                if (value == this.showShip) return;
+                this.showShip = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
+        public string ShipName
+        {
+            get => this.shipName;
+            set
+            {
+                if (String.Equals(this.shipName, value)) return;
+                this.shipName = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
         public BindableCollection<DisplayEvent> Events => this.events;
 
         public MainViewModel(IEventAggregator eventAggregator, IWindowManager windowManager, ActorSystemManager actorSystemManager)
@@ -100,6 +136,8 @@ namespace Zw.EliteExx.Ui.EliteDangerous
             this.events = new BindableCollection<DisplayEvent>();
             this.countProcessedEntries = 0;
             this.isScrollBottom = true;
+            this.showPosition = true;
+            this.showShip = true;
         }
 
         public void Handle(Entry entry)

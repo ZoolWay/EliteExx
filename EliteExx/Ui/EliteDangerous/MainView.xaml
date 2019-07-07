@@ -11,6 +11,9 @@
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="450">
     <Grid>
+        <Grid.Resources>
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        </Grid.Resources>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -28,12 +31,23 @@
                 </Style>
             </StackPanel.Resources>
             <ToggleButton FontFamily="{StaticResource FontAwesomeLight}" IsChecked="{Binding IsScrollBottom}">&#xf33d;</ToggleButton>
-            <Button>pos</Button>
+            <ToggleButton FontFamily="{StaticResource FontAwesomeLight}" IsChecked="{Binding ShowPosition}">&#xf3c5;</ToggleButton>
+            <ToggleButton FontFamily="{StaticResource FontAwesomeLight}" IsChecked="{Binding ShowShip}">&#xf197;</ToggleButton>
         </StackPanel>
 
         <DockPanel LastChildFill="True" Grid.Row="1">
 
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" DockPanel.Dock="Top" Margin="2">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" DockPanel.Dock="Top" Margin="2" Visibility="{Binding ShowShip, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <StackPanel.Resources>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Margin" Value="0,0,4,0" />
+                    </Style>
+                </StackPanel.Resources>
+                <TextBlock Text="Ship" />
+                <TextBlock Text="{Binding ShipName}" FontWeight="Bold" />
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" DockPanel.Dock="Top" Margin="2" Visibility="{Binding ShowPosition, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <StackPanel.Resources>
                     <Style TargetType="TextBlock">
                         <Setter Property="Margin" Value="0,0,4,0" />
