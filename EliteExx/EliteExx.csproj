@@ -94,6 +94,7 @@
     </ApplicationDefinition>
     <Compile Include="Configuration.cs" />
     <Compile Include="Core\ActorSystemManager.cs" />
+    <Compile Include="Core\CharExtensions.cs" />
     <Compile Include="Core\ConnectorManagerActor.cs" />
     <Compile Include="Core\Config\Config.cs" />
     <Compile Include="Core\Config\Env.cs" />
