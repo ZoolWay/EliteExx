@@ -137,6 +137,10 @@ namespace Zw.EliteExx.Ui.EliteDangerous
             {
                 CreateDisplayEventForFileheader(fh);
             }
+            else if (entry is EntryLocation l)
+            {
+                CreateDisplayEventForLocation(l);
+            }
         }
 
         public void CopyPosSysNameToClip(MouseButtonEventArgs e)
@@ -256,7 +260,7 @@ namespace Zw.EliteExx.Ui.EliteDangerous
         private void CreateDisplayEventForJump(EntryFsdJump j)
         {
             this.PositionSystem = j.StarSystem;
-            this.PositionStarPos = String.Format("({0}/{1}/{2})", j.StarPos.X, j.StarPos.Y, j.StarPos.Z);
+            this.PositionStarPos = GetCombinedStarPos(j.StarPos);
             DisplayEvent de = new DisplayEvent()
             {
                 Text = $"Jumped to {j.StarSystem} ({j.JumpDist}ly dist, {j.FuelUsed}t fuel)",
@@ -265,6 +269,29 @@ namespace Zw.EliteExx.Ui.EliteDangerous
                 Symbol1Tooltip = "jump",
             };
             this.events.Add(de);
+        }
+
+        private void CreateDisplayEventForLocation(EntryLocation l)
+        {
+            this.PositionSystem = l.StarSystem;
+            this.PositionStarPos = GetCombinedStarPos(l.StarPos);
+            DisplayEvent de = new DisplayEvent()
+            {
+                Text = $"Location: {l.StarSystem}",
+                EventType = DisplayEventType.ShipPiloting,
+                Symbol1 = '\xf3c5', // map-marker-alt
+            };
+            this.events.Add(de);
+        }
+
+        private string GetCombinedStarPos(StarPos starPos)
+        {
+            return $"({GetStarPos(starPos)})";
+        }
+
+        private string GetStarPos(StarPos starPos)
+        {
+            return String.Format("{0}/{1}/{2}", starPos.X, starPos.Y, starPos.Z);
         }
     }
 }
