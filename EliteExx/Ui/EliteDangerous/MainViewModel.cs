@@ -107,100 +107,35 @@ namespace Zw.EliteExx.Ui.EliteDangerous
             this.CountProcessedEntries++;
             if (entry is EntryFsdJump j)
             {
-                this.PositionSystem = j.StarSystem;
-                this.PositionStarPos = String.Format("({0}/{1}/{2})", j.StarPos.X, j.StarPos.Y, j.StarPos.Z);
-                DisplayEvent de = new DisplayEvent()
-                {
-                    Text = $"Jumped to {j.StarSystem} ({j.JumpDist}ly dist, {j.FuelUsed}t fuel)",
-                    EventType = DisplayEventType.ShipPiloting,
-                    Symbol1 = '\xf6b0', // alicorn
-                    Symbol1Tooltip = "jump",
-                };
-                this.events.Add(de);
+                CreateDisplayEventForJump(j);
             }
             else if (entry is EntryDocked docked)
             {
-                this.PositionStation = docked.StationName;
-                DisplayEvent de = new DisplayEvent()
-                {
-                    Text = $"Docked at {docked.StationName} ({docked.StationType})",
-                    EventType = DisplayEventType.ShipPiloting,
-                    Symbol1 = '\xf5af', // plane-arrival
-                    Symbol1Tooltip = "docked",
-                };
-                this.events.Add(de);
+                CreateDisplayEventForDocked(docked);
             }
             else if (entry is EntryUndocked ud)
             {
-                this.PositionStation = String.Empty;
-                DisplayEvent de = new DisplayEvent()
-                {
-                    Text = $"Undocked from {ud.StationName}",
-                    EventType = DisplayEventType.ShipPiloting,
-                    Symbol1 = '\xf5b0', // plane-departure
-                    Symbol1Tooltip = "undocked",
-                };
-                this.events.Add(de);
+                CreateDisplayEventForUndocked(ud);
             }
             else if (entry is EntryScanDetailed ds)
             {
-                DisplayEvent de = new DisplayEvent()
-                {
-                    Text = $"Scanned {ds.BodyName} ({ds.PlanetClass}) {ds.WasDiscovered} {ds.WasMapped} {ds.TerraformState} {ds.Landable}",
-                    EventType = DisplayEventType.Scan,
-                };
-                if (ds.WasDiscovered == false)
-                {
-                    de.IsHighlighted = true;
-                    de.Symbol2 = '\xf890'; // sparkles
-                    de.Symbol2Tooltip = "undiscovered!";
-                }
-                if (String.Compare(ds.TerraformState, "Terraformable", true) == 0)
-                {
-                    de.IsHighlighted = true;
-                    de.Symbol1 = '\xf7a2'; // globe-europe
-                    de.Symbol1Tooltip = "terraformable!";
-                }
-                this.events.Add(de);
+                CreateDisplayEventForScanDetailed(ds);
             }
             else if (entry is EntryScanAutoScan @as)
             {
-                DisplayEvent de = new DisplayEvent()
-                {
-                    Text = $"Auto-Scanned {@as.BodyName} {@as.WasDiscovered} {@as.WasMapped}",
-                    EventType = DisplayEventType.Scan,
-                };
-                if (@as.WasDiscovered == false)
-                {
-                    de.IsHighlighted = true;
-                    de.Symbol2 = '\xf890'; // sparkles
-                    de.Symbol2Tooltip = "undiscovered!";
-                }
-                this.events.Add(de);
+                CreateDisplayEventForScanAuto(@as);
             }
             else if (entry is EntryFssAllBodiesFound fabf)
             {
-                this.events.Add(new DisplayEvent()
-                {
-                    Text = $"{fabf.Count} bodies in {fabf.SystemName}",
-                    EventType = DisplayEventType.Scan,
-                });
+                CreateDisplayEventForFssAllBodiesFound(fabf);
             }
             else if (entry is EntryFssDiscoveryScan fds)
             {
-                this.events.Add(new DisplayEvent()
-                {
-                    Text = $"{fds.Progress * 100}% {fds.BodyCount} bodies, {fds.NonBodyCount} non-bodies",
-                    EventType = DisplayEventType.Scan,
-                });
+                CreateDisplayEventForFssDiscoveryScan(fds);
             }
             else if (entry is EntryFileheader fh)
             {
-                this.events.Add(new DisplayEvent()
-                {
-                    Text = $"Fileheader, gameversion {fh.Gameversion}",
-                    EventType = DisplayEventType.GameStart,
-                });
+                CreateDisplayEventForFileheader(fh);
             }
         }
 
@@ -225,6 +160,111 @@ namespace Zw.EliteExx.Ui.EliteDangerous
         protected override void OnDeactivate(bool close)
         {
             if (close) this.eventAggregator.Unsubscribe(this);
+        }
+
+        private void CreateDisplayEventForFileheader(EntryFileheader fh)
+        {
+            this.events.Add(new DisplayEvent()
+            {
+                Text = $"Fileheader, gameversion {fh.Gameversion}",
+                EventType = DisplayEventType.GameStart,
+            });
+        }
+
+        private void CreateDisplayEventForFssDiscoveryScan(EntryFssDiscoveryScan fds)
+        {
+            this.events.Add(new DisplayEvent()
+            {
+                Text = $"{fds.Progress * 100}% {fds.BodyCount} bodies, {fds.NonBodyCount} non-bodies",
+                EventType = DisplayEventType.Scan,
+            });
+        }
+
+        private void CreateDisplayEventForFssAllBodiesFound(EntryFssAllBodiesFound fabf)
+        {
+            this.events.Add(new DisplayEvent()
+            {
+                Text = $"{fabf.Count} bodies in {fabf.SystemName}",
+                EventType = DisplayEventType.Scan,
+            });
+        }
+
+        private void CreateDisplayEventForScanAuto(EntryScanAutoScan @as)
+        {
+            DisplayEvent de = new DisplayEvent()
+            {
+                Text = $"Auto-Scanned {@as.BodyName} {@as.WasDiscovered} {@as.WasMapped}",
+                EventType = DisplayEventType.Scan,
+            };
+            if (@as.WasDiscovered == false)
+            {
+                de.IsHighlighted = true;
+                de.Symbol2 = '\xf890'; // sparkles
+                de.Symbol2Tooltip = "undiscovered!";
+            }
+            this.events.Add(de);
+        }
+
+        private void CreateDisplayEventForScanDetailed(EntryScanDetailed ds)
+        {
+            DisplayEvent de = new DisplayEvent()
+            {
+                Text = $"Scanned {ds.BodyName} ({ds.PlanetClass}) {ds.WasDiscovered} {ds.WasMapped} {ds.TerraformState} {ds.Landable}",
+                EventType = DisplayEventType.Scan,
+            };
+            if (ds.WasDiscovered == false)
+            {
+                de.IsHighlighted = true;
+                de.Symbol2 = '\xf890'; // sparkles
+                de.Symbol2Tooltip = "undiscovered!";
+            }
+            if (String.Compare(ds.TerraformState, "Terraformable", true) == 0)
+            {
+                de.IsHighlighted = true;
+                de.Symbol1 = '\xf7a2'; // globe-europe
+                de.Symbol1Tooltip = "terraformable!";
+            }
+            this.events.Add(de);
+        }
+
+        private void CreateDisplayEventForUndocked(EntryUndocked ud)
+        {
+            this.PositionStation = String.Empty;
+            DisplayEvent de = new DisplayEvent()
+            {
+                Text = $"Undocked from {ud.StationName}",
+                EventType = DisplayEventType.ShipPiloting,
+                Symbol1 = '\xf5b0', // plane-departure
+                Symbol1Tooltip = "undocked",
+            };
+            this.events.Add(de);
+        }
+
+        private void CreateDisplayEventForDocked(EntryDocked docked)
+        {
+            this.PositionStation = docked.StationName;
+            DisplayEvent de = new DisplayEvent()
+            {
+                Text = $"Docked at {docked.StationName} ({docked.StationType})",
+                EventType = DisplayEventType.ShipPiloting,
+                Symbol1 = '\xf5af', // plane-arrival
+                Symbol1Tooltip = "docked",
+            };
+            this.events.Add(de);
+        }
+
+        private void CreateDisplayEventForJump(EntryFsdJump j)
+        {
+            this.PositionSystem = j.StarSystem;
+            this.PositionStarPos = String.Format("({0}/{1}/{2})", j.StarPos.X, j.StarPos.Y, j.StarPos.Z);
+            DisplayEvent de = new DisplayEvent()
+            {
+                Text = $"Jumped to {j.StarSystem} ({j.JumpDist}ly dist, {j.FuelUsed}t fuel)",
+                EventType = DisplayEventType.ShipPiloting,
+                Symbol1 = '\xf6b0', // alicorn
+                Symbol1Tooltip = "jump",
+            };
+            this.events.Add(de);
         }
     }
 }
