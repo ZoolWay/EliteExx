@@ -10,6 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "meta", "meta", "{9B20F044-C
 		.gitignore = .gitignore
 		LICENSE = LICENSE
 		readme.md = readme.md
+		satellite.ico = satellite.ico
 	EndProjectSection
 EndProject
 Global
