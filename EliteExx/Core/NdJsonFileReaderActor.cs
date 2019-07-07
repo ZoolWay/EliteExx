@@ -98,6 +98,7 @@ namespace Zw.EliteExx.Core
             foreach (var filename in message.FilesToQueue)
             {
                 if (String.Equals(this.queuedFiles.LastOrDefault(), filename)) continue; // do not queue if that already at the end of the queue
+                if ((this.queuedFiles.Count <= 0) && (String.Equals(this.currentFile, filename))) continue; // do no queue if we are currently working on this file (and no other things wait in queue)
                 this.queuedFiles.Enqueue(filename);
             }
             log.Info($"Queued {message.FilesToQueue.Length} new files, current queue size is now {this.queuedFiles.Count}");
