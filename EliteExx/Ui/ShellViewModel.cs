@@ -130,7 +130,14 @@ namespace Zw.EliteExx.Ui
 
         public void OpenJournalFolder()
         {
+            if (String.IsNullOrWhiteSpace(this.configuration.Instance.Locations.FolderLogs)) return;
             Process.Start(this.configuration.Instance.Locations.FolderLogs);
+        }
+
+        public void OpenScreenshotFolder()
+        {
+            if (String.IsNullOrWhiteSpace(this.configuration.Instance.Locations.FolderScreenshots)) return;
+            Process.Start(this.configuration.Instance.Locations.FolderScreenshots);
         }
 
         public void Exit()
