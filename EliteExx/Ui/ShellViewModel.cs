@@ -134,10 +134,16 @@ namespace Zw.EliteExx.Ui
             Process.Start(this.configuration.Instance.Locations.FolderLogs);
         }
 
-        public void OpenScreenshotFolder()
+        public void OpenScreenshotFolderSteam()
         {
             if (String.IsNullOrWhiteSpace(this.configuration.Instance.Locations.FolderScreenshotsSteam)) return;
             Process.Start(this.configuration.Instance.Locations.FolderScreenshotsSteam);
+        }
+
+        public void OpenScreenshotFolderElite()
+        {
+            if (String.IsNullOrWhiteSpace(this.configuration.Instance.Locations.FolderScreenshotsElite)) return;
+            Process.Start(this.configuration.Instance.Locations.FolderScreenshotsElite);
         }
 
         public void Exit()
