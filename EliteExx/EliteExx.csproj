@@ -155,9 +155,11 @@
     <Compile Include="Ui\Config\Services.cs" />
     <Compile Include="Ui\Converters\ZeroToEmptyConverter.cs" />
     <Compile Include="Ui\EliteDangerous\DisplayEvent.cs" />
+    <Compile Include="Ui\EliteDangerous\DisplayEventBuilder.cs" />
     <Compile Include="Ui\EliteDangerous\DisplayEventType.cs" />
     <Compile Include="Ui\EliteDangerous\DisplayEventTypeConverter.cs" />
     <Compile Include="Ui\EliteDangerous\DisplayEventTypeTooltipConverter.cs" />
+    <Compile Include="Ui\EliteDangerous\IDisplayEventReceiver.cs" />
     <Compile Include="Ui\EliteDangerous\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
