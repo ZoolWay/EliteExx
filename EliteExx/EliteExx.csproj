@@ -129,6 +129,7 @@
     <Compile Include="EliteDangerous\Journal\EntryLoadGame.cs" />
     <Compile Include="EliteDangerous\Journal\EntryLoadout.cs" />
     <Compile Include="EliteDangerous\Journal\EntryLocation.cs" />
+    <Compile Include="EliteDangerous\Journal\EntryMetaMessage.cs" />
     <Compile Include="EliteDangerous\Journal\EntryScanAutoScan.cs" />
     <Compile Include="EliteDangerous\Journal\EntryScanDetailed.cs" />
     <Compile Include="EliteDangerous\Journal\EntryUndocked.cs" />

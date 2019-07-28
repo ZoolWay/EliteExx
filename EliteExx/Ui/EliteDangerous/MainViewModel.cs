@@ -208,6 +208,10 @@ namespace Zw.EliteExx.Ui.EliteDangerous
             {
                 CreateDisplayEventForLoadout(lo);
             }
+            else if (entry is EntryMetaMessage mm)
+            {
+                CreateDisplayEventForMetaMessage(mm);
+            }
         }
 
         public void CopyPosSysNameToClip(MouseButtonEventArgs e)
@@ -383,6 +387,16 @@ namespace Zw.EliteExx.Ui.EliteDangerous
         private void CreateDisplayEventForLoadout(EntryLoadout lo)
         {
             this.ShipName = lo.ShipName;
+        }
+
+        private void CreateDisplayEventForMetaMessage(EntryMetaMessage mm)
+        {
+            this.Events.Add(new DisplayEvent()
+            {
+                Text = mm.Message,
+                EventType = DisplayEventType.GenericEvent,
+                Symbol1 = '\xf05a', // info-circle
+            });
         }
 
         private void CreateDisplayEventForLoadGame(EntryLoadGame lg)

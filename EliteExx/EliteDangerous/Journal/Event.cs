@@ -53,6 +53,7 @@ namespace Zw.EliteExx.EliteDangerous.Journal
         Fileheader,
         Shutdown,
         NewCommander,
+        MetaMessage,
         Unknown,
     }
 }

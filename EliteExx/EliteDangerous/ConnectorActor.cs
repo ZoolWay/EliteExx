@@ -61,17 +61,21 @@ namespace Zw.EliteExx.EliteDangerous
         private void ReceivedConfigUpdated(ConnectorManagerMessage.ConfigUpdated message)
         {
             this.config = message.NewConfig;
-
             if (!this.journal.IsNobody())
             {
                 this.journal.GracefulStop(TimeSpan.FromSeconds(10));
                 this.journal = ActorRefs.Nobody;
-                StartJournalProcessing();
             }
+            StartJournalProcessing();
         }
 
         private void StartJournalProcessing()
         {
+            if (!this.config.Services.JournalParser) // no need to start journal parser
+            {
+                this.uiMessenger.Tell(new UiMessengerMessage.Publish(new EliteDangerous.Journal.EntryMetaMessage(DateTime.UtcNow, Journal.Event.MetaMessage, "Journal parsing inactive")));
+                return;
+            }
             this.journal = Context.ActorOf(Props.Create(() => new JournalActor(this.env, this.config, Self)));
         }
     }
