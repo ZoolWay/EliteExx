@@ -32,12 +32,16 @@ namespace Zw.EliteExx
 
         public bool SaveWindowLayout(WindowLayout newWindowLayout)
         {
-            var newInstance = new Config(this.Instance.Locations, newWindowLayout);
-            return Save(newInstance);
+            var newInstance = new Config(this.Instance.Locations, this.Instance.Services, newWindowLayout);
+            return SaveInternal(newInstance, false);
         }
 
-
         public bool Save(Core.Config.Config configInstance)
+        {
+            return SaveInternal(configInstance, true);
+        }
+
+        private bool SaveInternal(Core.Config.Config configInstance, bool notify)
         {
             string configFile = CONFIGFILE_NAME;
             try
@@ -46,7 +50,7 @@ namespace Zw.EliteExx
                 string contents = JsonConvert.SerializeObject(configInstance);
                 File.WriteAllText(configFile, contents, CONFIGFILE_ENCODING);
                 this.Instance = configInstance;
-                NotifyChangedConfiguration();
+                if (notify) NotifyChangedConfiguration();
                 return true;
             }
             catch (Exception ex)
