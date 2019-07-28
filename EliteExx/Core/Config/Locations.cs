@@ -5,12 +5,14 @@ namespace Zw.EliteExx.Core.Config
     public class Locations
     {
         public string FolderLogs { get; } // C:\Program Files (x86)\Steam\steamapps\common\Elite Dangerous\Products\elite-dangerous-64\Logs
-        public string FolderScreenshots { get; }
+        public string FolderScreenshotsSteam { get; }
+        public string FolderScreenshotsElite { get; }
 
-        public Locations(string folderLogs, string folderScreenshots)
+        public Locations(string folderLogs, string folderScreenshotsSteam, string folderScreenshotsElite)
         {
             this.FolderLogs = folderLogs;
-            this.FolderScreenshots = folderScreenshots;
+            this.FolderScreenshotsSteam = folderScreenshotsSteam;
+            this.FolderScreenshotsElite = folderScreenshotsElite;
         }
     }
 }

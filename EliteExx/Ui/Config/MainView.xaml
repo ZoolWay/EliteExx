@@ -22,8 +22,30 @@
                             <TextBox Text="{Binding Config.Locations.FolderLogs}" />
                         </DockPanel>
                         <DockPanel>
-                            <Label>Screenshot Folder</Label>
-                            <TextBox Text="{Binding Config.Locations.FolderScreenshots}" />
+                            <Label>Screenshot Folder (Steam)</Label>
+                            <TextBox Text="{Binding Config.Locations.FolderScreenshotsSteam}" />
+                        </DockPanel>
+                        <DockPanel>
+                            <Label>Screenshot Folder (Elite)</Label>
+                            <TextBox Text="{Binding Config.Locations.FolderScreenshotsElite}" />
+                        </DockPanel>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="Services">
+                <ScrollViewer>
+                    <StackPanel Style="{StaticResource DialogRows}">
+                        <DockPanel>
+                            <Label>Parse Journal</Label>
+                            <CheckBox IsChecked="{Binding Config.Services.JournalParser}">activate to parse journal for events, location and status</CheckBox>
+                        </DockPanel>
+                        <DockPanel>
+                            <Label>Auto-Convert Screenshots</Label>
+                            <StackPanel Orientation="Horizontal">
+                                <RadioButton IsChecked="{Binding Config.Services.ScreenshotConverterDeactivatedChecked}" GroupName="ScreenshotConverter">deactivated</RadioButton>
+                                <RadioButton IsChecked="{Binding Config.Services.ScreenshotConverterOnlyHighresChecked}" GroupName="ScreenshotConverter">only high-res</RadioButton>
+                                <RadioButton IsChecked="{Binding Config.Services.ScreenshotConverterAllChecked}" GroupName="ScreenshotConverter">all</RadioButton>
+                            </StackPanel>
                         </DockPanel>
                     </StackPanel>
                 </ScrollViewer>

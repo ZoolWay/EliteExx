@@ -136,8 +136,8 @@ namespace Zw.EliteExx.Ui
 
         public void OpenScreenshotFolder()
         {
-            if (String.IsNullOrWhiteSpace(this.configuration.Instance.Locations.FolderScreenshots)) return;
-            Process.Start(this.configuration.Instance.Locations.FolderScreenshots);
+            if (String.IsNullOrWhiteSpace(this.configuration.Instance.Locations.FolderScreenshotsSteam)) return;
+            Process.Start(this.configuration.Instance.Locations.FolderScreenshotsSteam);
         }
 
         public void Exit()

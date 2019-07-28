@@ -95,6 +95,8 @@
     <Compile Include="Configuration.cs" />
     <Compile Include="Core\ActorSystemManager.cs" />
     <Compile Include="Core\CharExtensions.cs" />
+    <Compile Include="Core\Config\BmpConverterMode.cs" />
+    <Compile Include="Core\Config\Services.cs" />
     <Compile Include="Core\ConnectorManagerActor.cs" />
     <Compile Include="Core\Config\Config.cs" />
     <Compile Include="Core\Config\Env.cs" />
@@ -149,6 +151,7 @@
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ui\Config\MainViewModel.cs" />
+    <Compile Include="Ui\Config\Services.cs" />
     <Compile Include="Ui\Converters\ZeroToEmptyConverter.cs" />
     <Compile Include="Ui\EliteDangerous\DisplayEvent.cs" />
     <Compile Include="Ui\EliteDangerous\DisplayEventType.cs" />
