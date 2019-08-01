@@ -18,6 +18,7 @@ namespace Zw.EliteExx.Core
         private IActorRef uiMessenger;
         private IActorRef uiProcessor;
         private IActorRef connectorManager;
+        private IActorRef bitmapProcessor;
         private bool isInited;
 
         public IActorRef UiProcessor => this.uiProcessor;
@@ -30,6 +31,7 @@ namespace Zw.EliteExx.Core
             this.uiMessenger = ActorRefs.Nobody;
             this.connectorManager = ActorRefs.Nobody;
             this.uiProcessor = ActorRefs.Nobody;
+            this.bitmapProcessor = ActorRefs.Nobody;
             this.isInited = false;
 
             var akkaConfig = Akka.Configuration.ConfigurationFactory.Load().WithFallback(Akka.Configuration.ConfigurationFactory.Default());
@@ -45,6 +47,8 @@ namespace Zw.EliteExx.Core
             this.uiProcessor = this.actorSystem.ActorOf(Props.Create(() => new UiProcessorActor(this.uiMessenger)), "ui-processor");
             this.connectorManager = this.actorSystem.ActorOf(Props.Create(() => new ConnectorManagerActor(envManager.Instance, configuration.Instance, this.uiMessenger)), "cn-mng");
             this.connectorManager.Tell(new ConnectorManagerMessage.Init());
+            this.bitmapProcessor = this.actorSystem.ActorOf(Props.Create(() => new BitmapProcessorActor(envManager.Instance, configuration.Instance, this.uiMessenger)), "bmp-processor");
+            this.bitmapProcessor.Tell(new BitmapProcessorMessage.Init());
             this.isInited = true;
         }
 

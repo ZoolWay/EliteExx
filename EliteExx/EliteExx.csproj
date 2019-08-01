@@ -68,6 +68,7 @@
     </Reference>
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
     </Reference>
@@ -94,6 +95,8 @@
     </ApplicationDefinition>
     <Compile Include="Configuration.cs" />
     <Compile Include="Core\ActorSystemManager.cs" />
+    <Compile Include="Core\BitmapProcessorActor.cs" />
+    <Compile Include="Core\BitmapProcessorMessage.cs" />
     <Compile Include="Core\CharExtensions.cs" />
     <Compile Include="Core\Config\BmpConverterMode.cs" />
     <Compile Include="Core\Config\Services.cs" />
@@ -104,6 +107,8 @@
     <Compile Include="Core\Config\WindowLayout.cs" />
     <Compile Include="Core\ConnectorManagerMessage.cs" />
     <Compile Include="Core\EnumerableExtensions.cs" />
+    <Compile Include="Core\Graphics\BitmapConverterActor.cs" />
+    <Compile Include="Core\Graphics\BitmapConverterMessage.cs" />
     <Compile Include="Core\KeyValuePairExtensions.cs" />
     <Compile Include="Core\NdJsonFileReaderActor.cs" />
     <Compile Include="Core\UiMessengerActor.cs" />
@@ -235,5 +240,6 @@
   <ItemGroup>
     <Resource Include="satellite.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
