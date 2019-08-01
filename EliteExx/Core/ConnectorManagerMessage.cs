@@ -29,9 +29,9 @@ namespace Zw.EliteExx.Core
 
         /// <summary>
         /// Message to notify about an updated configuration.
-        /// Sent by: Configuration, ConnectorManager.
+        /// Sent by: ActorSystemManager.
         /// Received by: ConnectorManager, connector actors.
-        /// Rate: Unlimited, one on every config change.
+        /// Rate: Unlimited, on on every config change.
         /// </summary>
         public class ConfigUpdated : ConnectorManagerMessage
         {
