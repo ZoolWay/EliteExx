@@ -43,6 +43,7 @@ namespace Zw.EliteExx.Core
         /// </summary>
         public void Init()
         {
+            if (this.isInited) throw new Exception("ActorSystem is already initialized!");
             this.uiMessenger = this.actorSystem.ActorOf(Props.Create(() => new UiMessengerActor(this.eventAggregator)).WithDispatcher("akka.actor.synchronized-dispatcher"), "ui-messenger");
             this.uiProcessor = this.actorSystem.ActorOf(Props.Create(() => new UiProcessorActor(this.uiMessenger)), "ui-processor");
             this.connectorManager = this.actorSystem.ActorOf(Props.Create(() => new ConnectorManagerActor(envManager.Instance, configuration.Instance, this.uiMessenger)), "cn-mng");
