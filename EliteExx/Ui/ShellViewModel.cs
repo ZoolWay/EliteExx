@@ -146,6 +146,12 @@ namespace Zw.EliteExx.Ui
             Process.Start(this.configuration.Instance.Locations.FolderScreenshotsElite);
         }
 
+        public void OpenScreenshotFolderCollected()
+        {
+            if (String.IsNullOrWhiteSpace(this.configuration.Instance.Locations.FolderCollectedScreenshots)) return;
+            Process.Start(this.configuration.Instance.Locations.FolderCollectedScreenshots);
+        }
+
         public void Exit()
         {
             PersistWindowLayout();

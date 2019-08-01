@@ -18,6 +18,7 @@
                 <MenuItem Header="Journal" cal:Message.Attach="OpenJournalFolder" />
                 <MenuItem Header="Screenshots (Steam)" cal:Message.Attach="OpenScreenshotFolderSteam" />
                 <MenuItem Header="Screenshots (Elite)" cal:Message.Attach="OpenScreenshotFolderElite" />
+                <MenuItem Header="Screenshots (Collected)" cal:Message.Attach="OpenScreenshotFolderCollected" />
             </MenuItem>
             <Separator />
             <MenuItem Header="Exit" cal:Message.Attach="Exit" />
