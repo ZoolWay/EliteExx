@@ -29,6 +29,10 @@
                             <Label>Screenshot Folder (Elite)</Label>
                             <TextBox Text="{Binding Config.Locations.FolderScreenshotsElite}" />
                         </DockPanel>
+                        <DockPanel>
+                            <Label>Destination Collected Screenshots</Label>
+                            <TextBox Text="{Binding Config.Locations.FolderCollectedScreenshots}" />
+                        </DockPanel>
                     </StackPanel>
                 </ScrollViewer>
             </TabItem>
@@ -46,6 +50,10 @@
                                 <RadioButton IsChecked="{Binding Config.Services.ScreenshotConverterOnlyHighresChecked}" GroupName="ScreenshotConverter">only high-res</RadioButton>
                                 <RadioButton IsChecked="{Binding Config.Services.ScreenshotConverterAllChecked}" GroupName="ScreenshotConverter">all</RadioButton>
                             </StackPanel>
+                        </DockPanel>
+                        <DockPanel>
+                            <Label>Collect Screenshots</Label>
+                            <CheckBox IsChecked="{Binding Config.Services.CollectScreenshots}">activate to move all screenshots from all folders into the collection folder</CheckBox>
                         </DockPanel>
                     </StackPanel>
                 </ScrollViewer>

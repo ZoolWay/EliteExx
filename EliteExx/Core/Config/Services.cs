@@ -6,11 +6,13 @@ namespace Zw.EliteExx.Core.Config
     {
         public bool JournalParser { get; }
         public BmpConverterMode ScreenshotConverter { get; }
+        public bool CollectScreenshots { get; }
 
-        public Services(bool journalParser, BmpConverterMode screenshotConverter)
+        public Services(bool journalParser, BmpConverterMode screenshotConverter, bool collectScreenshots)
         {
             this.JournalParser = journalParser;
             this.ScreenshotConverter = screenshotConverter;
+            this.CollectScreenshots = collectScreenshots;
         }
     }
 }

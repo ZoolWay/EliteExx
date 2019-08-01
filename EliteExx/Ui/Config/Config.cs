@@ -19,14 +19,16 @@ namespace Zw.EliteExx.Ui.Config
             this.Locations.FolderLogs = configurationModel?.Locations?.FolderLogs;
             this.Locations.FolderScreenshotsSteam = configurationModel?.Locations?.FolderScreenshotsSteam;
             this.Locations.FolderScreenshotsElite = configurationModel?.Locations?.FolderScreenshotsElite;
+            this.Locations.FolderCollectedScreenshots = configurationModel?.Locations?.FolderCollectedScreenshots;
             this.Services.JournalParser = configurationModel?.Services?.JournalParser ?? false;
             this.Services.ScreenshotConverter = configurationModel?.Services?.ScreenshotConverter ?? Core.Config.BmpConverterMode.Deactivated;
+            this.Services.CollectScreenshots = configurationModel?.Services?.CollectScreenshots ?? false;
         }
 
         public Core.Config.Config BuildModel(Core.Config.WindowLayout existingWindowLayout)
         {
-            Core.Config.Locations locations = new Core.Config.Locations(this.Locations.FolderLogs, this.Locations.FolderScreenshotsSteam, this.Locations.FolderScreenshotsElite);
-            Core.Config.Services services = new Core.Config.Services(this.Services.JournalParser, this.Services.ScreenshotConverter);
+            Core.Config.Locations locations = new Core.Config.Locations(this.Locations.FolderLogs, this.Locations.FolderScreenshotsSteam, this.Locations.FolderScreenshotsElite, this.Locations.FolderCollectedScreenshots);
+            Core.Config.Services services = new Core.Config.Services(this.Services.JournalParser, this.Services.ScreenshotConverter, this.Services.CollectScreenshots);
             Core.Config.Config configModel = new Core.Config.Config(locations, services, existingWindowLayout);
             return configModel;
         }

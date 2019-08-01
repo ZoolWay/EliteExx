@@ -8,8 +8,7 @@ namespace Zw.EliteExx.Ui.Config
     {
         private bool journalParser;
         private BmpConverterMode screenshotConverter;
-        private bool moveConvertedShots;
-        private bool moveSteamShots;
+        private bool collectScreenshots;
         
         public bool JournalParser
         {
@@ -36,24 +35,13 @@ namespace Zw.EliteExx.Ui.Config
             }
         }
 
-        public bool MoveConvertedShots
+        public bool CollectScreenshots
         {
-            get => this.moveConvertedShots;
+            get => this.collectScreenshots;
             set
             {
-                if (value == this.moveConvertedShots) return;
-                this.moveConvertedShots = value;
-                NotifyOfPropertyChange();
-            }
-        }
-
-        public bool MoveSteamShots
-        {
-            get => this.moveSteamShots;
-            set
-            {
-                if (value == this.moveSteamShots) return;
-                this.moveSteamShots = value;
+                if (value == this.collectScreenshots) return;
+                this.collectScreenshots = value;
                 NotifyOfPropertyChange();
             }
         }

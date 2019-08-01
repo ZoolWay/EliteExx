@@ -9,6 +9,7 @@ namespace Zw.EliteExx.Ui.Config
         private string folderScreenshotsSteam;
         private string folderScreenshotsElite;
         private string folderScreenshotsOutput;
+        private string folderCollectedScreenshots;
 
         public string FolderLogs
         {
@@ -50,6 +51,17 @@ namespace Zw.EliteExx.Ui.Config
             {
                 if (String.Equals(value, this.folderScreenshotsOutput)) return;
                 this.folderScreenshotsOutput = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
+        public string FolderCollectedScreenshots
+        {
+            get => this.folderCollectedScreenshots;
+            set
+            {
+                if (String.Equals(value, this.folderCollectedScreenshots)) return;
+                this.folderCollectedScreenshots = value;
                 NotifyOfPropertyChange();
             }
         }
