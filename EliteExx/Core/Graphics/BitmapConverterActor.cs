@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using Akka.Actor;
+using Zw.EliteExx.Core.Screenshots;
 
 namespace Zw.EliteExx.Core.Graphics
 {

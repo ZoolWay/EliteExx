@@ -111,6 +111,8 @@
     <Compile Include="Core\Graphics\BitmapConverterMessage.cs" />
     <Compile Include="Core\KeyValuePairExtensions.cs" />
     <Compile Include="Core\NdJsonFileReaderActor.cs" />
+    <Compile Include="Core\Screenshots\CollectorActor.cs" />
+    <Compile Include="Core\Screenshots\CollectorMessage.cs" />
     <Compile Include="Core\UiMessengerActor.cs" />
     <Compile Include="Core\UiMessengerMessage.cs" />
     <Compile Include="Core\UiProcessorActor.cs" />

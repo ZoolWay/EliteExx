@@ -14,6 +14,7 @@ namespace Zw.EliteExx.Core
         private readonly List<IActorRef> converters;
         private Config.Config config;
         private bool notifiedUiAboutFailures;
+        private IActorRef collector;
 
         public ScreenshotProcessorActor(Env env, Config.Config config, IActorRef uiMessenger)
         {
@@ -22,6 +23,7 @@ namespace Zw.EliteExx.Core
             this.uiMessenger = uiMessenger;
             this.converters = new List<IActorRef>();
             this.notifiedUiAboutFailures = false;
+            this.collector = ActorRefs.Nobody;
 
             Receive((Action<ScreenshotProcessorMessage.ConfigUpdated>)ReceivedConfigUpdated);
             Receive((Action<Graphics.BitmapConverterMessage.FailureNotification>)ReceivedFailureNotification);
@@ -42,12 +44,37 @@ namespace Zw.EliteExx.Core
         {
             this.config = message.NewConfig;
             ClearConverters();
+            ClearCollector();
             CreateConverters();
         }
 
         private void ReceivedInit(ScreenshotProcessorMessage.Init message)
         {
             CreateConverters();
+            CreateCollector();
+        }
+
+        private void CreateCollector()
+        {
+            if (!this.config.Services.CollectScreenshots) return; // collecting deactivated
+            if (String.IsNullOrWhiteSpace(this.config.Locations.FolderScreenshotsElite) && String.IsNullOrWhiteSpace(this.config.Locations.FolderScreenshotsSteam)) return; // no folder from where we could collect
+            if (String.IsNullOrWhiteSpace(this.config.Locations.FolderCollectedScreenshots))
+            {
+                log.Error("Cannot collect screenshots, no collection folder specified!");
+                return;
+            }
+            List<string> collectionSources = new List<string>();
+            if (!String.IsNullOrWhiteSpace(this.config.Locations.FolderScreenshotsElite)) collectionSources.Add(this.config.Locations.FolderScreenshotsElite);
+            if (!String.IsNullOrWhiteSpace(this.config.Locations.FolderScreenshotsSteam)) collectionSources.Add(this.config.Locations.FolderScreenshotsSteam);
+            this.collector = Context.ActorOf(Props.Create(() => new Screenshots.CollectorActor(Self, collectionSources.ToImmutableArrayOrEmpty(), this.config.Locations.FolderCollectedScreenshots)));
+            this.collector.Tell(new Screenshots.CollectorMessage.Init());
+        }
+
+        private void ClearCollector()
+        {
+            if (this.collector.IsNobody()) return;
+            this.collector.GracefulStop(TimeSpan.FromSeconds(10));
+            this.collector = ActorRefs.Nobody;
         }
 
         private void CreateConverters()
