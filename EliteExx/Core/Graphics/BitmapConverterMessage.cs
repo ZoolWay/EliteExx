@@ -6,7 +6,7 @@ namespace Zw.EliteExx.Core.Graphics
     {
         /// <summary>
         /// Message to initialize a BitmapConverter.
-        /// Sent by: BitmapProcessor.
+        /// Sent by: ScreenshotProcessor.
         /// Received by: BitmapConverter.
         /// Rate: Only once.
         /// </summary>
@@ -27,7 +27,7 @@ namespace Zw.EliteExx.Core.Graphics
         /// <summary>
         /// Message to notify about the fact that failures happened in a BitmapConverter.
         /// Sent by: BitmapConverter.
-        /// Received by: BitmapProcessor.
+        /// Received by: ScreenshotProcessor.
         /// Rate: Unlimited but hopefully none.
         /// </summary>
         public class FailureNotification : BitmapConverterMessage

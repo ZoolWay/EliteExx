@@ -2,22 +2,22 @@
 
 namespace Zw.EliteExx.Core
 {
-    public abstract class BitmapProcessorMessage
+    public abstract class ScreenshotProcessorMessage
     {
         /// <summary>
-        /// Message to initialize the BitmapProcessor.
+        /// Message to initialize the ScreenshotProcessor.
         /// Sent by: ActorSystemManager.
-        /// Received by: BitmapProcessor.
+        /// Received by: ScreenshotProcessor.
         /// Rate: Only once.
         /// </summary>
-        public class Init : BitmapProcessorMessage
+        public class Init : ScreenshotProcessorMessage
         {
         }
 
         /// <summary>
         /// Message to notify about an updated configuration.
         /// Sent by: ActorSystemManager.
-        /// Received by: BitmapProcessor.
+        /// Received by: ScreenshotProcessor.
         /// Rate: Unlimited, on on every config change.
         /// </summary>
         public class ConfigUpdated : ConnectorManagerMessage

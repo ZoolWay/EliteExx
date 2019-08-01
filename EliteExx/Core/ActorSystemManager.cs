@@ -18,7 +18,7 @@ namespace Zw.EliteExx.Core
         private IActorRef uiMessenger;
         private IActorRef uiProcessor;
         private IActorRef connectorManager;
-        private IActorRef bitmapProcessor;
+        private IActorRef screenshotProcessor;
         private bool isInited;
 
         public IActorRef UiProcessor => this.uiProcessor;
@@ -31,7 +31,7 @@ namespace Zw.EliteExx.Core
             this.uiMessenger = ActorRefs.Nobody;
             this.connectorManager = ActorRefs.Nobody;
             this.uiProcessor = ActorRefs.Nobody;
-            this.bitmapProcessor = ActorRefs.Nobody;
+            this.screenshotProcessor = ActorRefs.Nobody;
             this.isInited = false;
 
             var akkaConfig = Akka.Configuration.ConfigurationFactory.Load().WithFallback(Akka.Configuration.ConfigurationFactory.Default());
@@ -47,8 +47,8 @@ namespace Zw.EliteExx.Core
             this.uiProcessor = this.actorSystem.ActorOf(Props.Create(() => new UiProcessorActor(this.uiMessenger)), "ui-processor");
             this.connectorManager = this.actorSystem.ActorOf(Props.Create(() => new ConnectorManagerActor(envManager.Instance, configuration.Instance, this.uiMessenger)), "cn-mng");
             this.connectorManager.Tell(new ConnectorManagerMessage.Init());
-            this.bitmapProcessor = this.actorSystem.ActorOf(Props.Create(() => new BitmapProcessorActor(envManager.Instance, configuration.Instance, this.uiMessenger)), "bmp-processor");
-            this.bitmapProcessor.Tell(new BitmapProcessorMessage.Init());
+            this.screenshotProcessor = this.actorSystem.ActorOf(Props.Create(() => new ScreenshotProcessorActor(envManager.Instance, configuration.Instance, this.uiMessenger)), "bmp-processor");
+            this.screenshotProcessor.Tell(new ScreenshotProcessorMessage.Init());
             this.isInited = true;
         }
 
@@ -73,7 +73,7 @@ namespace Zw.EliteExx.Core
         public void NotifyUpdatedConfiguration(Core.Config.Config newConfig)
         {
             this.connectorManager.Tell(new ConnectorManagerMessage.ConfigUpdated(newConfig));
-            this.bitmapProcessor.Tell(new BitmapProcessorMessage.ConfigUpdated(newConfig));
+            this.screenshotProcessor.Tell(new ScreenshotProcessorMessage.ConfigUpdated(newConfig));
         }
     }
 }

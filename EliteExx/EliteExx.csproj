@@ -95,8 +95,8 @@
     </ApplicationDefinition>
     <Compile Include="Configuration.cs" />
     <Compile Include="Core\ActorSystemManager.cs" />
-    <Compile Include="Core\BitmapProcessorActor.cs" />
-    <Compile Include="Core\BitmapProcessorMessage.cs" />
+    <Compile Include="Core\ScreenshotProcessorActor.cs" />
+    <Compile Include="Core\ScreenshotProcessorMessage.cs" />
     <Compile Include="Core\CharExtensions.cs" />
     <Compile Include="Core\Config\BmpConverterMode.cs" />
     <Compile Include="Core\Config\Services.cs" />

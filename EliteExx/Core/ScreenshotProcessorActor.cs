@@ -6,7 +6,7 @@ using Zw.EliteExx.Core.Graphics;
 
 namespace Zw.EliteExx.Core
 {
-    internal class BitmapProcessorActor : ReceiveActor
+    internal class ScreenshotProcessorActor : ReceiveActor
     {
         private readonly Akka.Event.ILoggingAdapter log = Akka.Event.Logging.GetLogger(Context);
         private readonly Env env;
@@ -15,7 +15,7 @@ namespace Zw.EliteExx.Core
         private Config.Config config;
         private bool notifiedUiAboutFailures;
 
-        public BitmapProcessorActor(Env env, Config.Config config, IActorRef uiMessenger)
+        public ScreenshotProcessorActor(Env env, Config.Config config, IActorRef uiMessenger)
         {
             this.env = env;
             this.config = config;
@@ -23,9 +23,9 @@ namespace Zw.EliteExx.Core
             this.converters = new List<IActorRef>();
             this.notifiedUiAboutFailures = false;
 
-            Receive((Action<BitmapProcessorMessage.ConfigUpdated>)ReceivedConfigUpdated);
+            Receive((Action<ScreenshotProcessorMessage.ConfigUpdated>)ReceivedConfigUpdated);
             Receive((Action<Graphics.BitmapConverterMessage.FailureNotification>)ReceivedFailureNotification);
-            Receive((Action<BitmapProcessorMessage.Init>)ReceivedInit);
+            Receive((Action<ScreenshotProcessorMessage.Init>)ReceivedInit);
         }
 
         private void ReceivedFailureNotification(BitmapConverterMessage.FailureNotification message)
@@ -38,14 +38,14 @@ namespace Zw.EliteExx.Core
             }
         }
 
-        private void ReceivedConfigUpdated(BitmapProcessorMessage.ConfigUpdated message)
+        private void ReceivedConfigUpdated(ScreenshotProcessorMessage.ConfigUpdated message)
         {
             this.config = message.NewConfig;
             ClearConverters();
             CreateConverters();
         }
 
-        private void ReceivedInit(BitmapProcessorMessage.Init message)
+        private void ReceivedInit(ScreenshotProcessorMessage.Init message)
         {
             CreateConverters();
         }
