@@ -73,6 +73,7 @@ namespace Zw.EliteExx.Core
         public void NotifyUpdatedConfiguration(Core.Config.Config newConfig)
         {
             this.connectorManager.Tell(new ConnectorManagerMessage.ConfigUpdated(newConfig));
+            this.bitmapProcessor.Tell(new BitmapProcessorMessage.ConfigUpdated(newConfig));
         }
     }
 }
