@@ -181,6 +181,11 @@ namespace Zw.EliteExx.Ui.EliteDangerous
             System.Windows.Clipboard.SetText(this.PositionStation);
         }
 
+        public void ClearEvents()
+        {
+            this.events.Clear();
+        }
+
         protected override void OnInitialize()
         {
             this.actorSystemManager.InitEliteDangerousConnector();

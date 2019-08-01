@@ -72,6 +72,11 @@
             <DockPanel LastChildFill="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <ListView ItemsSource="{Binding EventsView}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" b:ScrollToBottomBehavior.IsScrollToBottom="{Binding IsScrollBottom}"
                           SelectedItem="{Binding SelectedEvent}">
+                    <ListView.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Clear" cal:Message.Attach="ClearEvents" />
+                        </ContextMenu>
+                    </ListView.ContextMenu>
                     <i:Interaction.Behaviors>
                         <b:ScrollToBottomBehavior />
                     </i:Interaction.Behaviors>
