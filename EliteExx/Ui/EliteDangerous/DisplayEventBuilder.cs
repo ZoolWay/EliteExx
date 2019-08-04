@@ -137,22 +137,20 @@ namespace Zw.EliteExx.Ui.EliteDangerous
             {
                 Text = $"Scanned {ds.BodyName} ({ds.PlanetClass}) {ds.WasDiscovered} {ds.WasMapped} {ds.TerraformState} {ds.Landable}",
                 EventType = DisplayEventType.Scan,
+                IsHighlighted = Logic.IsHighlightedScan(ds),
             };
             if (ds.WasDiscovered == false)
             {
-                de.IsHighlighted = true;
                 de.Symbol2 = '\xf890'; // sparkles
                 de.Symbol2Tooltip = "undiscovered!";
             }
             if (Logic.IsTerraformable(ds))
             {
-                de.IsHighlighted = true;
                 de.Symbol1 = '\xf7a2'; // globe-europe
                 de.Symbol1Tooltip = "terraformable!";
             }
             if (Logic.IsWaterworld(ds))
             {
-                de.IsHighlighted = true;
                 de.Symbol1 = '\xf7a2';
                 de.Symbol1Tooltip = "water world";
                 if (de.Symbol2.IsDefaultOrWhitespace())
@@ -163,7 +161,6 @@ namespace Zw.EliteExx.Ui.EliteDangerous
             }
             else if (Logic.IsEarthlike(ds))
             {
-                de.IsHighlighted = true;
                 de.Symbol1 = '\xf7a2';
                 de.Symbol1Tooltip = "earth-like";
                 if (de.Symbol2.IsDefaultOrWhitespace())
@@ -172,7 +169,17 @@ namespace Zw.EliteExx.Ui.EliteDangerous
                     de.Symbol2Tooltip = "earth-like";
                 }
             }
-            de.IsBoring = !de.IsHighlighted;
+            else if (Logic.IsAmmoniaWorld(ds))
+            {
+                de.Symbol1 = '\xf7a2';
+                de.Symbol1Tooltip = "ammonia world";
+                if (de.Symbol2.IsDefaultOrWhitespace())
+                {
+                    de.Symbol2 = '\xf7fa'; // disease
+                    de.Symbol2Tooltip = "ammonia world";
+                }
+            }
+            de.IsBoring = (!de.IsHighlighted) && (!ds.WasDiscovered);
             this.receiver.Events.Add(de);
         }
 

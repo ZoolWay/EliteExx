@@ -45,7 +45,7 @@ namespace Zw.EliteExx.Ui.EliteDangerous
             {
                 var row = CreateOrGetRow(sd);
                 row.ExtraInfo = $"class={sd.PlanetClass}, discovered={sd.WasDiscovered}, mapped={sd.WasMapped}";
-                row.IsHighlighted = Logic.IsTerraformable(sd) || Logic.IsWaterworld(sd) || Logic.IsEarthlike(sd);
+                row.IsHighlighted = Logic.IsHighlightedScan(sd);
                 row.DataOrigin |= Core.DataOrigin.EliteJournal;
             }
             else if (entry is EntryScanAutoScan sas)

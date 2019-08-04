@@ -18,5 +18,15 @@ namespace Zw.EliteExx.EliteDangerous.Journal
         {
             return (String.Compare(scan.PlanetClass, "Earthlike body") == 0);
         }
+
+        public static bool IsAmmoniaWorld(EntryScanDetailed scan)
+        {
+            return (String.Compare(scan.PlanetClass, "Ammonia world", true) == 0);
+        }
+
+        public static bool IsHighlightedScan(EntryScanDetailed scan)
+        {
+            return (IsTerraformable(scan) || IsWaterworld(scan) || IsEarthlike(scan) || IsAmmoniaWorld(scan));
+        }
     }
 }
