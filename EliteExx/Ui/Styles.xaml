@@ -60,5 +60,30 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+    <ControlTemplate x:Key="ListItemWithHighlight" TargetType="ListViewItem">
+        <ControlTemplate.Triggers>
+            <DataTrigger Binding="{Binding IsHighlighted}" Value="True">
+                <Setter Property="Background" Value="Gold" />
+            </DataTrigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="SkyBlue" />
+            </Trigger>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="GoldenRod" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+        <Border BorderThickness="1" SnapsToDevicePixels="True" Background="{TemplateBinding Background}" Padding="0,1,0,1">
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="BorderBrush" Value="Blue" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+            <GridViewRowPresenter VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+        </Border>
+    </ControlTemplate>
 </ResourceDictionary>
     

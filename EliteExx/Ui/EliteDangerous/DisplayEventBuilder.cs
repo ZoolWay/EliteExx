@@ -131,13 +131,13 @@ namespace Zw.EliteExx.Ui.EliteDangerous
                 de.Symbol2 = '\xf890'; // sparkles
                 de.Symbol2Tooltip = "undiscovered!";
             }
-            if (String.Compare(ds.TerraformState, "Terraformable", true) == 0)
+            if (Logic.IsTerraformable(ds))
             {
                 de.IsHighlighted = true;
                 de.Symbol1 = '\xf7a2'; // globe-europe
                 de.Symbol1Tooltip = "terraformable!";
             }
-            if (String.Compare(ds.PlanetClass, "Water world", true) == 0)
+            if (Logic.IsWaterworld(ds))
             {
                 de.IsHighlighted = true;
                 de.Symbol1 = '\xf7a2';
@@ -148,7 +148,7 @@ namespace Zw.EliteExx.Ui.EliteDangerous
                     de.Symbol2Tooltip = "water world";
                 }
             }
-            else if (String.Compare(ds.PlanetClass, "Earthlike body") == 0)
+            else if (Logic.IsEarthlike(ds))
             {
                 de.IsHighlighted = true;
                 de.Symbol1 = '\xf7a2';

@@ -95,6 +95,7 @@
     </ApplicationDefinition>
     <Compile Include="Configuration.cs" />
     <Compile Include="Core\ActorSystemManager.cs" />
+    <Compile Include="Core\DataOrigin.cs" />
     <Compile Include="Core\ScreenshotProcessorActor.cs" />
     <Compile Include="Core\ScreenshotProcessorMessage.cs" />
     <Compile Include="Core\CharExtensions.cs" />
@@ -142,6 +143,7 @@
     <Compile Include="EliteDangerous\Journal\EntryUndocked.cs" />
     <Compile Include="EliteDangerous\Journal\Event.cs" />
     <Compile Include="EliteDangerous\JournalProcessorActor.cs" />
+    <Compile Include="EliteDangerous\Journal\Logic.cs" />
     <Compile Include="EliteDangerous\Journal\MaterialComponent.cs" />
     <Compile Include="EliteDangerous\Journal\Ring.cs" />
     <Compile Include="EliteDangerous\Journal\ScanType.cs" />
@@ -166,11 +168,17 @@
     <Compile Include="Ui\EliteDangerous\DisplayEventType.cs" />
     <Compile Include="Ui\EliteDangerous\DisplayEventTypeConverter.cs" />
     <Compile Include="Ui\EliteDangerous\DisplayEventTypeTooltipConverter.cs" />
+    <Compile Include="Ui\EliteDangerous\DoneState.cs" />
+    <Compile Include="Ui\EliteDangerous\DoneStateConverter.cs" />
     <Compile Include="Ui\EliteDangerous\IDisplayEventReceiver.cs" />
+    <Compile Include="Ui\EliteDangerous\ISystemSummaryReceiver.cs" />
     <Compile Include="Ui\EliteDangerous\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ui\EliteDangerous\MainViewModel.cs" />
+    <Compile Include="Ui\EliteDangerous\SystemSummaryBodyTypeConverter.cs" />
+    <Compile Include="Ui\EliteDangerous\SystemSummaryBuilder.cs" />
+    <Compile Include="Ui\EliteDangerous\SystemSummaryRow.cs" />
     <Compile Include="Ui\Events\ConfigurationChanged.cs" />
     <Compile Include="Ui\Events\ScrollToItemCommand.cs" />
     <Compile Include="Ui\Events\ShellContextError.cs" />

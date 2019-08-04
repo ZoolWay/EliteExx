@@ -8,7 +8,7 @@ using Zw.EliteExx.EliteDangerous.Journal;
 
 namespace Zw.EliteExx.Ui.EliteDangerous
 {
-    public class MainViewModel : Screen, IHandle<Entry>, IDisplayEventReceiver
+    public class MainViewModel : Screen, IHandle<Entry>, IDisplayEventReceiver, ISystemSummaryReceiver
     {
         private static readonly log4net.ILog log = global::log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly IEventAggregator eventAggregator;
@@ -17,6 +17,9 @@ namespace Zw.EliteExx.Ui.EliteDangerous
         private readonly BindableCollection<DisplayEvent> events;
         private readonly ICollectionView eventsView;
         private readonly DisplayEventBuilder displayEventBuilder;
+        private readonly BindableCollection<SystemSummaryRow> systemRows;
+        private readonly ICollectionView systemRowsView;
+        private readonly SystemSummaryBuilder systemSummaryBuilder;
         private string positionSystem;
         private string positionStarPos;
         private string positionStation;
@@ -140,8 +143,10 @@ namespace Zw.EliteExx.Ui.EliteDangerous
         }
 
         public BindableCollection<DisplayEvent> Events => this.events;
-
         public ICollectionView EventsView => this.eventsView;
+
+        public BindableCollection<SystemSummaryRow> SystemRows => this.systemRows;
+        public ICollectionView SystemRowsView => this.systemRowsView;
 
         public MainViewModel(IEventAggregator eventAggregator, IWindowManager windowManager, ActorSystemManager actorSystemManager)
         {
@@ -155,18 +160,23 @@ namespace Zw.EliteExx.Ui.EliteDangerous
             this.events = new BindableCollection<DisplayEvent>();
             this.eventsView = CollectionViewSource.GetDefaultView(this.events);
             this.eventsView.Filter = FilterDisplayEvents;
+            this.systemRows = new BindableCollection<SystemSummaryRow>();
+            this.systemRowsView = CollectionViewSource.GetDefaultView(this.systemRows);
+            this.systemRowsView.SortDescriptions.Add(new SortDescription("Order", ListSortDirection.Ascending));
             this.countProcessedEntries = 0;
             this.isScrollBottom = true;
             this.showPosition = true;
             this.showShip = true;
             this.filterHideBoringScans = false;
             this.displayEventBuilder = new DisplayEventBuilder(this);
+            this.systemSummaryBuilder = new SystemSummaryBuilder(this);
         }
 
         public void Handle(Entry entry)
         {
             this.CountProcessedEntries++;
             this.displayEventBuilder.CreateDisplayEventFor(entry);
+            this.systemSummaryBuilder.Process(entry);
         }
 
         public void CopyPosSysNameToClip(MouseButtonEventArgs e)
