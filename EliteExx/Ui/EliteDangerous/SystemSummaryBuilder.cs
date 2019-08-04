@@ -53,6 +53,12 @@ namespace Zw.EliteExx.Ui.EliteDangerous
                 var row = CreateOrGetRow(sas);
                 row.DataOrigin |= Core.DataOrigin.EliteJournal;
             }
+            else if (entry is EntrySaaScanComplete ssc)
+            {
+                var row = this.receiver.SystemRows.FirstOrDefault(r => r.BodyId == ssc.BodyID);
+                if (row == null) return;
+                row.DoneState = DoneState.Done;
+            }
         }
 
         private SystemSummaryRow CreateOrGetRow(EntryScanAutoScan scan)

@@ -24,6 +24,7 @@ namespace Zw.EliteExx.EliteDangerous.Journal
         FSSDiscoveryScan,
         FSSAllBodiesFound,
         FSSSignalDiscovered,
+        SAAScanComplete,
         FuelScoop,
         ReservoirReplenished,
         MultiSellExplorationData,

@@ -39,6 +39,10 @@ namespace Zw.EliteExx.Ui.EliteDangerous
             {
                 CreateDisplayEventForScanAuto(@as);
             }
+            else if (entry is EntrySaaScanComplete ssc)
+            {
+                CreateDisplayEventForSurfaceScan(ssc);
+            }
             else if (entry is EntryFssAllBodiesFound fabf)
             {
                 CreateDisplayEventForFssAllBodiesFound(fabf);
@@ -67,6 +71,15 @@ namespace Zw.EliteExx.Ui.EliteDangerous
             {
                 CreateDisplayEventForMetaMessage(mm);
             }
+        }
+
+        private void CreateDisplayEventForSurfaceScan(EntrySaaScanComplete ssc)
+        {
+            this.receiver.Events.Add(new DisplayEvent()
+            {
+                Text = $"Mapped {ssc.BodyName} with {ssc.ProbesUsed} probes",
+                EventType = DisplayEventType.Scan,
+            });
         }
 
         private void CreateDisplayEventForFileheader(EntryFileheader fh)

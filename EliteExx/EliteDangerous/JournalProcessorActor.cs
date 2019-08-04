@@ -73,6 +73,8 @@ namespace Zw.EliteExx.EliteDangerous
                     return o.ToObject<EntryLoadGame>();
                 case Event.Loadout:
                     return o.ToObject<EntryLoadout>();
+                case Event.SAAScanComplete:
+                    return o.ToObject<EntrySaaScanComplete>();
 
                 default:
                     log.Warning($"Not (yet) support event type '{@event}' encountered");

@@ -12,7 +12,7 @@ namespace Zw.EliteExx.Ui.EliteDangerous
             var d = (DoneState)value;
             if (d == DoneState.NotDone) return String.Empty;
             if (d == DoneState.Done) return "\xf00c"; // check
-            return Binding.DoNothing;
+            return "\xf0ae"; // tasks
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

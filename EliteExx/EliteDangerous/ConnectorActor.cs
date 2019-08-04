@@ -37,6 +37,7 @@ namespace Zw.EliteExx.EliteDangerous
                 case Journal.Event.FSDJump:
                 case Journal.Event.FSSDiscoveryScan:
                 case Journal.Event.FSSAllBodiesFound:
+                case Journal.Event.SAAScanComplete:
                 case Journal.Event.Scan:
                 case Journal.Event.Docked:
                 case Journal.Event.Undocked:
