@@ -23,5 +23,21 @@ namespace Zw.EliteExx.Core.Screenshots
         public class Init : CollectorMessage
         {
         }
+
+        /// <summary>
+        /// Message to tell the processor that a file was successfully moved.
+        /// Sent by: Collector.
+        /// Received by: ScreenshotProcessor.
+        /// Rate: Unlimited.
+        /// </summary>
+        public class Success : CollectorMessage
+        {
+            public string MovedFilename { get; }
+
+            public Success(string movedFilename)
+            {
+                this.MovedFilename = movedFilename;
+            }
+        }
     }
 }

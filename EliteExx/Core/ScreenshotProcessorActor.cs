@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using Akka.Actor;
 using Zw.EliteExx.Core.Config;
 using Zw.EliteExx.Core.Graphics;
+using Zw.EliteExx.Core.Screenshots;
 
 namespace Zw.EliteExx.Core
 {
@@ -26,8 +28,24 @@ namespace Zw.EliteExx.Core
             this.collector = ActorRefs.Nobody;
 
             Receive((Action<ScreenshotProcessorMessage.ConfigUpdated>)ReceivedConfigUpdated);
+            Receive((Action<Graphics.BitmapConverterMessage.SuccessNotification>)ReceivedSuccessNotification);
+            Receive((Action<Screenshots.CollectorMessage.Success>)ReceivedCollectorSuccess);
             Receive((Action<Graphics.BitmapConverterMessage.FailureNotification>)ReceivedFailureNotification);
             Receive((Action<ScreenshotProcessorMessage.Init>)ReceivedInit);
+        }
+
+        private void ReceivedCollectorSuccess(CollectorMessage.Success message)
+        {
+            log.Debug("Collector '{0}' reported success for '{1}'", Sender.Path.ToStringWithoutAddress(), message.MovedFilename);
+            string name = Path.GetFileName(message.MovedFilename);
+            this.uiMessenger.Tell(new UiMessengerMessage.Publish(new EliteDangerous.Journal.EntryMetaMessage(DateTime.UtcNow, EliteDangerous.Journal.Event.MetaMessage, $"Collected: {name}")));
+        }
+
+        private void ReceivedSuccessNotification(BitmapConverterMessage.SuccessNotification message)
+        {
+            log.Debug("Converter '{0}' reported success for '{1}'", Sender.Path.ToStringWithoutAddress(), message.ConvertedFilename);
+            string name = Path.GetFileName(message.ConvertedFilename);
+            this.uiMessenger.Tell(new UiMessengerMessage.Publish(new EliteDangerous.Journal.EntryMetaMessage(DateTime.UtcNow, EliteDangerous.Journal.Event.MetaMessage, $"Converted: {name}")));
         }
 
         private void ReceivedFailureNotification(BitmapConverterMessage.FailureNotification message)

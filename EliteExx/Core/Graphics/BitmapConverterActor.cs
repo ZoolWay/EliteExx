@@ -59,9 +59,9 @@ namespace Zw.EliteExx.Core.Graphics
             {
                 try
                 {
+                    string converterFilename = Path.ChangeExtension(targetFile, "png");
                     using (var image = Image.FromFile(targetFile))
                     {
-                        string converterFilename = Path.ChangeExtension(targetFile, "png");
                         if (File.Exists(converterFilename))
                         {
                             log.Warning("Skipping to convert {0} because it seems to already exist!", targetFile);
@@ -71,6 +71,7 @@ namespace Zw.EliteExx.Core.Graphics
                         log.Info("Saved: {0}", converterFilename);
                     }
                     File.Delete(targetFile);
+                    this.processor.Tell(new BitmapConverterMessage.SuccessNotification(converterFilename));
                 }
                 catch (Exception ex)
                 {

@@ -94,6 +94,7 @@ namespace Zw.EliteExx.Core.Screenshots
                             idx++;
                         }
                         File.Move(file, targetFullname);
+                        this.processor.Tell(new CollectorMessage.Success(targetFullname));
                     }
                     catch (Exception ex)
                     {

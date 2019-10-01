@@ -41,5 +41,21 @@ namespace Zw.EliteExx.Core.Graphics
                 this.ErrorMessage = errorMessage;
             }
         }
+
+        /// <summary>
+        /// Message to notify about a successfully converted file.
+        /// Sent by: BitmapConverter.
+        /// Received by: ScreenshotProcessor.
+        /// Rate: Unlimited.
+        /// </summary>
+        public class SuccessNotification : BitmapConverterMessage
+        {
+            public string ConvertedFilename { get; }
+
+            public SuccessNotification(string convertedFilename)
+            {
+                this.ConvertedFilename = convertedFilename;
+            }
+        }
     }
 }
