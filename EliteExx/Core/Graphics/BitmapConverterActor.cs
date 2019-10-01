@@ -10,11 +10,13 @@ namespace Zw.EliteExx.Core.Graphics
 {
     internal class BitmapConverterActor : ReceiveActor
     {
+        private const int INTERVAL_SCAN = 5 * 60 * 1000;
         private readonly Akka.Event.ILoggingAdapter log = Akka.Event.Logging.GetLogger(Context);
         private readonly string folder;
         private readonly string filefilter;
         private readonly IActorRef processor;
         private FileSystemWatcher fileSystemWatcher;
+        private ICancelable subIntervalConvert;
 
         public BitmapConverterActor(IActorRef processor, string folder, string filefilter)
         {
@@ -37,10 +39,12 @@ namespace Zw.EliteExx.Core.Graphics
             IActorRef self = Self;
             BitmapConverterMessage.Convert convertMessage = new BitmapConverterMessage.Convert();
             this.fileSystemWatcher.Changed += new FileSystemEventHandler((sender, e) => { self.Tell(convertMessage); });
+            this.subIntervalConvert = Context.System.Scheduler.ScheduleTellRepeatedlyCancelable(INTERVAL_SCAN, INTERVAL_SCAN, Self, new BitmapConverterMessage.Convert(), Self);
         }
 
         protected override void PostStop()
         {
+            this.subIntervalConvert.CancelIfNotNull();
             this.fileSystemWatcher.EnableRaisingEvents = false;
             this.fileSystemWatcher.Dispose();
             this.fileSystemWatcher = null;

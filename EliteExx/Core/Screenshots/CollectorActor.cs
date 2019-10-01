@@ -8,12 +8,14 @@ namespace Zw.EliteExx.Core.Screenshots
 {
     internal class CollectorActor : ReceiveActor
     {
+        private const int INTERVAL_SCAN = 5 * 60 * 1000;
         private readonly Akka.Event.ILoggingAdapter log = Akka.Event.Logging.GetLogger(Context);
         private readonly IActorRef processor;
         private readonly ImmutableArray<string> sourceFolders;
         private readonly FileSystemWatcher[] pngWatchers;
         private readonly FileSystemWatcher[] jpgWatchers;
         private readonly string destinationFolder;
+        private ICancelable subIntervalScan;
 
         public CollectorActor(IActorRef processor, ImmutableArray<string> sourceFolders, string destinationFolder)
         {
@@ -49,10 +51,13 @@ namespace Zw.EliteExx.Core.Screenshots
                 };
                 this.jpgWatchers[i].Changed += new FileSystemEventHandler((sender, e) => { self.Tell(collect); });
             }
+
+            this.subIntervalScan = Context.System.Scheduler.ScheduleTellRepeatedlyCancelable(INTERVAL_SCAN, INTERVAL_SCAN, Self, new CollectorMessage.Collect(), Self);
         }
 
         protected override void PostStop()
         {
+            this.subIntervalScan.CancelIfNotNull();
             for (int i = 0; i < this.pngWatchers.Length; i++)
             {
                 this.pngWatchers[i].EnableRaisingEvents = false;
