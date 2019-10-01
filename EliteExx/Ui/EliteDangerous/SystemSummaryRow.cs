@@ -16,6 +16,8 @@ namespace Zw.EliteExx.Ui.EliteDangerous
         private bool isBoring;
         private bool isHighlighted;
         private string extraInfo;
+        private bool isDiscovered;
+        private bool isMapped;
 
         public long Order
         {
@@ -112,6 +114,28 @@ namespace Zw.EliteExx.Ui.EliteDangerous
             {
                 if (String.Equals(this.extraInfo, value)) return;
                 this.extraInfo = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
+        public bool IsDiscovered
+        {
+            get => this.isDiscovered;
+            set
+            {
+                if (value == this.isDiscovered) return;
+                this.isDiscovered = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
+        public bool IsMapped
+        {
+            get => this.isMapped;
+            set
+            {
+                if (value == this.isMapped) return;
+                this.isMapped = value;
                 NotifyOfPropertyChange();
             }
         }

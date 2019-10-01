@@ -94,6 +94,7 @@ namespace Zw.EliteExx.Ui.EliteDangerous
 
         private void CreateDisplayEventForFssDiscoveryScan(EntryFssDiscoveryScan fds)
         {
+            this.receiver.PositionSystemBodies = $"({fds.BodyCount} bodies)";
             this.receiver.Events.Add(new DisplayEvent()
             {
                 Text = $"{fds.Progress * 100}% {fds.BodyCount} bodies, {fds.NonBodyCount} non-bodies",
@@ -104,9 +105,10 @@ namespace Zw.EliteExx.Ui.EliteDangerous
 
         private void CreateDisplayEventForFssAllBodiesFound(EntryFssAllBodiesFound fabf)
         {
+            this.receiver.PositionSystemBodies = $"({fabf.Count} bodies)";
             this.receiver.Events.Add(new DisplayEvent()
             {
-                Text = $"{fabf.Count} bodies in {fabf.SystemName}",
+                Text = $"{fabf.Count} bodies in {fabf.SystemName}, completed",
                 EventType = DisplayEventType.Scan,
             });
         }

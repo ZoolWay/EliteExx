@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 using Zw.EliteExx.EliteDangerous.Journal;
 
@@ -15,7 +11,10 @@ namespace Zw.EliteExx.Ui.EliteDangerous
         {
             if (!(value is BodyType)) return Binding.DoNothing;
             var bt = (BodyType)value;
-            if (bt == BodyType.Star) return "\xf111"; // circle
+            if (bt == BodyType.Star) return '\xf005'; // star
+            if (bt == BodyType.Planet) return '\xf111'; // circle
+            if (bt == BodyType.PlanetaryRing) return '\xf70b'; // ring
+            if (bt == BodyType.Station) return '\xf1b2'; // cube
             return "\xf059"; // question-circle
         }
 

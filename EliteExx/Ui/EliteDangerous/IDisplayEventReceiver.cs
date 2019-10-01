@@ -10,5 +10,6 @@ namespace Zw.EliteExx.Ui.EliteDangerous
         string PositionStation { get; set; }
         string PositionStarPos { get; set; }
         string PositionSystem { get; set; }
+        string PositionSystemBodies { get; set; }
     }
 }

@@ -23,6 +23,7 @@ namespace Zw.EliteExx.Ui.EliteDangerous
         private string positionSystem;
         private string positionStarPos;
         private string positionStation;
+        private string positionSystemBodies;
         private DisplayEvent selectedEvent;
         private long countProcessedEntries;
         private bool isScrollBottom;
@@ -60,6 +61,17 @@ namespace Zw.EliteExx.Ui.EliteDangerous
             {
                 if (String.Equals(value, this.positionStation)) return;
                 this.positionStation = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
+        public string PositionSystemBodies
+        {
+            get => this.positionSystemBodies;
+            set
+            {
+                if (String.Equals(value, this.positionSystemBodies)) return;
+                this.positionSystemBodies = value;
                 NotifyOfPropertyChange();
             }
         }
@@ -157,6 +169,7 @@ namespace Zw.EliteExx.Ui.EliteDangerous
             this.positionSystem = "-- waiting --";
             this.positionStarPos = String.Empty;
             this.positionStation = String.Empty;
+            this.positionSystemBodies = String.Empty;
             this.events = new BindableCollection<DisplayEvent>();
             this.eventsView = CollectionViewSource.GetDefaultView(this.events);
             this.eventsView.Filter = FilterDisplayEvents;

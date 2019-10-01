@@ -179,6 +179,8 @@
     <Compile Include="Ui\EliteDangerous\MainViewModel.cs" />
     <Compile Include="Ui\EliteDangerous\SystemSummaryBodyTypeConverter.cs" />
     <Compile Include="Ui\EliteDangerous\SystemSummaryBuilder.cs" />
+    <Compile Include="Ui\EliteDangerous\SystemSummaryDiscoveryConverter.cs" />
+    <Compile Include="Ui\EliteDangerous\SystemSummaryDiscoveryTooltipConverter.cs" />
     <Compile Include="Ui\EliteDangerous\SystemSummaryRow.cs" />
     <Compile Include="Ui\Events\ConfigurationChanged.cs" />
     <Compile Include="Ui\Events\ScrollToItemCommand.cs" />
