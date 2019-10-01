@@ -38,6 +38,7 @@ namespace Zw.EliteExx.Ui.EliteDangerous
                 row.ExtraInfo = ComposeExtraInfo(row, sd);
                 row.IsHighlighted = Logic.IsHighlightedScan(sd);
                 row.DataOrigin |= Core.DataOrigin.EliteJournal;
+                row.IsDiscovered = true;
             }
             else if (entry is EntryScanAutoScan sas)
             {
@@ -50,6 +51,8 @@ namespace Zw.EliteExx.Ui.EliteDangerous
                 var row = this.receiver.SystemRows.FirstOrDefault(r => r.BodyId == ssc.BodyID);
                 if (row == null) return;
                 row.DoneState = DoneState.Done;
+                row.IsDiscovered = true;
+                row.IsMapped = true;
             }
         }
 
