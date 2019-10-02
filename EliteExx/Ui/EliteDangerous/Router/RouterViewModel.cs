@@ -95,6 +95,7 @@ namespace Zw.EliteExx.Ui.EliteDangerous.Router
             if (this.selectedItem == null) return;
             this.routeItems.Remove(this.selectedItem);
             RearrangeOrderNumbers();
+            PersistRouterSettings();
         }
 
         public void CopySelected()

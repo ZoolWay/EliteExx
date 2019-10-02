@@ -12,7 +12,7 @@
         <ContentPresenter x:Key="Proxy" />
     </UserControl.Resources>
     <DockPanel LastChildFill="True" x:Name="Root">
-        <ListView ItemsSource="{Binding RouteItemsView}" SelectedItem="{Binding SelectedItem}" HorizontalAlignment="Stretch" MinHeight="36">
+        <ListView ItemsSource="{Binding RouteItemsView}" SelectedItem="{Binding SelectedItem}" HorizontalAlignment="Stretch" MinHeight="36" MaxHeight="108">
             <ListView.Resources>
                 <converters:DoneStateConverter x:Key="DoneStateConverter" />
                 <Style TargetType="ListViewItem">
@@ -35,14 +35,14 @@
             <ListView.View>
                 <GridView>
                     <GridView.Columns>
-                        <GridViewColumn Header="Or.">
+                        <GridViewColumn Header="Or." Width="32">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Order}" HorizontalAlignment="Right" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="Waypoint">
+                        <GridViewColumn Header="Waypoint" Width="240">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Name}" />
