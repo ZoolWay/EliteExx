@@ -85,5 +85,13 @@
             <GridViewRowPresenter VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
         </Border>
     </ControlTemplate>
+    <Style x:Key="VertSeperator" TargetType="Border">
+        <Setter Property="Height" Value="1" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="Margin" Value="0,1,0,2" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderBrush" Value="Silver" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+    </Style>
 </ResourceDictionary>
     

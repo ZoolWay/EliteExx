@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace Zw.EliteExx.Ui.EliteDangerous
+namespace Zw.EliteExx.Ui.Converters
 {
     public class DoneStateConverter : IValueConverter
     {

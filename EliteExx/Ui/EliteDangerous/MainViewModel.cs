@@ -29,8 +29,10 @@ namespace Zw.EliteExx.Ui.EliteDangerous
         private bool isScrollBottom;
         private bool showShip;
         private bool showPosition;
+        private bool showRouter;
         private string shipName;
         private bool filterHideBoringScans;
+        private object routerViewModel;
 
         public string PositionSystem
         {
@@ -131,6 +133,17 @@ namespace Zw.EliteExx.Ui.EliteDangerous
             }
         }
 
+        public bool ShowRouter
+        {
+            get => this.showRouter;
+            set
+            {
+                if (value == this.showRouter) return;
+                this.showRouter = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
         public string ShipName
         {
             get => this.shipName;
@@ -140,6 +153,11 @@ namespace Zw.EliteExx.Ui.EliteDangerous
                 this.shipName = value;
                 NotifyOfPropertyChange();
             }
+        }
+
+        public object Router
+        {
+            get => this.routerViewModel;
         }
 
         public bool FilterHideBoringScans
@@ -180,9 +198,14 @@ namespace Zw.EliteExx.Ui.EliteDangerous
             this.isScrollBottom = true;
             this.showPosition = true;
             this.showShip = true;
+            this.showRouter = false;
             this.filterHideBoringScans = false;
             this.displayEventBuilder = new DisplayEventBuilder(this);
             this.systemSummaryBuilder = new SystemSummaryBuilder(this);
+
+            var vmRouter = IoC.Get<Router.RouterViewModel>();
+            this.routerViewModel = vmRouter;
+            ScreenExtensions.ActivateWith(vmRouter, this);
         }
 
         public void Handle(Entry entry)

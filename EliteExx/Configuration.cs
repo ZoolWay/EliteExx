@@ -32,7 +32,13 @@ namespace Zw.EliteExx
 
         public bool SaveWindowLayout(WindowLayout newWindowLayout)
         {
-            var newInstance = new Config(this.Instance.Locations, this.Instance.Services, newWindowLayout);
+            var newInstance = new Config(this.Instance.Locations, this.Instance.Services, newWindowLayout, this.Instance.RouterSettings);
+            return SaveInternal(newInstance, false);
+        }
+
+        public bool SaveRouterSettings(RouterSettings newRouterSettings)
+        {
+            var newInstance = new Config(this.Instance.Locations, this.Instance.Services, this.Instance.WindowLayout, newRouterSettings);
             return SaveInternal(newInstance, false);
         }
 

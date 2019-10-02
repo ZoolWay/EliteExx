@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Zw.EliteExx.Ui.EliteDangerous
+namespace Zw.EliteExx.Ui
 {
     public enum DoneState
     {

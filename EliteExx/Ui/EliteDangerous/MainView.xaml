@@ -16,6 +16,7 @@
         </Grid.Resources>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
@@ -33,20 +34,31 @@
             <ToggleButton FontFamily="{StaticResource FontAwesomeLight}" IsChecked="{Binding IsScrollBottom}">&#xf33d;</ToggleButton>
             <ToggleButton FontFamily="{StaticResource FontAwesomeLight}" IsChecked="{Binding ShowPosition}">&#xf3c5;</ToggleButton>
             <ToggleButton FontFamily="{StaticResource FontAwesomeLight}" IsChecked="{Binding ShowShip}">&#xf197;</ToggleButton>
+            <ToggleButton FontFamily="{StaticResource FontAwesomeLight}" IsChecked="{Binding ShowRouter}">&#xf4d7;</ToggleButton>
             <Separator Width="4" />
             <ToggleButton IsChecked="{Binding FilterHideBoringScans}" ToolTip="Hide Boring Scans">HBS</ToggleButton>
         </StackPanel>
 
-        <DockPanel LastChildFill="True" Grid.Row="1">
+        <Border Grid.Row="1" Style="{StaticResource VertSeperator}" />
 
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" DockPanel.Dock="Top" Margin="2" Visibility="{Binding ShowShip, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <StackPanel.Resources>
-                    <Style TargetType="TextBlock">
-                        <Setter Property="Margin" Value="0,0,4,0" />
-                    </Style>
-                </StackPanel.Resources>
-                <TextBlock Text="Ship" />
-                <TextBlock Text="{Binding ShipName}" FontWeight="Bold" />
+        <DockPanel LastChildFill="True" Grid.Row="2">
+
+            <StackPanel Orientation="Vertical" DockPanel.Dock="Top" Visibility="{Binding ShowShip, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" DockPanel.Dock="Top" Margin="2">
+                    <StackPanel.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Margin" Value="0,0,4,0" />
+                        </Style>
+                    </StackPanel.Resources>
+                    <TextBlock Text="Ship" />
+                    <TextBlock Text="{Binding ShipName}" FontWeight="Bold" />
+                </StackPanel>
+                <Border Style="{StaticResource VertSeperator}" />
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical" DockPanel.Dock="Top" Visibility="{Binding ShowRouter, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <ContentControl x:Name="Router" />
+                <Border Style="{StaticResource VertSeperator}" />
             </StackPanel>
 
             <DockPanel LastChildFill="True" HorizontalAlignment="Stretch" DockPanel.Dock="Top" Visibility="{Binding ShowPosition, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -70,12 +82,13 @@
                     <TextBlock Text="{Binding PositionSystemBodies}" ToolTip="{Binding PositionSystemBodies}" />
                     <TextBlock Text="{Binding PositionStarPos}" ToolTip="{Binding PositionStarPos}" />
                 </StackPanel>
+                <Border Style="{StaticResource VertSeperator}" DockPanel.Dock="Bottom" />
                 <ListView ItemsSource="{Binding SystemRowsView}" HorizontalAlignment="Stretch" DockPanel.Dock="Top" MaxHeight="800">
                     <ListView.Resources>
                         <local:SystemSummaryBodyTypeConverter x:Key="SystemSummaryBodyTypeConverter" />
                         <local:SystemSummaryDiscoveryConverter x:Key="SystemSummaryDiscoveryConverter" />
                         <local:SystemSummaryDiscoveryTooltipConverter x:Key="SystemSummaryDiscoveryTooltipConverter" />
-                        <local:DoneStateConverter x:Key="DoneStateConverter" />
+                        <converters:DoneStateConverter x:Key="DoneStateConverter" />
                         <Style TargetType="ListViewItem">
                             <Setter Property="Template" Value="{StaticResource ListItemWithHighlight}" />
                             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -188,7 +201,6 @@
                     </ListView.View>
                 </ListView>
             </DockPanel>
-
 
         </DockPanel>
     </Grid>

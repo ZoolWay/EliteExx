@@ -1,0 +1,20 @@
+﻿<Window x:Class="Zw.EliteExx.Ui.EliteDangerous.Router.WaypointView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Zw.EliteExx.Ui.EliteDangerous.Router"
+        mc:Ignorable="d"
+        Title="Waypoint" Height="106" Width="400">
+    <Grid Margin="8" FocusManager.FocusedElement="{Binding ElementName=Name}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <TextBox Grid.Row="0" x:Name="Name" HorizontalAlignment="Stretch" VerticalAlignment="Top" />
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Style="{StaticResource DialogControls}">
+            <Button x:Name="Save" IsDefault="True">Save</Button>
+            <Button x:Name="Cancel" IsCancel="True">Cancel</Button>
+        </StackPanel>
+    </Grid>
+</Window>

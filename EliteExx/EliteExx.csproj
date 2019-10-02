@@ -95,6 +95,8 @@
     </ApplicationDefinition>
     <Compile Include="Configuration.cs" />
     <Compile Include="Core\ActorSystemManager.cs" />
+    <Compile Include="Core\Config\RouterSettings.cs" />
+    <Compile Include="Core\Config\RouterWaypoint.cs" />
     <Compile Include="Core\DataOrigin.cs" />
     <Compile Include="Core\ScreenshotProcessorActor.cs" />
     <Compile Include="Core\ScreenshotProcessorMessage.cs" />
@@ -169,14 +171,23 @@
     <Compile Include="Ui\EliteDangerous\DisplayEventType.cs" />
     <Compile Include="Ui\EliteDangerous\DisplayEventTypeConverter.cs" />
     <Compile Include="Ui\EliteDangerous\DisplayEventTypeTooltipConverter.cs" />
-    <Compile Include="Ui\EliteDangerous\DoneState.cs" />
-    <Compile Include="Ui\EliteDangerous\DoneStateConverter.cs" />
+    <Compile Include="Ui\DoneState.cs" />
+    <Compile Include="Ui\Converters\DoneStateConverter.cs" />
     <Compile Include="Ui\EliteDangerous\IDisplayEventReceiver.cs" />
     <Compile Include="Ui\EliteDangerous\ISystemSummaryReceiver.cs" />
     <Compile Include="Ui\EliteDangerous\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ui\EliteDangerous\MainViewModel.cs" />
+    <Compile Include="Ui\EliteDangerous\Router\Item.cs" />
+    <Compile Include="Ui\EliteDangerous\Router\RouterView.xaml.cs">
+      <DependentUpon>RouterView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\EliteDangerous\Router\RouterViewModel.cs" />
+    <Compile Include="Ui\EliteDangerous\Router\WaypointView.xaml.cs">
+      <DependentUpon>WaypointView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\EliteDangerous\Router\WaypointViewModel.cs" />
     <Compile Include="Ui\EliteDangerous\SystemSummaryBodyTypeConverter.cs" />
     <Compile Include="Ui\EliteDangerous\SystemSummaryBuilder.cs" />
     <Compile Include="Ui\EliteDangerous\SystemSummaryDiscoveryConverter.cs" />
@@ -200,6 +211,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Ui\EliteDangerous\MainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\EliteDangerous\Router\RouterView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\EliteDangerous\Router\WaypointView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

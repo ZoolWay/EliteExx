@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Caliburn.Micro;
-using Zw.EliteExx.Core;
 
 namespace Zw.EliteExx
 {
@@ -27,6 +26,8 @@ namespace Zw.EliteExx
             container.Singleton<Core.ActorSystemManager>();
             container.PerRequest<Ui.IShell, Ui.ShellViewModel>();
             container.PerRequest<Ui.EliteDangerous.MainViewModel>();
+            container.PerRequest<Ui.EliteDangerous.Router.RouterViewModel>();
+            container.PerRequest<Ui.EliteDangerous.Router.WaypointViewModel>();
             container.PerRequest<Ui.Config.MainViewModel>();
         }
 
