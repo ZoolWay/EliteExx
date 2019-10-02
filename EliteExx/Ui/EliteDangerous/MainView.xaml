@@ -31,11 +31,11 @@
                     <Setter Property="Padding" Value="6,2,6,2" />
                 </Style>
             </StackPanel.Resources>
-            <ToggleButton FontFamily="{StaticResource FontAwesomeLight}" IsChecked="{Binding IsScrollBottom}">&#xf33d;</ToggleButton>
-            <ToggleButton FontFamily="{StaticResource FontAwesomeLight}" IsChecked="{Binding ShowPosition}">&#xf3c5;</ToggleButton>
             <ToggleButton FontFamily="{StaticResource FontAwesomeLight}" IsChecked="{Binding ShowShip}">&#xf197;</ToggleButton>
             <ToggleButton FontFamily="{StaticResource FontAwesomeLight}" IsChecked="{Binding ShowRouter}">&#xf4d7;</ToggleButton>
+            <ToggleButton FontFamily="{StaticResource FontAwesomeLight}" IsChecked="{Binding ShowPosition}">&#xf3c5;</ToggleButton>
             <Separator Width="4" />
+            <ToggleButton FontFamily="{StaticResource FontAwesomeLight}" IsChecked="{Binding IsScrollBottom}">&#xf33d;</ToggleButton>
             <ToggleButton IsChecked="{Binding FilterHideBoringScans}" ToolTip="Hide Boring Scans">HBS</ToggleButton>
         </StackPanel>
 
