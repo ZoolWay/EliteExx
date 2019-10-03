@@ -75,6 +75,8 @@ namespace Zw.EliteExx.EliteDangerous
                     return o.ToObject<EntryLoadout>();
                 case Event.SAAScanComplete:
                     return o.ToObject<EntrySaaScanComplete>();
+                case Event.FuelScoop:
+                    return o.ToObject<EntryFuelScoop>();
 
                 default:
                     log.Warning($"Not (yet) support event type '{@event}' encountered");
