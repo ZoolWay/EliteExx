@@ -44,15 +44,35 @@
         <DockPanel LastChildFill="True" Grid.Row="2">
 
             <StackPanel Orientation="Vertical" DockPanel.Dock="Top" Visibility="{Binding ShowShip, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" DockPanel.Dock="Top" Margin="2">
-                    <StackPanel.Resources>
-                        <Style TargetType="TextBlock">
-                            <Setter Property="Margin" Value="0,0,4,0" />
-                        </Style>
-                    </StackPanel.Resources>
-                    <TextBlock Text="Ship" />
-                    <TextBlock Text="{Binding ShipName}" FontWeight="Bold" />
-                </StackPanel>
+                <DockPanel LastChildFill="True">
+                    <Border Width="48" DockPanel.Dock="Right" Margin="4" BorderThickness="1" BorderBrush="Black">
+                        <ProgressBar Maximum="{Binding FuelCapacity}" Value="{Binding FuelLevel}" ToolTip="{Binding Path=FuelLevel, StringFormat='{}{0}t'}" BorderThickness="0">
+                            <ProgressBar.Resources>
+                                <converters:PercentageColorConverter x:Key="PercentageColorConverter" />
+                            </ProgressBar.Resources>
+                            <ProgressBar.Foreground>
+                                <SolidColorBrush>
+                                    <SolidColorBrush.Color>
+                                        <MultiBinding Converter="{StaticResource PercentageColorConverter}">
+                                            <Binding Path="FuelLevel" />
+                                            <Binding Path="FuelCapacity" />
+                                        </MultiBinding>
+                                    </SolidColorBrush.Color>
+                                </SolidColorBrush>
+                            </ProgressBar.Foreground>
+                        </ProgressBar>
+                    </Border>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="2">
+                        <StackPanel.Resources>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Margin" Value="0,0,6,0" />
+                            </Style>
+                        </StackPanel.Resources>
+                        <TextBlock Text="Ship" />
+                        <TextBlock Text="{Binding ShipName}" FontWeight="Bold" />
+                        <TextBlock Text="{Binding ShipIdent}" Typography.Capitals="AllSmallCaps" />
+                    </StackPanel>
+                </DockPanel>
                 <Border Style="{StaticResource VertSeperator}" />
             </StackPanel>
 

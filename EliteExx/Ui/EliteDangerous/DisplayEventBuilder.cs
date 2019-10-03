@@ -71,6 +71,10 @@ namespace Zw.EliteExx.Ui.EliteDangerous
             {
                 CreateDisplayEventForMetaMessage(mm);
             }
+            else if (entry is EntryFuelScoop fs)
+            {
+                CreateDisplayEventForFuelScoop(fs);
+            }
         }
 
         private void CreateDisplayEventForSurfaceScan(EntrySaaScanComplete ssc)
@@ -223,6 +227,12 @@ namespace Zw.EliteExx.Ui.EliteDangerous
                 Symbol1Tooltip = "jump",
             };
             this.receiver.Events.Add(de);
+            this.receiver.FuelLevel = j.FuelLevel;
+        }
+
+        private void CreateDisplayEventForFuelScoop(EntryFuelScoop fs)
+        {
+            this.receiver.FuelLevel = fs.Total;
         }
 
         private void CreateDisplayEventForLocation(EntryLocation l)
@@ -241,6 +251,8 @@ namespace Zw.EliteExx.Ui.EliteDangerous
         private void CreateDisplayEventForLoadout(EntryLoadout lo)
         {
             this.receiver.ShipName = lo.ShipName;
+            this.receiver.ShipIdent = lo.ShipIdent;
+            this.receiver.Ship = lo.Ship;
         }
 
         private void CreateDisplayEventForMetaMessage(EntryMetaMessage mm)
@@ -256,6 +268,10 @@ namespace Zw.EliteExx.Ui.EliteDangerous
         private void CreateDisplayEventForLoadGame(EntryLoadGame lg)
         {
             this.receiver.ShipName = lg.ShipName;
+            this.receiver.FuelCapacity = lg.FuelCapacity;
+            this.receiver.FuelLevel = lg.FuelLevel;
+            this.receiver.Ship = lg.Ship;
+            this.receiver.ShipIdent = lg.ShipIdent;
         }
 
         private string GetCombinedStarPos(StarPos starPos)

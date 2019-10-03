@@ -31,6 +31,10 @@ namespace Zw.EliteExx.Ui.EliteDangerous
         private bool showPosition;
         private bool showRouter;
         private string shipName;
+        private string ship;
+        private string shipIdent;
+        private double fuelLevel;
+        private double fuelCapacity;
         private bool filterHideBoringScans;
         private object routerViewModel;
 
@@ -151,6 +155,50 @@ namespace Zw.EliteExx.Ui.EliteDangerous
             {
                 if (String.Equals(this.shipName, value)) return;
                 this.shipName = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
+        public string Ship
+        {
+            get => this.ship;
+            set
+            {
+                if (String.Equals(this.ship, value)) return;
+                this.ship = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
+        public string ShipIdent
+        {
+            get => this.shipIdent;
+            set
+            {
+                if (String.Equals(this.shipIdent, value)) return;
+                this.shipIdent = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
+        public double FuelLevel
+        {
+            get => this.fuelLevel;
+            set
+            {
+                if (value == this.fuelLevel) return;
+                this.fuelLevel = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
+        public double FuelCapacity
+        {
+            get => this.fuelCapacity;
+            set
+            {
+                if (value == this.fuelCapacity) return;
+                this.fuelCapacity = value;
                 NotifyOfPropertyChange();
             }
         }

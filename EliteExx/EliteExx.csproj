@@ -136,6 +136,7 @@
     <Compile Include="EliteDangerous\Journal\EntryFsdTarget.cs" />
     <Compile Include="EliteDangerous\Journal\EntryFssAllBodiesFound.cs" />
     <Compile Include="EliteDangerous\Journal\EntryFssDiscoveryScan.cs" />
+    <Compile Include="EliteDangerous\Journal\EntryFuelScoop.cs" />
     <Compile Include="EliteDangerous\Journal\EntryLoadGame.cs" />
     <Compile Include="EliteDangerous\Journal\EntryLoadout.cs" />
     <Compile Include="EliteDangerous\Journal\EntryLocation.cs" />
@@ -165,6 +166,7 @@
     </Compile>
     <Compile Include="Ui\Config\MainViewModel.cs" />
     <Compile Include="Ui\Config\Services.cs" />
+    <Compile Include="Ui\Converters\PercentageColorConverter.cs" />
     <Compile Include="Ui\Converters\ZeroToEmptyConverter.cs" />
     <Compile Include="Ui\EliteDangerous\DisplayEvent.cs" />
     <Compile Include="Ui\EliteDangerous\DisplayEventBuilder.cs" />
