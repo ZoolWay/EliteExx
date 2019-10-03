@@ -28,6 +28,7 @@ namespace Zw.EliteExx
             container.PerRequest<Ui.EliteDangerous.MainViewModel>();
             container.PerRequest<Ui.EliteDangerous.Router.RouterViewModel>();
             container.PerRequest<Ui.EliteDangerous.Router.WaypointViewModel>();
+            container.PerRequest<Ui.EliteDangerous.Position.PositionViewModel>();
             container.PerRequest<Ui.Config.MainViewModel>();
         }
 

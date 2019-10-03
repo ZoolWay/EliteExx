@@ -2,16 +2,16 @@
 using System.Linq;
 using Zw.EliteExx.EliteDangerous.Journal;
 
-namespace Zw.EliteExx.Ui.EliteDangerous
+namespace Zw.EliteExx.Ui.EliteDangerous.Position
 {
-    internal class SystemSummaryBuilder
+    internal class PositionBuilder
     {
         private const string BELT_CLUSTER_ID = "Belt Cluster";
         private static readonly log4net.ILog log = global::log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        private readonly ISystemSummaryReceiver receiver;
+        private readonly IPositionReceiver receiver;
         private string currentSystem;
 
-        public SystemSummaryBuilder(ISystemSummaryReceiver receiver)
+        public PositionBuilder(IPositionReceiver receiver)
         {
             this.receiver = receiver;
             this.currentSystem = String.Empty;
@@ -22,15 +22,23 @@ namespace Zw.EliteExx.Ui.EliteDangerous
             if (entry is EntryLocation l)
             {
                 this.currentSystem = l.StarSystem;
+                this.receiver.PositionSystem = l.StarSystem;
+                this.receiver.PositionStarPos = GetCombinedStarPos(l.StarPos);
             }
             else if (entry is EntryFsdJump j)
             {
                 this.receiver.SystemRows.Clear();
                 this.currentSystem = j.StarSystem;
+                this.receiver.PositionSystem = j.StarSystem;
+                this.receiver.PositionStarPos = GetCombinedStarPos(j.StarPos);
             }
             else if (entry is EntryFssDiscoveryScan ds)
             {
-                // no creation of an entry, we already have a header!
+                this.receiver.PositionSystemBodies = $"({ds.BodyCount} bodies)";
+            }
+            else if (entry is EntryFssAllBodiesFound abf)
+            {
+                this.receiver.PositionSystemBodies = $"({abf.Count} bodies)";
             }
             else if (entry is EntryScanDetailed sd)
             {
@@ -53,6 +61,14 @@ namespace Zw.EliteExx.Ui.EliteDangerous
                 row.DoneState = DoneState.Done;
                 row.IsDiscovered = true;
                 row.IsMapped = true;
+            }
+            else if (entry is EntryUndocked u)
+            {
+                this.receiver.PositionStation = String.Empty;
+            }
+            else if (entry is EntryDocked d)
+            {
+                this.receiver.PositionStation = d.StationName;
             }
         }
 
@@ -109,6 +125,16 @@ namespace Zw.EliteExx.Ui.EliteDangerous
                 if (!String.IsNullOrWhiteSpace(det.PlanetClass)) return BodyType.Planet;
             }
             return BodyType.Unknown;
+        }
+
+        private string GetCombinedStarPos(StarPos starPos)
+        {
+            return $"({GetStarPos(starPos)})";
+        }
+
+        private string GetStarPos(StarPos starPos)
+        {
+            return String.Format("{0}/{1}/{2}", starPos.X, starPos.Y, starPos.Z);
         }
     }
 }

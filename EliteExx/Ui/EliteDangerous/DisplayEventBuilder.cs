@@ -98,7 +98,6 @@ namespace Zw.EliteExx.Ui.EliteDangerous
 
         private void CreateDisplayEventForFssDiscoveryScan(EntryFssDiscoveryScan fds)
         {
-            this.receiver.PositionSystemBodies = $"({fds.BodyCount} bodies)";
             this.receiver.Events.Add(new DisplayEvent()
             {
                 Text = $"{fds.Progress * 100}% {fds.BodyCount} bodies, {fds.NonBodyCount} non-bodies",
@@ -109,7 +108,6 @@ namespace Zw.EliteExx.Ui.EliteDangerous
 
         private void CreateDisplayEventForFssAllBodiesFound(EntryFssAllBodiesFound fabf)
         {
-            this.receiver.PositionSystemBodies = $"({fabf.Count} bodies)";
             this.receiver.Events.Add(new DisplayEvent()
             {
                 Text = $"{fabf.Count} bodies in {fabf.SystemName}, completed",
@@ -191,7 +189,6 @@ namespace Zw.EliteExx.Ui.EliteDangerous
 
         private void CreateDisplayEventForUndocked(EntryUndocked ud)
         {
-            this.receiver.PositionStation = String.Empty;
             DisplayEvent de = new DisplayEvent()
             {
                 Text = $"Undocked from {ud.StationName}",
@@ -204,7 +201,6 @@ namespace Zw.EliteExx.Ui.EliteDangerous
 
         private void CreateDisplayEventForDocked(EntryDocked docked)
         {
-            this.receiver.PositionStation = docked.StationName;
             DisplayEvent de = new DisplayEvent()
             {
                 Text = $"Docked at {docked.StationName} ({docked.StationType})",
@@ -217,8 +213,6 @@ namespace Zw.EliteExx.Ui.EliteDangerous
 
         private void CreateDisplayEventForJump(EntryFsdJump j)
         {
-            this.receiver.PositionSystem = j.StarSystem;
-            this.receiver.PositionStarPos = GetCombinedStarPos(j.StarPos);
             DisplayEvent de = new DisplayEvent()
             {
                 Text = $"Jumped to {j.StarSystem} ({j.JumpDist}ly dist, {j.FuelUsed}t fuel)",
@@ -237,8 +231,6 @@ namespace Zw.EliteExx.Ui.EliteDangerous
 
         private void CreateDisplayEventForLocation(EntryLocation l)
         {
-            this.receiver.PositionSystem = l.StarSystem;
-            this.receiver.PositionStarPos = GetCombinedStarPos(l.StarPos);
             DisplayEvent de = new DisplayEvent()
             {
                 Text = $"Location: {l.StarSystem}",
@@ -272,16 +264,6 @@ namespace Zw.EliteExx.Ui.EliteDangerous
             this.receiver.FuelLevel = lg.FuelLevel;
             this.receiver.Ship = lg.Ship;
             this.receiver.ShipIdent = lg.ShipIdent;
-        }
-
-        private string GetCombinedStarPos(StarPos starPos)
-        {
-            return $"({GetStarPos(starPos)})";
-        }
-
-        private string GetStarPos(StarPos starPos)
-        {
-            return String.Format("{0}/{1}/{2}", starPos.X, starPos.Y, starPos.Z);
         }
     }
 }

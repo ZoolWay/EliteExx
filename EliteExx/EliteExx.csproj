@@ -177,11 +177,15 @@
     <Compile Include="Ui\DoneState.cs" />
     <Compile Include="Ui\Converters\DoneStateConverter.cs" />
     <Compile Include="Ui\EliteDangerous\IDisplayEventReceiver.cs" />
-    <Compile Include="Ui\EliteDangerous\ISystemSummaryReceiver.cs" />
+    <Compile Include="Ui\EliteDangerous\Position\IPositionReceiver.cs" />
     <Compile Include="Ui\EliteDangerous\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ui\EliteDangerous\MainViewModel.cs" />
+    <Compile Include="Ui\EliteDangerous\Position\PositionView.xaml.cs">
+      <DependentUpon>PositionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ui\EliteDangerous\Position\PositionViewModel.cs" />
     <Compile Include="Ui\EliteDangerous\Router\Item.cs" />
     <Compile Include="Ui\EliteDangerous\Router\RouterView.xaml.cs">
       <DependentUpon>RouterView.xaml</DependentUpon>
@@ -191,11 +195,11 @@
       <DependentUpon>WaypointView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ui\EliteDangerous\Router\WaypointViewModel.cs" />
-    <Compile Include="Ui\EliteDangerous\SystemSummaryBodyTypeConverter.cs" />
-    <Compile Include="Ui\EliteDangerous\SystemSummaryBuilder.cs" />
-    <Compile Include="Ui\EliteDangerous\SystemSummaryDiscoveryConverter.cs" />
-    <Compile Include="Ui\EliteDangerous\SystemSummaryDiscoveryTooltipConverter.cs" />
-    <Compile Include="Ui\EliteDangerous\SystemSummaryRow.cs" />
+    <Compile Include="Ui\EliteDangerous\Position\SystemSummaryBodyTypeConverter.cs" />
+    <Compile Include="Ui\EliteDangerous\Position\PositionBuilder.cs" />
+    <Compile Include="Ui\EliteDangerous\Position\SystemSummaryDiscoveryConverter.cs" />
+    <Compile Include="Ui\EliteDangerous\Position\SystemSummaryDiscoveryTooltipConverter.cs" />
+    <Compile Include="Ui\EliteDangerous\Position\SystemSummaryRow.cs" />
     <Compile Include="Ui\Events\ConfigurationChanged.cs" />
     <Compile Include="Ui\Events\ScrollToItemCommand.cs" />
     <Compile Include="Ui\Events\ShellContextError.cs" />
@@ -214,6 +218,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Ui\EliteDangerous\MainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ui\EliteDangerous\Position\PositionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -3,7 +3,7 @@ using Caliburn.Micro;
 using Zw.EliteExx.Core;
 using Zw.EliteExx.EliteDangerous.Journal;
 
-namespace Zw.EliteExx.Ui.EliteDangerous
+namespace Zw.EliteExx.Ui.EliteDangerous.Position
 {
     public class SystemSummaryRow : PropertyChangedBase
     {

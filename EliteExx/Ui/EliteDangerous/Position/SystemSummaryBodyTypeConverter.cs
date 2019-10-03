@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Windows.Data;
 using Zw.EliteExx.EliteDangerous.Journal;
 
-namespace Zw.EliteExx.Ui.EliteDangerous
+namespace Zw.EliteExx.Ui.EliteDangerous.Position
 {
     public class SystemSummaryBodyTypeConverter : IValueConverter
     {

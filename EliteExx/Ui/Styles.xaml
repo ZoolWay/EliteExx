@@ -96,5 +96,6 @@
         <Setter Property="BorderBrush" Value="DarkSlateGray" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
     </Style>
+    <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
 </ResourceDictionary>
     
