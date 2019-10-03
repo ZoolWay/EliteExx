@@ -95,6 +95,7 @@
     </ApplicationDefinition>
     <Compile Include="Configuration.cs" />
     <Compile Include="Core\ActorSystemManager.cs" />
+    <Compile Include="Core\Config\MainLayout.cs" />
     <Compile Include="Core\Config\RouterSettings.cs" />
     <Compile Include="Core\Config\RouterWaypoint.cs" />
     <Compile Include="Core\DataOrigin.cs" />

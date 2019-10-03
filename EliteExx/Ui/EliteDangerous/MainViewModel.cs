@@ -14,6 +14,7 @@ namespace Zw.EliteExx.Ui.EliteDangerous
         private readonly IEventAggregator eventAggregator;
         private readonly IWindowManager windowManager;
         private readonly ActorSystemManager actorSystemManager;
+        private readonly Configuration configuration;
         private readonly BindableCollection<DisplayEvent> events;
         private readonly ICollectionView eventsView;
         private readonly DisplayEventBuilder displayEventBuilder;
@@ -123,6 +124,7 @@ namespace Zw.EliteExx.Ui.EliteDangerous
                 if (value == this.showPosition) return;
                 this.showPosition = value;
                 NotifyOfPropertyChange();
+                PersistLayout();
             }
         }
 
@@ -134,6 +136,7 @@ namespace Zw.EliteExx.Ui.EliteDangerous
                 if (value == this.showShip) return;
                 this.showShip = value;
                 NotifyOfPropertyChange();
+                PersistLayout();
             }
         }
 
@@ -145,6 +148,7 @@ namespace Zw.EliteExx.Ui.EliteDangerous
                 if (value == this.showRouter) return;
                 this.showRouter = value;
                 NotifyOfPropertyChange();
+                PersistLayout();
             }
         }
 
@@ -226,11 +230,12 @@ namespace Zw.EliteExx.Ui.EliteDangerous
         public BindableCollection<SystemSummaryRow> SystemRows => this.systemRows;
         public ICollectionView SystemRowsView => this.systemRowsView;
 
-        public MainViewModel(IEventAggregator eventAggregator, IWindowManager windowManager, ActorSystemManager actorSystemManager)
+        public MainViewModel(IEventAggregator eventAggregator, IWindowManager windowManager, ActorSystemManager actorSystemManager, Configuration configuration)
         {
             this.eventAggregator = eventAggregator;
             this.windowManager = windowManager;
             this.actorSystemManager = actorSystemManager;
+            this.configuration = configuration;
 
             this.positionSystem = "-- waiting --";
             this.positionStarPos = String.Empty;
@@ -254,6 +259,8 @@ namespace Zw.EliteExx.Ui.EliteDangerous
             var vmRouter = IoC.Get<Router.RouterViewModel>();
             this.routerViewModel = vmRouter;
             ScreenExtensions.ActivateWith(vmRouter, this);
+
+            LoadLayout();
         }
 
         public void Handle(Entry entry)
@@ -289,6 +296,19 @@ namespace Zw.EliteExx.Ui.EliteDangerous
         protected override void OnDeactivate(bool close)
         {
             if (close) this.eventAggregator.Unsubscribe(this);
+        }
+
+        private void LoadLayout()
+        {
+            this.ShowPosition = this.configuration.Instance.MainLayout?.ShowPosition.GetValueOrDefault(false) ?? false;
+            this.ShowShip = this.configuration.Instance.MainLayout?.ShowShip.GetValueOrDefault(true) ?? true;
+            this.ShowRouter = this.configuration.Instance.MainLayout?.ShowRouter.GetValueOrDefault(false) ?? false;
+        }
+
+        private void PersistLayout()
+        {
+            Core.Config.MainLayout newLayout = new Core.Config.MainLayout(this.ShowShip, this.ShowRouter, this.ShowPosition);
+            this.configuration.SaveMainLayout(newLayout);
         }
 
         private bool FilterDisplayEvents(object o)

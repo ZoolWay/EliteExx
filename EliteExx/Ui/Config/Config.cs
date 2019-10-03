@@ -25,11 +25,11 @@ namespace Zw.EliteExx.Ui.Config
             this.Services.CollectScreenshots = configurationModel?.Services?.CollectScreenshots ?? false;
         }
 
-        public Core.Config.Config BuildModel(Core.Config.WindowLayout existingWindowLayout, Core.Config.RouterSettings existingRouterSettings)
+        public Core.Config.Config BuildModel(Core.Config.WindowLayout existingWindowLayout, Core.Config.RouterSettings existingRouterSettings, Core.Config.MainLayout existingMainLayout)
         {
             Core.Config.Locations locations = new Core.Config.Locations(this.Locations.FolderLogs, this.Locations.FolderScreenshotsSteam, this.Locations.FolderScreenshotsElite, this.Locations.FolderCollectedScreenshots);
             Core.Config.Services services = new Core.Config.Services(this.Services.JournalParser, this.Services.ScreenshotConverter, this.Services.CollectScreenshots);
-            Core.Config.Config configModel = new Core.Config.Config(locations, services, existingWindowLayout, existingRouterSettings);
+            Core.Config.Config configModel = new Core.Config.Config(locations, services, existingWindowLayout, existingRouterSettings, existingMainLayout);
             return configModel;
         }
     }
