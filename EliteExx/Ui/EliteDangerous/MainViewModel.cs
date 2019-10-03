@@ -213,7 +213,7 @@ namespace Zw.EliteExx.Ui.EliteDangerous
         public void Handle(Entry entry)
         {
             this.CountProcessedEntries++;
-            this.displayEventBuilder.CreateDisplayEventFor(entry);
+            this.displayEventBuilder.Process(entry);
         }
 
         public void ClearEvents()

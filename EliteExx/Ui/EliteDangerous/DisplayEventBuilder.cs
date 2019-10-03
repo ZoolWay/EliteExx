@@ -13,7 +13,7 @@ namespace Zw.EliteExx.Ui.EliteDangerous
             this.receiver = receiver;
         }
 
-        public void CreateDisplayEventFor(Entry entry)
+        public void Process(Entry entry)
         {
             if (entry is EntryFsdJump j)
             {
