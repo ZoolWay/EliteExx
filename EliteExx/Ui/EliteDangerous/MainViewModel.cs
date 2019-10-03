@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows.Data;
-using System.Windows.Input;
 using Caliburn.Micro;
 using Zw.EliteExx.Core;
 using Zw.EliteExx.EliteDangerous.Journal;
