@@ -108,11 +108,11 @@ namespace Zw.EliteExx.Ui.EliteDangerous.Router
         {
             if (this.selectedItem == null) return;
             var vm = IoC.Get<WaypointViewModel>();
-            vm.Name = this.selectedItem.Name;
+            vm.WpName = this.selectedItem.Name;
             var result = this.windowManager.ShowDialog(vm);
             if (result.GetValueOrDefault(false))
             {
-                this.selectedItem.Name = vm.Name;
+                this.selectedItem.Name = vm.WpName;
                 PersistRouterSettings();
             }
         }
@@ -153,11 +153,11 @@ namespace Zw.EliteExx.Ui.EliteDangerous.Router
         private void CreateWaypoint(int position)
         {
             var vm = IoC.Get<WaypointViewModel>();
-            vm.Name = String.Empty;
+            vm.WpName = String.Empty;
             var result = this.windowManager.ShowDialog(vm);
             if (result.GetValueOrDefault(false))
             {
-                Item newItem = new Item() { Name = vm.Name, Done = DoneState.NotDone, Order = 1 };
+                Item newItem = new Item() { Name = vm.WpName, Done = DoneState.NotDone, Order = 1 };
                 if (this.routeItems.Count > 0)
                 {
                     var maxOrder = this.routeItems.Max(i => i.Order);

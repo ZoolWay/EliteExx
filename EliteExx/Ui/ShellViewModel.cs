@@ -18,7 +18,7 @@ namespace Zw.EliteExx.Ui
         private double windowTop;
         private double windowWidth;
         private double windowHeight;
-        private object content;
+        private object canvasContent;
 
         public double WindowLeft
         {
@@ -64,13 +64,13 @@ namespace Zw.EliteExx.Ui
             }
         }
 
-        public object Content
+        public object CanvasContent
         {
-            get => this.content;
+            get => this.canvasContent;
             set
             {
-                if (Object.ReferenceEquals(value, this.content)) return;
-                this.content = value;
+                if (Object.ReferenceEquals(value, this.canvasContent)) return;
+                this.canvasContent = value;
                 NotifyOfPropertyChange();
             }
         }
@@ -83,7 +83,7 @@ namespace Zw.EliteExx.Ui
             this.actorSystemManager = actorSystemManager;
             InitWindowLayout();
             var edMain = IoC.Get<EliteDangerous.MainViewModel>();
-            this.Content = edMain;
+            this.CanvasContent = edMain;
             ScreenExtensions.ActivateWith(edMain, this);
         }
 

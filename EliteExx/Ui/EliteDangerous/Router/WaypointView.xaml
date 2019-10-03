@@ -11,7 +11,7 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <TextBox Grid.Row="0" x:Name="Name" HorizontalAlignment="Stretch" VerticalAlignment="Top" />
+        <TextBox Grid.Row="0" x:Name="WpName" HorizontalAlignment="Stretch" VerticalAlignment="Top" />
         <StackPanel Grid.Row="1" Orientation="Horizontal" Style="{StaticResource DialogControls}">
             <Button x:Name="Save" IsDefault="True">Save</Button>
             <Button x:Name="Cancel" IsCancel="True">Cancel</Button>

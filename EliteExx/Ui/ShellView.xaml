@@ -36,6 +36,6 @@
             <Label Grid.Row="0" FontWeight="Bold" cal:Message.Attach="[Event MouseDown] = [Action TitleMouseDown($eventArgs)]"
                    Margin="0" Padding="2" >Elite Exx</Label>
         </DockPanel>
-        <ContentControl x:Name="Content" Grid.Row="1" Margin="1" />
+        <ContentControl x:Name="CanvasContent" Grid.Row="1" Margin="1" />
     </Grid>
 </Window>
