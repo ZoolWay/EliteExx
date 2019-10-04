@@ -44,6 +44,7 @@ namespace Zw.EliteExx.EliteDangerous
                 case Journal.Event.Fileheader:
                 case Journal.Event.LoadGame:
                 case Journal.Event.Loadout:
+                case Journal.Event.FuelScoop:
                     this.uiMessenger.Tell(new UiMessengerMessage.Publish(message.Entry));
                     break;
             }
