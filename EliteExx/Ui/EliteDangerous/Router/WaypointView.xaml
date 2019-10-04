@@ -5,13 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Zw.EliteExx.Ui.EliteDangerous.Router"
         mc:Ignorable="d"
-        Title="Waypoint" Height="106" Width="400">
-    <Grid Margin="8" FocusManager.FocusedElement="{Binding ElementName=WpName}">
+        Title="Waypoint" Height="208" Width="600">
+    <Grid Margin="8" FocusManager.FocusedElement="{Binding ElementName=WpName}" Style="{StaticResource DialogMainGrid}">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <TextBox Grid.Row="0" x:Name="WpName" HorizontalAlignment="Stretch" VerticalAlignment="Top" />
+        <ScrollViewer>
+            <StackPanel Style="{StaticResource DialogRows}">
+                <DockPanel>
+                    <Label>Name</Label>
+                    <TextBox x:Name="WpName" />
+                </DockPanel>
+                <DockPanel>
+                    <Label>Notes</Label>
+                    <TextBox x:Name="Notes" AcceptsReturn="True" AcceptsTab="True" Height="82" />
+                </DockPanel>
+            </StackPanel>
+        </ScrollViewer>
         <StackPanel Grid.Row="1" Orientation="Horizontal" Style="{StaticResource DialogControls}">
             <Button x:Name="Save" IsDefault="True">Save</Button>
             <Button x:Name="Cancel" IsCancel="True">Cancel</Button>

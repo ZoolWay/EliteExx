@@ -9,6 +9,7 @@ namespace Zw.EliteExx.Ui.EliteDangerous.Router
         private string name;
         private DoneState done;
         private bool isHighlighted;
+        private string notes;
 
         public int Order
         {
@@ -50,6 +51,17 @@ namespace Zw.EliteExx.Ui.EliteDangerous.Router
             {
                 if (value == this.isHighlighted) return;
                 this.isHighlighted = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
+        public string Notes
+        {
+            get => this.notes;
+            set
+            {
+                if (String.Equals(value, this.notes)) return;
+                this.notes = value;
                 NotifyOfPropertyChange();
             }
         }

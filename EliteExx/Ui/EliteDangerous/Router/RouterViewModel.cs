@@ -110,10 +110,12 @@ namespace Zw.EliteExx.Ui.EliteDangerous.Router
             if (this.selectedItem == null) return;
             var vm = IoC.Get<WaypointViewModel>();
             vm.WpName = this.selectedItem.Name;
+            vm.Notes = this.selectedItem.Notes;
             var result = this.windowManager.ShowDialog(vm);
             if (result.GetValueOrDefault(false))
             {
                 this.selectedItem.Name = vm.WpName;
+                this.selectedItem.Notes = vm.Notes;
                 PersistRouterSettings();
             }
         }
@@ -140,7 +142,7 @@ namespace Zw.EliteExx.Ui.EliteDangerous.Router
 
         private void PersistRouterSettings()
         {
-            Core.Config.RouterSettings newRouterSettings = new Core.Config.RouterSettings(this.routeItems.Select(i => new Core.Config.RouterWaypoint(i.Order, i.Name, i.Done == DoneState.Done)), this.hideDone);
+            Core.Config.RouterSettings newRouterSettings = new Core.Config.RouterSettings(this.routeItems.Select(i => new Core.Config.RouterWaypoint(i.Order, i.Name, i.Done == DoneState.Done, i.Notes)), this.hideDone);
             this.configuration.SaveRouterSettings(newRouterSettings);
         }
 
@@ -149,7 +151,7 @@ namespace Zw.EliteExx.Ui.EliteDangerous.Router
             var existingRouterSettings = this.configuration.Instance?.RouterSettings;
             if (existingRouterSettings == null) return;
             this.HideDone = existingRouterSettings.HideDone;
-            var newVmItems = existingRouterSettings.Waypoints.Select(w => new Item() { Order = w.Order, Name = w.Name, Done = w.IsDone ? DoneState.Done : DoneState.NotDone });
+            var newVmItems = existingRouterSettings.Waypoints.Select(w => new Item() { Order = w.Order, Name = w.Name, Done = w.IsDone ? DoneState.Done : DoneState.NotDone, Notes = w.Notes });
             this.routeItems.AddRange(newVmItems);
         }
 
@@ -157,10 +159,11 @@ namespace Zw.EliteExx.Ui.EliteDangerous.Router
         {
             var vm = IoC.Get<WaypointViewModel>();
             vm.WpName = String.Empty;
+            vm.Notes = String.Empty;
             var result = this.windowManager.ShowDialog(vm);
             if (result.GetValueOrDefault(false))
             {
-                Item newItem = new Item() { Name = vm.WpName, Done = DoneState.NotDone, Order = 1 };
+                Item newItem = new Item() { Name = vm.WpName, Done = DoneState.NotDone, Order = 1, Notes = vm.Notes };
                 this.routeItems.Insert(position, newItem);
                 RearrangeOrderNumbers();
                 PersistRouterSettings();
