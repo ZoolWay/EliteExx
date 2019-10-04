@@ -93,11 +93,20 @@ namespace Zw.EliteExx.EliteDangerous
                 log.Error($"Could not detect scan type for {scanTypeText}");
                 scanType = ScanType.Unknown;
             }
-            if (scanType == ScanType.AutoScan)
+            // check if we have an AutoScan with detailed data
+            bool hasDetailData = false;
+            var checkPlanetData = o["PlanetClass"];
+            if (checkPlanetData != null)
+            {
+                string planetClass = checkPlanetData.Value<string>();
+                if (!String.IsNullOrWhiteSpace(planetClass)) hasDetailData = true;
+            }
+
+            if ((scanType == ScanType.AutoScan) && (!hasDetailData))
             {
                 return o.ToObject<EntryScanAutoScan>();
             }
-            else if (scanType == ScanType.Detailed)
+            else if ((scanType == ScanType.Detailed) || (hasDetailData))
             {
                 return o.ToObject<EntryScanDetailed>();
             }
