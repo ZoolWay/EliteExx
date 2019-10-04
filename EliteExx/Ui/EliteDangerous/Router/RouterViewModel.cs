@@ -131,8 +131,10 @@ namespace Zw.EliteExx.Ui.EliteDangerous.Router
             // check if we reached waypoint
             var match = this.routeItems.FirstOrDefault(i => String.Equals(i.Name, jump.StarSystem));
             if (match == null) return;
+            bool changedDone = (match.Done != DoneState.Done);
             match.Done = DoneState.Done;
-            this.actorSystemManager.UiProcessor.Tell(new UiMessengerMessage.Publish(new EliteExx.EliteDangerous.Journal.EntryMetaMessage(DateTime.UtcNow, Event.MetaMessage, $"Reached waypoint '{match.Name}'")));
+            this.actorSystemManager.UiMessenger.Tell(new UiMessengerMessage.Publish(new EliteExx.EliteDangerous.Journal.EntryMetaMessage(DateTime.UtcNow, Event.MetaMessage, $"Reached waypoint #{match.Order} '{match.Name}'")));
+            if (changedDone) PersistRouterSettings();
         }
 
         private void PersistRouterSettings()
