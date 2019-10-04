@@ -96,6 +96,7 @@ namespace Zw.EliteExx.Ui.EliteDangerous.Router
             this.routeItems.Remove(this.selectedItem);
             RearrangeOrderNumbers();
             PersistRouterSettings();
+            this.routeItemsView.Refresh();
         }
 
         public void CopySelected()
@@ -160,13 +161,10 @@ namespace Zw.EliteExx.Ui.EliteDangerous.Router
             if (result.GetValueOrDefault(false))
             {
                 Item newItem = new Item() { Name = vm.WpName, Done = DoneState.NotDone, Order = 1 };
-                if (this.routeItems.Count > 0)
-                {
-                    var maxOrder = this.routeItems.Max(i => i.Order);
-                    newItem.Order = maxOrder + 1;
-                }
                 this.routeItems.Insert(position, newItem);
+                RearrangeOrderNumbers();
                 PersistRouterSettings();
+                this.routeItemsView.Refresh();
             }
         }
 
