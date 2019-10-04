@@ -30,5 +30,6 @@ namespace Zw.EliteExx.EliteDangerous.Journal
         StationMenu,
         Powerplay,
         OnDockMission,
+        Shop,
     }
 }
