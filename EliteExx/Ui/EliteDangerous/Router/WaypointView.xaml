@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Zw.EliteExx.Ui.EliteDangerous.Router"
         mc:Ignorable="d"
         Title="Waypoint" Height="106" Width="400">
-    <Grid Margin="8" FocusManager.FocusedElement="{Binding ElementName=Name}">
+    <Grid Margin="8" FocusManager.FocusedElement="{Binding ElementName=WpName}">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
