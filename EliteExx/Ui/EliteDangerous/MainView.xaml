@@ -105,21 +105,21 @@
                     <ListView.View>
                         <GridView>
                             <GridView.Columns>
-                                <GridViewColumn Header="T" Width="24">
+                                <GridViewColumn Header="T" Width="26">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding Path=., Converter={StaticResource DisplayEventTypeConverter}}" FontFamily="{StaticResource FontAwesomeSolid}" ToolTip="{Binding Path=., Converter={StaticResource DisplayEventTypeTooltipConverter}, ConverterParameter=Root}" />
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Header="1" Width="24">
+                                <GridViewColumn Header="1" Width="26">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding Path=Symbol1, Converter={StaticResource ZeroToEmptyConverter}}" FontFamily="{StaticResource FontAwesomeSolid}" ToolTip="{Binding Path=., Converter={StaticResource DisplayEventTypeTooltipConverter}, ConverterParameter=Symbol1}" />
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Header="2" Width="24">
+                                <GridViewColumn Header="2" Width="26">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding Path=Symbol2, Converter={StaticResource ZeroToEmptyConverter}}" FontFamily="{StaticResource FontAwesomeSolid}" ToolTip="{Binding Path=., Converter={StaticResource DisplayEventTypeTooltipConverter}, ConverterParameter=Symbol2}" />
