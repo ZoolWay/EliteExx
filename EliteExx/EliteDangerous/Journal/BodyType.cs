@@ -6,6 +6,7 @@ namespace Zw.EliteExx.EliteDangerous.Journal
     {
         Unknown,
         Null,
+        BeltCluster,
         PlanetaryRing,
         Planet,
         Star,

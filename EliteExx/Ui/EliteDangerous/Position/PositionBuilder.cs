@@ -123,6 +123,7 @@ namespace Zw.EliteExx.Ui.EliteDangerous.Position
         private BodyType DetectBodyType(EntryScanAutoScan scan)
         {
             if (!String.IsNullOrWhiteSpace(scan.StarType)) return BodyType.Star;
+            if (scan.BodyName.Contains(BELT_CLUSTER_ID)) return BodyType.BeltCluster;
             var det = (scan as EntryScanDetailed);
             if (det != null)
             {

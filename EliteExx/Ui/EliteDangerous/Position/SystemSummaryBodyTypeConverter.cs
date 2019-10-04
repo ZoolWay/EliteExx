@@ -15,6 +15,7 @@ namespace Zw.EliteExx.Ui.EliteDangerous.Position
             if (bt == BodyType.Planet) return '\xf111'; // circle
             if (bt == BodyType.PlanetaryRing) return '\xf70b'; // ring
             if (bt == BodyType.Station) return '\xf1b2'; // cube
+            if (bt == BodyType.BeltCluster) return '\xf753'; // meteor
             return "\xf059"; // question-circle
         }
 
