@@ -74,7 +74,11 @@ namespace Zw.EliteExx.Ui.EliteDangerous.Position
 
         private string ComposeExtraInfo(SystemSummaryRow row, EntryScanAutoScan sas)
         {
-            if (row.BodyType == BodyType.Star) return $"Startype: {sas.StarType}";
+            if (row.BodyType == BodyType.Star)
+            {
+                if (sas.StarType == "N") return "Neutron star";
+                return $"Startype: {sas.StarType}";
+            }
 
             EntryScanDetailed sd = sas as EntryScanDetailed;
             if (sd != null)
