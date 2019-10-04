@@ -23,6 +23,8 @@ namespace Zw.EliteExx.Core
 
         public IActorRef UiProcessor => this.uiProcessor;
 
+        public IActorRef UiMessenger => this.uiMessenger;
+
         public ActorSystemManager(IEventAggregator eventAggregator, EnvManager envManager, Configuration configuration)
         {
             this.eventAggregator = eventAggregator;
