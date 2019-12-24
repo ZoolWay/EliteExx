@@ -56,11 +56,28 @@ namespace Zw.EliteExx.Core
         }
 
         /// <summary>
+        /// Sends the actor system the given message.
+        /// </summary>
+        /// <param name="message"></param>
+        public void Tell(IConnectorMessage message)
+        {
+            this.connectorManager.Tell(message);
+        }
+
+        /// <summary>
         /// Initialize the Elite Dangerous connector. Call once.
         /// </summary>
         public void InitEliteDangerousConnector()
         {
             this.connectorManager.Tell(new ConnectorManagerMessage.InitEliteDangerous());
+        }
+
+        /// <summary>
+        /// Initialize the EDSM connector. Call once.
+        /// </summary>
+        public void InitEdsmConnector()
+        {
+            this.connectorManager.Tell(new ConnectorManagerMessage.InitEdsm());
         }
 
         public Task Shutdown()

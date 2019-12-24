@@ -3,11 +3,12 @@ using System.ComponentModel;
 using System.Windows.Data;
 using Caliburn.Micro;
 using Zw.EliteExx.Core;
+using Zw.EliteExx.Edsm;
 using Zw.EliteExx.EliteDangerous.Journal;
 
 namespace Zw.EliteExx.Ui.EliteDangerous
 {
-    public class MainViewModel : Screen, IHandle<Entry>, IDisplayEventReceiver
+    public class MainViewModel : Screen, IHandle<Entry>, IHandle<Edsm.EliteServerState>, IDisplayEventReceiver
     {
         private static readonly log4net.ILog log = global::log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly IEventAggregator eventAggregator;
@@ -216,6 +217,11 @@ namespace Zw.EliteExx.Ui.EliteDangerous
             this.displayEventBuilder.Process(entry);
         }
 
+        public void Handle(EliteServerState message)
+        {
+            this.events.Add(new DisplayEvent() { Text = $"Elite Server: {message.Message}" } );
+        }
+
         public void ClearEvents()
         {
             this.events.Clear();
@@ -223,8 +229,10 @@ namespace Zw.EliteExx.Ui.EliteDangerous
 
         protected override void OnInitialize()
         {
-            this.actorSystemManager.InitEliteDangerousConnector();
             this.eventAggregator.Subscribe(this);
+            this.actorSystemManager.InitEdsmConnector();
+            this.actorSystemManager.InitEliteDangerousConnector();
+            this.actorSystemManager.Tell(new Edsm.ConnectorMessage.RequestEliteServerState());
         }
 
         protected override void OnDeactivate(bool close)

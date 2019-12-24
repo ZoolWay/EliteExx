@@ -28,6 +28,16 @@ namespace Zw.EliteExx.Core
         }
 
         /// <summary>
+        /// Message to start the EDSM Connector.
+        /// Sent by: ActorSystemManager.
+        /// Received by: ConnectorManager.
+        /// Rate: Only once.
+        /// </summary>
+        public class InitEdsm : ConnectorManagerMessage
+        {
+        }
+
+        /// <summary>
         /// Message to notify about an updated configuration.
         /// Sent by: ActorSystemManager.
         /// Received by: ConnectorManager, connector actors.

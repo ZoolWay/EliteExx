@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Zw.EliteExx.Ui.EliteDangerous.Router"
         mc:Ignorable="d"
-        Title="Waypoint" Height="208" Width="600">
+        Title="Waypoint" Height="208" Width="600" WindowStartupLocation="CenterScreen">
     <Grid Margin="8" FocusManager.FocusedElement="{Binding ElementName=WpName}" Style="{StaticResource DialogMainGrid}">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />

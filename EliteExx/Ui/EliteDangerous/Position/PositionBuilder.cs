@@ -9,24 +9,34 @@ namespace Zw.EliteExx.Ui.EliteDangerous.Position
         private const string BELT_CLUSTER_ID = "Belt Cluster";
         private static readonly log4net.ILog log = global::log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly IPositionReceiver receiver;
+        private readonly Core.ActorSystemManager actorSystemManager;
         private string currentSystem;
 
-        public PositionBuilder(IPositionReceiver receiver)
+        public PositionBuilder(IPositionReceiver receiver, Core.ActorSystemManager asm)
         {
             this.receiver = receiver;
+            this.actorSystemManager = asm;
             this.currentSystem = String.Empty;
+        }
+
+        public void Process(Edsm.SystemData systemData)
+        {
+
         }
 
         public void Process(Entry entry)
         {
+            bool locationChanged = false;
             if (entry is EntryLocation l)
             {
+                locationChanged = (String.Equals(this.currentSystem, l.StarSystem));
                 this.currentSystem = l.StarSystem;
                 this.receiver.PositionSystem = l.StarSystem;
                 this.receiver.PositionStarPos = GetCombinedStarPos(l.StarPos);
             }
             else if (entry is EntryFsdJump j)
             {
+                locationChanged = (String.Equals(this.currentSystem, j.StarSystem));
                 this.receiver.SystemRows.Clear();
                 this.currentSystem = j.StarSystem;
                 this.receiver.PositionSystem = j.StarSystem;
@@ -69,6 +79,11 @@ namespace Zw.EliteExx.Ui.EliteDangerous.Position
             else if (entry is EntryDocked d)
             {
                 this.receiver.PositionStation = d.StationName;
+            }
+
+            if (locationChanged)
+            {
+                this.actorSystemManager.Tell(new Edsm.ConnectorMessage.RequestSystemData(this.currentSystem));
             }
         }
 

@@ -5,7 +5,7 @@ namespace Zw.EliteExx.EliteDangerous
     /// <summary>
     /// Actor messages around the Elite Dangerous connector.
     /// </summary>
-    public abstract class ConnectorMessage
+    public abstract class ConnectorMessage : Core.IConnectorMessage
     {
         /// <summary>
         /// Message to initialize the Elite Dangerous Connector.

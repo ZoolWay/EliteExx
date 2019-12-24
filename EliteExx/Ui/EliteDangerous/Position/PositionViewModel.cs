@@ -7,13 +7,14 @@ using Zw.EliteExx.EliteDangerous.Journal;
 
 namespace Zw.EliteExx.Ui.EliteDangerous.Position
 {
-    public class PositionViewModel : Screen, IPositionReceiver, IHandle<Entry>
+    public class PositionViewModel : Screen, IPositionReceiver, IHandle<Entry>, IHandle<Edsm.SystemData>
     {
         private static readonly log4net.ILog log = global::log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly IEventAggregator eventAggregator;
         private readonly BindableCollection<SystemSummaryRow> systemRows;
         private readonly ICollectionView systemRowsView;
         private readonly PositionBuilder systemSummaryBuilder;
+        private readonly Core.ActorSystemManager actorSystemManager;
         private string positionSystem;
         private string positionStarPos;
         private string positionStation;
@@ -66,9 +67,10 @@ namespace Zw.EliteExx.Ui.EliteDangerous.Position
         public BindableCollection<SystemSummaryRow> SystemRows => this.systemRows;
         public ICollectionView SystemRowsView => this.systemRowsView;
 
-        public PositionViewModel(IEventAggregator eventAggregator)
+        public PositionViewModel(IEventAggregator eventAggregator, Core.ActorSystemManager asm)
         {
             this.eventAggregator = eventAggregator;
+            this.actorSystemManager = asm;
 
             this.positionSystem = "-- waiting --";
             this.positionStarPos = String.Empty;
@@ -77,7 +79,7 @@ namespace Zw.EliteExx.Ui.EliteDangerous.Position
             this.systemRows = new BindableCollection<SystemSummaryRow>();
             this.systemRowsView = CollectionViewSource.GetDefaultView(this.systemRows);
             this.systemRowsView.SortDescriptions.Add(new SortDescription("Order", ListSortDirection.Ascending));
-            this.systemSummaryBuilder = new PositionBuilder(this);
+            this.systemSummaryBuilder = new PositionBuilder(this, this.actorSystemManager);
         }
 
         public void CopyPosSysNameToClip(MouseButtonEventArgs e)
@@ -95,6 +97,11 @@ namespace Zw.EliteExx.Ui.EliteDangerous.Position
         public void Handle(Entry entry)
         {
             this.systemSummaryBuilder.Process(entry);
+        }
+
+        public void Handle(Edsm.SystemData systemData)
+        {
+            this.systemSummaryBuilder.Process(systemData);
         }
 
         protected override void OnInitialize()

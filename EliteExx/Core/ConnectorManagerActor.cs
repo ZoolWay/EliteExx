@@ -1,7 +1,6 @@
 ﻿using System;
 using Akka.Actor;
 using Zw.EliteExx.Core.Config;
-using Zw.EliteExx.EliteDangerous;
 
 namespace Zw.EliteExx.Core
 {
@@ -15,6 +14,7 @@ namespace Zw.EliteExx.Core
         private readonly IActorRef uiMessenger;
         private Config.Config config;
         private IActorRef edConnector;
+        private IActorRef edsmConnector;
 
         public ConnectorManagerActor(Env env, Config.Config config, IActorRef uiMessenger)
         {
@@ -22,11 +22,21 @@ namespace Zw.EliteExx.Core
             this.config = config;
             this.uiMessenger = uiMessenger;
             this.edConnector = ActorRefs.Nobody;
+            this.edsmConnector = ActorRefs.Nobody;
 
             Receive((Action<EliteDangerous.ConnectorMessage>)ReceivedEliteDangerousConnectorMessage);
+            Receive((Action<Edsm.ConnectorMessage>)ReceivedEdsmConnectorMessage);
             Receive((Action<ConnectorManagerMessage.InitEliteDangerous>)ReceivedInitEliteDangerous);
+            Receive((Action<ConnectorManagerMessage.InitEdsm>)ReceivedInitEdsm);
             Receive((Action<ConnectorManagerMessage.Init>)ReceivedInit);
             Receive((Action<Core.ConnectorManagerMessage.ConfigUpdated>)ReceivedConfigUpdated);
+        }
+
+        private void ReceivedInitEdsm(ConnectorManagerMessage.InitEdsm message)
+        {
+            log.Info("Initializing the EDSM Connector");
+            this.edsmConnector = Context.ActorOf(Props.Create(() => new Edsm.ConnectorActor(this.env, this.config, this.uiMessenger)), "cn-edsm");
+            this.edsmConnector.Tell(new Edsm.ConnectorMessage.Init());
         }
 
         private void ReceivedInitEliteDangerous(ConnectorManagerMessage.InitEliteDangerous message)
@@ -36,7 +46,12 @@ namespace Zw.EliteExx.Core
             this.edConnector.Tell(new EliteDangerous.ConnectorMessage.Init());
         }
 
-        private void ReceivedEliteDangerousConnectorMessage(ConnectorMessage message)
+        private void ReceivedEdsmConnectorMessage(Edsm.ConnectorMessage message)
+        {
+            this.edsmConnector.Tell(message);
+        }
+
+        private void ReceivedEliteDangerousConnectorMessage(EliteDangerous.ConnectorMessage message)
         {
             this.edConnector.Tell(message);
         }
