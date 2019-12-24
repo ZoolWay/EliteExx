@@ -127,12 +127,10 @@ namespace Zw.EliteExx.Core
             if (File.Exists(scanStateFile))
             {
                 string contents = File.ReadAllText(scanStateFile, SCANSTATE_ENCODING);
-                rootnode = JObject.Parse(contents);
-            }
-            else
-            {
-                rootnode = new JObject();
-            }
+                if (!String.IsNullOrWhiteSpace(contents)) rootnode = JObject.Parse(contents);
+            }            
+            if (rootnode == null) rootnode = new JObject();
+
             JObject directoryNode = null;
             if (rootnode.ContainsKey(this.directory))
             {
@@ -158,6 +156,7 @@ namespace Zw.EliteExx.Core
             string scanStateFile = GetScanStateFile();
             if (!File.Exists(scanStateFile)) return;
             string contents = File.ReadAllText(scanStateFile, SCANSTATE_ENCODING);
+            if (String.IsNullOrWhiteSpace(contents)) return;
             var rootnode = JObject.Parse(contents);
             if (!rootnode.ContainsKey(this.directory)) return;
             var directoryNode = rootnode[this.directory] as JObject;
