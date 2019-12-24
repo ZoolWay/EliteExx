@@ -18,6 +18,7 @@ namespace Zw.EliteExx.Ui.EliteDangerous.Position
         private string extraInfo;
         private bool isDiscovered;
         private bool isMapped;
+        private bool isPlaceholder;
 
         public long Order
         {
@@ -136,6 +137,17 @@ namespace Zw.EliteExx.Ui.EliteDangerous.Position
             {
                 if (value == this.isMapped) return;
                 this.isMapped = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
+        public bool IsPlaceholder
+        {
+            get => this.isPlaceholder;
+            set
+            {
+                if (value == this.isPlaceholder) return;
+                this.isPlaceholder = value;
                 NotifyOfPropertyChange();
             }
         }

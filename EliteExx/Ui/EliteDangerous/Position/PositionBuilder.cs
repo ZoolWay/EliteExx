@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Zw.EliteExx.Edsm.Messages;
 using Zw.EliteExx.EliteDangerous.Journal;
 
 namespace Zw.EliteExx.Ui.EliteDangerous.Position
@@ -19,9 +20,18 @@ namespace Zw.EliteExx.Ui.EliteDangerous.Position
             this.currentSystem = String.Empty;
         }
 
-        public void Process(Edsm.SystemData systemData)
+        public void Process(SystemData systemData)
         {
-
+            if (!String.Equals(this.currentSystem, systemData.Name))
+            {
+                log.Warn($"Received update from EDSM for '{systemData.Name}' but current system is '{this.currentSystem}'");
+                return;
+            }
+            foreach (var b in systemData.BodyData)
+            {
+                var r = CreateOrGetRow(b);
+                r.DataOrigin |= Core.DataOrigin.Edsm;
+            }
         }
 
         public void Process(Entry entry)
@@ -29,14 +39,14 @@ namespace Zw.EliteExx.Ui.EliteDangerous.Position
             bool locationChanged = false;
             if (entry is EntryLocation l)
             {
-                locationChanged = (String.Equals(this.currentSystem, l.StarSystem));
+                locationChanged = (!String.Equals(this.currentSystem, l.StarSystem));
                 this.currentSystem = l.StarSystem;
                 this.receiver.PositionSystem = l.StarSystem;
                 this.receiver.PositionStarPos = GetCombinedStarPos(l.StarPos);
             }
             else if (entry is EntryFsdJump j)
             {
-                locationChanged = (String.Equals(this.currentSystem, j.StarSystem));
+                locationChanged = (!String.Equals(this.currentSystem, j.StarSystem));
                 this.receiver.SystemRows.Clear();
                 this.currentSystem = j.StarSystem;
                 this.receiver.PositionSystem = j.StarSystem;
@@ -57,12 +67,14 @@ namespace Zw.EliteExx.Ui.EliteDangerous.Position
                 row.IsHighlighted = Logic.IsHighlightedScan(sd);
                 row.DataOrigin |= Core.DataOrigin.EliteJournal;
                 row.IsDiscovered = true;
+                row.IsPlaceholder = false;
             }
             else if (entry is EntryScanAutoScan sas)
             {
                 var row = CreateOrGetRow(sas);
                 row.ExtraInfo = ComposeExtraInfo(row, sas);
                 row.DataOrigin |= Core.DataOrigin.EliteJournal;
+                row.IsPlaceholder = false;
             }
             else if (entry is EntrySaaScanComplete ssc)
             {
@@ -71,6 +83,7 @@ namespace Zw.EliteExx.Ui.EliteDangerous.Position
                 row.DoneState = DoneState.Done;
                 row.IsDiscovered = true;
                 row.IsMapped = true;
+                row.IsPlaceholder = false;
             }
             else if (entry is EntryUndocked u)
             {
@@ -110,6 +123,28 @@ namespace Zw.EliteExx.Ui.EliteDangerous.Position
             return row.ExtraInfo;
         }
 
+        private SystemSummaryRow CreateOrGetRow(BodyData bd)
+        {
+            var match = this.receiver.SystemRows.FirstOrDefault(r => r.BodyId == bd.BodyId);
+            if (match == null)
+            {
+                match = new SystemSummaryRow();
+                match.Order = 1000 + bd.BodyId;
+                match.BodyId = bd.BodyId;
+                match.Description = bd.Name;
+
+                match.DataOrigin = Core.DataOrigin.Edsm;
+                match.IsPlaceholder = true;
+                match.IsDiscovered = !String.IsNullOrWhiteSpace(bd.DiscoveredBy);
+
+                this.receiver.SystemRows.Add(match);
+            }
+
+            match.Description = RestyleName(match.Description);
+
+            return match;
+        }
+
         private SystemSummaryRow CreateOrGetRow(EntryScanAutoScan scan)
         {
             var match = this.receiver.SystemRows.FirstOrDefault(r => r.BodyId == scan.BodyID);
@@ -125,14 +160,25 @@ namespace Zw.EliteExx.Ui.EliteDangerous.Position
                 match.IsMapped = scan.WasMapped;
                 this.receiver.SystemRows.Add(match);
             }
+            else if (match.DataOrigin == Core.DataOrigin.Edsm) // was only known from EDSM before...
+            {
+                match.ExtraInfo = scan.ScanType.ToString();
+                match.BodyType = DetectBodyType(scan);
+                match.IsDiscovered = scan.WasDiscovered;
+                match.IsMapped = scan.WasMapped;
+            }
 
-            // restyle systemname if possible
-            string name = match.Description;
-            if (String.Equals(this.currentSystem, name)) name = "Star"; // rename solo star 
-            else if ((name.StartsWith(this.currentSystem)) && (name.Length > this.currentSystem.Length)) name = "   " + name.Substring(this.currentSystem.Length + 1); // strip systemname for other bodies
-            match.Description = name;
+            match.Description = RestyleName(match.Description);
 
             return match;
+        }
+
+        private string RestyleName(string currentName)
+        {
+            // restyle systemname if possible
+            if (String.Equals(this.currentSystem, currentName)) currentName = "Star"; // rename solo star 
+            else if ((currentName.StartsWith(this.currentSystem)) && (currentName.Length > this.currentSystem.Length)) currentName = "   " + currentName.Substring(this.currentSystem.Length + 1); // strip systemname for other bodies
+            return currentName;
         }
 
         private BodyType DetectBodyType(EntryScanAutoScan scan)

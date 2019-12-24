@@ -123,10 +123,11 @@
     <Compile Include="Core\UiMessengerMessage.cs" />
     <Compile Include="Core\UiProcessorActor.cs" />
     <Compile Include="Core\UiProcessorMessage.cs" />
-    <Compile Include="Edsm\BodyData.cs" />
+    <Compile Include="Edsm\Messages\BodyData.cs" />
     <Compile Include="Edsm\ConnectorActor.cs" />
     <Compile Include="Edsm\ConnectorMessage.cs" />
-    <Compile Include="Edsm\EliteServerState.cs" />
+    <Compile Include="Edsm\Messages\EliteServerState.cs" />
+    <Compile Include="Edsm\Messages\NoSystemData.cs" />
     <Compile Include="Edsm\RequestProcessorActor.cs" />
     <Compile Include="Edsm\Responses\AtmosphereComposition.cs" />
     <Compile Include="Edsm\Responses\Belt.cs" />
@@ -141,7 +142,7 @@
     <Compile Include="Edsm\Responses\Star.cs" />
     <Compile Include="Edsm\Responses\StarRef.cs" />
     <Compile Include="Edsm\Responses\SystemReq.cs" />
-    <Compile Include="Edsm\SystemData.cs" />
+    <Compile Include="Edsm\Messages\SystemData.cs" />
     <Compile Include="EliteDangerous\ConnectorActor.cs" />
     <Compile Include="EliteDangerous\ConnectorMessage.cs" />
     <Compile Include="Core\SequenceFilesReaderActor.cs" />

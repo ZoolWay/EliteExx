@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Akka.Actor;
 using Newtonsoft.Json;
 using Zw.EliteExx.Core;
+using Zw.EliteExx.Edsm.Messages;
 
 namespace Zw.EliteExx.Edsm
 {
@@ -29,21 +30,40 @@ namespace Zw.EliteExx.Edsm
 
         private async Task ReceivedRequestSystemData(ConnectorMessage.RequestSystemData message)
         {
-            HttpWebRequest reqInfo = WebRequest.CreateHttp($"{BASE_URL}api-v1/system?systemName={message.SystemName}&showId=1&showCoordinates=1&showPermit=1&showInformation=0&showPrimaryStar=1");
-            HttpWebResponse respInfo = (await reqInfo.GetResponseAsync()) as HttpWebResponse;
-            string dataInfo = respInfo.GetContent();
-            var objInfo = JsonConvert.DeserializeObject<Responses.SystemReq>(dataInfo);
-            HttpWebRequest reqBodies = WebRequest.CreateHttp($"{BASE_URL}api-system-v1/bodies?systemName={message.SystemName}");
-            HttpWebResponse respBodies = (await reqBodies.GetResponseAsync()) as HttpWebResponse;
-            string dataBodies = respBodies.GetContent();
-            var objBodies = JsonConvert.DeserializeObject<Responses.BodiesReq>(dataBodies);
-            List<BodyData> bodies = new List<BodyData>();
-            foreach (var b in objBodies.Bodies)
+            try
             {
-                bodies.Add(new BodyData(b.Id64, b.Name, b.BodyId, b.Discovery?.Commander, b.TerraformingState));
+                HttpWebRequest reqInfo = WebRequest.CreateHttp($"{BASE_URL}api-v1/system?systemName={message.SystemName}&showId=1&showCoordinates=1&showPermit=1&showInformation=0&showPrimaryStar=1");
+                reqInfo.Timeout = 5000;
+                var x1 = reqInfo.GetResponse();
+                HttpWebResponse respInfo = (await reqInfo.GetResponseAsync()) as HttpWebResponse;
+                string dataInfo = respInfo.GetContent();
+                if ((String.IsNullOrWhiteSpace(dataInfo)) || (dataInfo == "[]") || (respInfo.StatusCode == HttpStatusCode.NotFound))
+                {
+                    this.uiMessenger.Tell(new UiMessengerMessage.Publish(new NoSystemData(message.SystemName)));
+                    return;
+                }
+                var objInfo = JsonConvert.DeserializeObject<Responses.SystemReq>(dataInfo);
+                HttpWebRequest reqBodies = WebRequest.CreateHttp($"{BASE_URL}api-system-v1/bodies?systemName={message.SystemName}");
+                reqBodies.Timeout = 5000;
+                HttpWebResponse respBodies = (await reqBodies.GetResponseAsync()) as HttpWebResponse;
+                string dataBodies = respBodies.GetContent();
+                var objBodies = JsonConvert.DeserializeObject<Responses.BodiesReq>(dataBodies);
+                List<BodyData> bodies = new List<BodyData>();
+                foreach (var b in objBodies.Bodies)
+                {
+                    bodies.Add(new BodyData(b.Id64, b.Name, b.BodyId, b.Discovery?.Commander, b.TerraformingState));
+                }
+                SystemData systemData = new SystemData(objInfo.Name, bodies.ToImmutableArray());
+                this.uiMessenger.Tell(new UiMessengerMessage.Publish(systemData));
             }
-            SystemData systemData = new SystemData(objInfo.Name, bodies.ToImmutableArray());
-            this.uiMessenger.Tell(new UiMessengerMessage.Publish(systemData));
+            catch (WebException ex) when (ex.Status == WebExceptionStatus.Timeout)
+            {
+                log.Warning($"Timeout while getting system data for {message.SystemName}");
+            }
+            catch (Exception ex)
+            {
+                log.Error(ex, $"Failed to get system data for {message.SystemName}");
+            }
         }
 
         private async Task ReceivedRequestEliteServerState(ConnectorMessage.RequestEliteServerState message)

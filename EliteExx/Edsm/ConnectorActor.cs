@@ -18,7 +18,7 @@ namespace Zw.EliteExx.Edsm
             this.uiMessenger = uiMessenger;
             this.env = env;
             this.config = config;
-            this.processor = Context.ActorOf(Props.Create(() => new RequestProcessorActor(uiMessenger)).WithRouter(new RoundRobinPool(5)), "processors");
+            this.processor = Context.ActorOf(Props.Create(() => new RequestProcessorActor(uiMessenger)).WithRouter(new RoundRobinPool(1)), "processors");
 
             Receive((Action<ConnectorMessage.RequestSystemData>)ReceivedRequestSystemData);
             Receive((Action<ConnectorMessage.RequestEliteServerState>)ReceivedRequestEliteServerState);

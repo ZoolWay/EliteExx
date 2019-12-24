@@ -10,6 +10,7 @@ namespace Zw.EliteExx.Core
     {
         public static string GetContent(this HttpWebResponse response)
         {
+            if (response.ContentLength <= 0) return String.Empty;
             Encoding encoding = null;
             try
             {

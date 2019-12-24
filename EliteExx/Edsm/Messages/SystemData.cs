@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Immutable;
 
-namespace Zw.EliteExx.Edsm
+namespace Zw.EliteExx.Edsm.Messages
 {
     public class SystemData
     {

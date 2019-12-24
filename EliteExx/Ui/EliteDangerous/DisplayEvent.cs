@@ -14,6 +14,7 @@ namespace Zw.EliteExx.Ui.EliteDangerous
         private string symbol1Tooltip;
         private string symbol2Tooltip;
         private bool isBoring;
+        private bool isPlaceholder;
 
         public string Text
         {
@@ -110,6 +111,17 @@ namespace Zw.EliteExx.Ui.EliteDangerous
             {
                 if (value == this.isBoring) return;
                 this.isBoring = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
+        public bool IsPlaceholder
+        {
+            get => this.isPlaceholder;
+            set
+            {
+                if (value == this.isPlaceholder) return;
+                this.isPlaceholder = value;
                 NotifyOfPropertyChange();
             }
         }

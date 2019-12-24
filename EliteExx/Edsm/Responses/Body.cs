@@ -47,7 +47,7 @@ namespace Zw.EliteExx.Edsm.Responses
         public double ArgOfPeriapsis { get; set; }
         public double RotationalPeriod { get; set; }
         public bool RotationalPeriodTidallyLocked { get; set; }
-        public int AxialTilt { get; set; }
+        public int? AxialTilt { get; set; }
         public Materials Materials { get; set; }
         public Belt[] Belts { get; set; }
         public Ring[] Rings { get; set; }

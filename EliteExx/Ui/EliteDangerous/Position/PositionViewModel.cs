@@ -3,11 +3,12 @@ using System.ComponentModel;
 using System.Windows.Data;
 using System.Windows.Input;
 using Caliburn.Micro;
+using Zw.EliteExx.Edsm.Messages;
 using Zw.EliteExx.EliteDangerous.Journal;
 
 namespace Zw.EliteExx.Ui.EliteDangerous.Position
 {
-    public class PositionViewModel : Screen, IPositionReceiver, IHandle<Entry>, IHandle<Edsm.SystemData>
+    public class PositionViewModel : Screen, IPositionReceiver, IHandle<Entry>, IHandle<SystemData>, IHandle<NoSystemData>
     {
         private static readonly log4net.ILog log = global::log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly IEventAggregator eventAggregator;
@@ -99,9 +100,15 @@ namespace Zw.EliteExx.Ui.EliteDangerous.Position
             this.systemSummaryBuilder.Process(entry);
         }
 
-        public void Handle(Edsm.SystemData systemData)
+        public void Handle(SystemData systemData)
         {
             this.systemSummaryBuilder.Process(systemData);
+        }
+
+        public void Handle(NoSystemData message)
+        {
+            if (!String.Equals(message.Name, this.positionSystem)) return;
+            this.systemRows.Add(new SystemSummaryRow() { Order = 9000, Description = "no-edsm", IsPlaceholder = true });
         }
 
         protected override void OnInitialize()
@@ -113,6 +120,5 @@ namespace Zw.EliteExx.Ui.EliteDangerous.Position
         {
             if (close) this.eventAggregator.Unsubscribe(this);
         }
-
     }
 }

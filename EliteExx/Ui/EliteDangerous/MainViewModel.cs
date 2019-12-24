@@ -8,7 +8,7 @@ using Zw.EliteExx.EliteDangerous.Journal;
 
 namespace Zw.EliteExx.Ui.EliteDangerous
 {
-    public class MainViewModel : Screen, IHandle<Entry>, IHandle<Edsm.EliteServerState>, IDisplayEventReceiver
+    public class MainViewModel : Screen, IHandle<Entry>, IHandle<Edsm.Messages.EliteServerState>, IDisplayEventReceiver
     {
         private static readonly log4net.ILog log = global::log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private readonly IEventAggregator eventAggregator;
@@ -217,7 +217,7 @@ namespace Zw.EliteExx.Ui.EliteDangerous
             this.displayEventBuilder.Process(entry);
         }
 
-        public void Handle(EliteServerState message)
+        public void Handle(Edsm.Messages.EliteServerState message)
         {
             this.events.Add(new DisplayEvent() { Text = $"Elite Server: {message.Message}" } );
         }

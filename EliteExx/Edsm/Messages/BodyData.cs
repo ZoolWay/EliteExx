@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Zw.EliteExx.Edsm
+namespace Zw.EliteExx.Edsm.Messages
 {
     public class BodyData
     {

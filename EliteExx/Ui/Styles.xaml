@@ -65,6 +65,9 @@
     </Style>
     <ControlTemplate x:Key="ListItemWithHighlight" TargetType="ListViewItem">
         <ControlTemplate.Triggers>
+            <DataTrigger Binding="{Binding IsPlaceholder}" Value="True">
+                <Setter Property="Foreground" Value="Silver" />
+            </DataTrigger>
             <DataTrigger Binding="{Binding IsHighlighted}" Value="True">
                 <Setter Property="Background" Value="Gold" />
             </DataTrigger>

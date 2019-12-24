@@ -10,6 +10,7 @@ namespace Zw.EliteExx.Ui.EliteDangerous.Router
         private DoneState done;
         private bool isHighlighted;
         private string notes;
+        private bool isPlaceholder;
 
         public int Order
         {
@@ -62,6 +63,17 @@ namespace Zw.EliteExx.Ui.EliteDangerous.Router
             {
                 if (String.Equals(value, this.notes)) return;
                 this.notes = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
+        public bool IsPlaceholder
+        {
+            get => this.isPlaceholder;
+            set
+            {
+                if (this.isPlaceholder == value) return;
+                this.isPlaceholder = value;
                 NotifyOfPropertyChange();
             }
         }
