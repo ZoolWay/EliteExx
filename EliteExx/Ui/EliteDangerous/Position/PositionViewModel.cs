@@ -20,6 +20,9 @@ namespace Zw.EliteExx.Ui.EliteDangerous.Position
         private string positionStarPos;
         private string positionStation;
         private string positionSystemBodies;
+        private bool isSystemRowsFontNormal;
+        private bool isSystemRowsFontMini;
+        private int systemRowsFontSize;
 
         public string PositionSystem
         {
@@ -65,6 +68,49 @@ namespace Zw.EliteExx.Ui.EliteDangerous.Position
             }
         }
 
+        public bool IsSystemRowsFontNormal
+        {
+            get => this.isSystemRowsFontNormal;
+            set
+            {
+                if (this.isSystemRowsFontNormal == value) return;
+                this.isSystemRowsFontNormal = value;
+                if (value)
+                {
+                    this.IsSystemRowsFontMini = false;
+                    this.SystemRowsFontSize = 12;
+                }
+                NotifyOfPropertyChange();
+            }
+        }
+
+        public bool IsSystemRowsFontMini
+        {
+            get => this.isSystemRowsFontMini;
+            set
+            {
+                if (this.isSystemRowsFontMini == value) return;
+                this.isSystemRowsFontMini = value;
+                if (value)
+                {
+                    this.IsSystemRowsFontNormal = false;
+                    this.SystemRowsFontSize = 8;
+                }
+                NotifyOfPropertyChange();
+            }
+        }
+
+        public int SystemRowsFontSize
+        {
+            get => this.systemRowsFontSize;
+            set
+            {
+                if (this.systemRowsFontSize == value) return;
+                this.systemRowsFontSize = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
         public BindableCollection<SystemSummaryRow> SystemRows => this.systemRows;
         public ICollectionView SystemRowsView => this.systemRowsView;
 
@@ -77,6 +123,8 @@ namespace Zw.EliteExx.Ui.EliteDangerous.Position
             this.positionStarPos = String.Empty;
             this.positionStation = String.Empty;
             this.positionSystemBodies = String.Empty;
+            this.isSystemRowsFontNormal = true;
+            this.systemRowsFontSize = 12;
             this.systemRows = new BindableCollection<SystemSummaryRow>();
             this.systemRowsView = CollectionViewSource.GetDefaultView(this.systemRows);
             this.systemRowsView.SortDescriptions.Add(new SortDescription("Order", ListSortDirection.Ascending));

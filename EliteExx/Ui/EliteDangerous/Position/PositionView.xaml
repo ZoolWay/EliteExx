@@ -7,7 +7,14 @@
              xmlns:converters="clr-namespace:Zw.EliteExx.Ui.Converters"
              xmlns:cal="http://www.caliburnproject.org"
              mc:Ignorable="d" 
+             x:Name="Root"
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.ContextMenu>
+        <ContextMenu>
+            <MenuItem Header="Normal Size" IsChecked="{Binding IsSystemRowsFontNormal}" IsCheckable="True" cal:Bind.Model="{Binding Path=DataContext, ElementName=Root}" />
+            <MenuItem Header="Mini Size" IsChecked="{Binding IsSystemRowsFontMini}" IsCheckable="True" cal:Bind.Model="{Binding Path=DataContext, ElementName=Root}" />
+        </ContextMenu>
+    </UserControl.ContextMenu>
     <DockPanel LastChildFill="True" HorizontalAlignment="Stretch" DockPanel.Dock="Top" Visibility="{Binding ShowPosition, Converter={StaticResource BooleanToVisibilityConverter}}">
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" DockPanel.Dock="Top" Margin="2">
             <StackPanel.Resources>
@@ -29,7 +36,7 @@
             <TextBlock Text="{Binding PositionSystemBodies}" ToolTip="{Binding PositionSystemBodies}" />
             <TextBlock Text="{Binding PositionStarPos}" ToolTip="{Binding PositionStarPos}" />
         </StackPanel>
-        <ListView ItemsSource="{Binding SystemRowsView}" HorizontalAlignment="Stretch" DockPanel.Dock="Top" MaxHeight="800">
+        <ListView ItemsSource="{Binding SystemRowsView}" HorizontalAlignment="Stretch" DockPanel.Dock="Top" MaxHeight="800" FontSize="{Binding SystemRowsFontSize}">
             <ListView.Resources>
                 <local:SystemSummaryBodyTypeConverter x:Key="SystemSummaryBodyTypeConverter" />
                 <local:SystemSummaryDiscoveryConverter x:Key="SystemSummaryDiscoveryConverter" />
