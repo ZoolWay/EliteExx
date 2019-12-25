@@ -132,7 +132,7 @@ namespace Zw.EliteExx.Ui.EliteDangerous.Router
             EntryFsdJump jump = entry as EntryFsdJump;
             if (jump == null) return;
             // check if we reached waypoint
-            var match = this.routeItems.FirstOrDefault(i => String.Equals(i.Name, jump.StarSystem));
+            var match = this.routeItems.FirstOrDefault(i => String.Equals(i.Name, jump.StarSystem, StringComparison.InvariantCultureIgnoreCase));
             if (match == null) return;
             bool changedDone = (match.Done != DoneState.Done);
             match.Done = DoneState.Done;
