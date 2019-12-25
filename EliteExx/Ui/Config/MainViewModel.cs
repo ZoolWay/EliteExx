@@ -19,7 +19,7 @@ namespace Zw.EliteExx.Ui.Config
         public void Save()
         {
             log.Info("Saving new configuration");
-            var newConfig = this.Config.BuildModel(this.configuration.Instance.WindowLayout, this.configuration.Instance.RouterSettings, this.configuration.Instance.MainLayout);
+            var newConfig = this.Config.BuildModel(this.configuration.Instance.WindowLayout, this.configuration.Instance.RouterSettings, this.configuration.Instance.MainLayout, this.configuration.Instance.PositionSettings);
             bool success = this.configuration.Save(newConfig);
             if (success) TryClose(true);
         }

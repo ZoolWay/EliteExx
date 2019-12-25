@@ -11,6 +11,8 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.ContextMenu>
         <ContextMenu>
+            <MenuItem Header="Show Systemdata" IsChecked="{Binding ShowSystemData}" IsCheckable="True" cal:Bind.Model="{Binding Path=DataContext, ElementName=Root}" />
+            <Separator />
             <MenuItem Header="Normal Size" IsChecked="{Binding IsSystemRowsFontNormal}" IsCheckable="True" cal:Bind.Model="{Binding Path=DataContext, ElementName=Root}" />
             <MenuItem Header="Mini Size" IsChecked="{Binding IsSystemRowsFontMini}" IsCheckable="True" cal:Bind.Model="{Binding Path=DataContext, ElementName=Root}" />
         </ContextMenu>
@@ -36,7 +38,7 @@
             <TextBlock Text="{Binding PositionSystemBodies}" ToolTip="{Binding PositionSystemBodies}" />
             <TextBlock Text="{Binding PositionStarPos}" ToolTip="{Binding PositionStarPos}" />
         </StackPanel>
-        <ListView ItemsSource="{Binding SystemRowsView}" HorizontalAlignment="Stretch" DockPanel.Dock="Top" MaxHeight="800" FontSize="{Binding SystemRowsFontSize}">
+        <ListView ItemsSource="{Binding SystemRowsView}" HorizontalAlignment="Stretch" DockPanel.Dock="Top" MaxHeight="800" FontSize="{Binding SystemRowsFontSize}" Visibility="{Binding ShowSystemData, Converter={StaticResource BooleanToVisibilityConverter}}">
             <ListView.Resources>
                 <local:SystemSummaryBodyTypeConverter x:Key="SystemSummaryBodyTypeConverter" />
                 <local:SystemSummaryDiscoveryConverter x:Key="SystemSummaryDiscoveryConverter" />
@@ -50,28 +52,28 @@
             <ListView.View>
                 <GridView>
                     <GridView.Columns>
-                        <GridViewColumn Header="T" Width="26">
+                        <GridViewColumn Header="T" Width="{Binding SrWidthType}">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Path=BodyType, Converter={StaticResource SystemSummaryBodyTypeConverter}}" FontFamily="{StaticResource FontAwesomeSolid}" HorizontalAlignment="Center" ToolTip="{Binding Path=BodyType}" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="Desc" Width="58">
+                        <GridViewColumn Header="Desc" Width="{Binding SrWidthDescription}">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Description}" ToolTip="{Binding Description}" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="Dne" Width="32">
+                        <GridViewColumn Header="Dne" Width="{Binding SrWidthDone}">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Path=DoneState, Converter={StaticResource DoneStateConverter}}" FontFamily="{StaticResource FontAwesomeSolid}" HorizontalAlignment="Center" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="Dscv" Width="32">
+                        <GridViewColumn Header="Dscv" Width="{Binding SrWidthDiscovered}">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Path=., Converter={StaticResource SystemSummaryDiscoveryConverter}}" FontFamily="{StaticResource FontAwesomeSolid}"
@@ -79,14 +81,14 @@
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="Extra">
+                        <GridViewColumn Header="Extra" Width="{Binding SrWidthExtra, Mode=TwoWay}">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding ExtraInfo}" HorizontalAlignment="Stretch" ToolTip="{Binding ExtraInfo}" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="Origin">
+                        <GridViewColumn Header="Origin" Width="{Binding SrWidthOrigin}">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding DataOrigin}" ToolTip="{Binding DataOrigin}" />

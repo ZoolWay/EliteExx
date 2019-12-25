@@ -32,19 +32,25 @@ namespace Zw.EliteExx
 
         public bool SaveWindowLayout(WindowLayout newWindowLayout)
         {
-            var newInstance = new Config(this.Instance.Locations, this.Instance.Services, newWindowLayout, this.Instance.RouterSettings, this.Instance.MainLayout);
+            var newInstance = new Config(this.Instance.Locations, this.Instance.Services, newWindowLayout, this.Instance.RouterSettings, this.Instance.MainLayout, this.Instance.PositionSettings);
             return SaveInternal(newInstance, false);
         }
 
         public bool SaveRouterSettings(RouterSettings newRouterSettings)
         {
-            var newInstance = new Config(this.Instance.Locations, this.Instance.Services, this.Instance.WindowLayout, newRouterSettings, this.Instance.MainLayout);
+            var newInstance = new Config(this.Instance.Locations, this.Instance.Services, this.Instance.WindowLayout, newRouterSettings, this.Instance.MainLayout, this.Instance.PositionSettings);
             return SaveInternal(newInstance, false);
         }
 
         public bool SaveMainLayout(MainLayout newMainLayout)
         {
-            var newInstance = new Config(this.Instance.Locations, this.Instance.Services, this.Instance.WindowLayout, this.Instance.RouterSettings, newMainLayout);
+            var newInstance = new Config(this.Instance.Locations, this.Instance.Services, this.Instance.WindowLayout, this.Instance.RouterSettings, newMainLayout, this.Instance.PositionSettings);
+            return SaveInternal(newInstance, false);
+        }
+
+        public bool SavePositionSettings(PositionSettings newPositionSettings)
+        {
+            var newInstance = new Config(this.Instance.Locations, this.Instance.Services, this.Instance.WindowLayout, this.Instance.RouterSettings, this.Instance.MainLayout, newPositionSettings);
             return SaveInternal(newInstance, false);
         }
 

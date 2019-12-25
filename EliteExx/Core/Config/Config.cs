@@ -9,14 +9,16 @@ namespace Zw.EliteExx.Core.Config
         public WindowLayout WindowLayout { get; }
         public RouterSettings RouterSettings { get; }
         public MainLayout MainLayout { get; }
+        public PositionSettings PositionSettings { get; }
 
-        public Config(Locations locations, Services services, WindowLayout windowLayout, RouterSettings routerSettings, MainLayout mainLayout)
+        public Config(Locations locations, Services services, WindowLayout windowLayout, RouterSettings routerSettings, MainLayout mainLayout, PositionSettings positionSettings)
         {
             this.Locations = locations;
             this.Services = services;
             this.WindowLayout = windowLayout;
             this.RouterSettings = routerSettings;
             this.MainLayout = mainLayout;
+            this.PositionSettings = positionSettings;
         }
     }
 }
