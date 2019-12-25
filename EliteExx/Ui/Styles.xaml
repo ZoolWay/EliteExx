@@ -78,7 +78,7 @@
                 <Setter Property="Background" Value="GoldenRod" />
             </Trigger>
         </ControlTemplate.Triggers>
-        <Border BorderThickness="1" SnapsToDevicePixels="True" Background="{TemplateBinding Background}" Padding="0,1,0,1">
+        <Border BorderThickness="0" SnapsToDevicePixels="True" Background="{TemplateBinding Background}" Padding="0">
             <Border.Style>
                 <Style TargetType="Border">
                     <Style.Triggers>
