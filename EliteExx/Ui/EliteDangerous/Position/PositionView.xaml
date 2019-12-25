@@ -52,28 +52,28 @@
             <ListView.View>
                 <GridView>
                     <GridView.Columns>
-                        <GridViewColumn Header="T" Width="{Binding SrWidthType}">
+                        <GridViewColumn Header="T" Width="{Binding SrWidthType, Mode=TwoWay}">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Path=BodyType, Converter={StaticResource SystemSummaryBodyTypeConverter}}" FontFamily="{StaticResource FontAwesomeSolid}" HorizontalAlignment="Center" ToolTip="{Binding Path=BodyType}" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="Desc" Width="{Binding SrWidthDescription}">
+                        <GridViewColumn Header="Desc" Width="{Binding SrWidthDescription, Mode=TwoWay}">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Description}" ToolTip="{Binding Description}" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="Dne" Width="{Binding SrWidthDone}">
+                        <GridViewColumn Header="Dne" Width="{Binding SrWidthDone, Mode=TwoWay}">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Path=DoneState, Converter={StaticResource DoneStateConverter}}" FontFamily="{StaticResource FontAwesomeSolid}" HorizontalAlignment="Center" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="Dscv" Width="{Binding SrWidthDiscovered}">
+                        <GridViewColumn Header="Dscv" Width="{Binding SrWidthDiscovered, Mode=TwoWay}">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Path=., Converter={StaticResource SystemSummaryDiscoveryConverter}}" FontFamily="{StaticResource FontAwesomeSolid}"
@@ -88,7 +88,7 @@
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
-                        <GridViewColumn Header="Origin" Width="{Binding SrWidthOrigin}">
+                        <GridViewColumn Header="Origin" Width="{Binding SrWidthOrigin, Mode=TwoWay}">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding DataOrigin}" ToolTip="{Binding DataOrigin}" />
