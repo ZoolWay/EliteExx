@@ -31,6 +31,7 @@ namespace Zw.EliteExx.Ui.EliteDangerous.Position
         private double srWidthExtra;
         private double srWidthOrigin;
         private bool showSystemData;
+        private bool hideBelts;
 
         public double SrWidthType
         {
@@ -205,6 +206,19 @@ namespace Zw.EliteExx.Ui.EliteDangerous.Position
             }
         }
 
+        public bool HideBelts
+        {
+            get => this.hideBelts;
+            set
+            {
+                if (this.hideBelts == value) return;
+                this.hideBelts = value;
+                NotifyOfPropertyChange();
+                PersistPositionSettings();
+                this.systemRowsView.Refresh();
+            }
+        }
+
         public BindableCollection<SystemSummaryRow> SystemRows => this.systemRows;
         public ICollectionView SystemRowsView => this.systemRowsView;
 
@@ -220,13 +234,22 @@ namespace Zw.EliteExx.Ui.EliteDangerous.Position
             this.positionSystemBodies = String.Empty;
             this.isSystemRowsFontNormal = true;
             this.showSystemData = true;
+            this.hideBelts = false;
             this.systemRowsFontSize = 12;
             this.systemRows = new BindableCollection<SystemSummaryRow>();
             this.systemRowsView = CollectionViewSource.GetDefaultView(this.systemRows);
             this.systemRowsView.SortDescriptions.Add(new SortDescription("Order", ListSortDirection.Ascending));
+            this.systemRowsView.Filter = FilterSystemRows;
             this.systemSummaryBuilder = new PositionBuilder(this, this.actorSystemManager);
             
             LoadPositionSettings();
+        }
+
+        private bool FilterSystemRows(object r)
+        {
+            SystemSummaryRow row = r as SystemSummaryRow;
+            if ((this.hideBelts) && (row.BodyType == BodyType.BeltCluster)) return false;
+            return true;
         }
 
         public void CopyPosSysNameToClip(MouseButtonEventArgs e)
@@ -292,13 +315,14 @@ namespace Zw.EliteExx.Ui.EliteDangerous.Position
             this.isSystemRowsFontMini = ps?.IsMiniMode.GetValueOrDefault(false) ?? false;
             this.isSystemRowsFontNormal = !this.isSystemRowsFontMini;
             this.showSystemData = ps?.ShowSystemData.GetValueOrDefault(true) ?? true;
+            this.hideBelts = ps?.HideBelts.GetValueOrDefault(false) ?? false;
 
             SetFontSize();
         }
 
         private void PersistPositionSettings()
         {
-            Core.Config.PositionSettings newPositionSettings = new Core.Config.PositionSettings(this.isSystemRowsFontMini, this.showSystemData, this.srWidthType, this.srWidthDescription, this.srWidthDone, this.srWidthDiscovered, this.srWidthExtra, this.srWidthOrigin);
+            Core.Config.PositionSettings newPositionSettings = new Core.Config.PositionSettings(this.isSystemRowsFontMini, this.showSystemData, this.srWidthType, this.srWidthDescription, this.srWidthDone, this.srWidthDiscovered, this.srWidthExtra, this.srWidthOrigin, this.hideBelts);
             this.configuration.SavePositionSettings(newPositionSettings);
         }
     }

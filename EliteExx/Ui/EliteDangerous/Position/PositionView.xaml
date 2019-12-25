@@ -13,6 +13,8 @@
         <ContextMenu>
             <MenuItem Header="Show Systemdata" IsChecked="{Binding ShowSystemData}" IsCheckable="True" cal:Bind.Model="{Binding Path=DataContext, ElementName=Root}" />
             <Separator />
+            <MenuItem Header="Hide belts" IsChecked="{Binding HideBelts}" IsCheckable="True" cal:Bind.Model="{Binding Path=DataContext, ElementName=Root}" />
+            <Separator />
             <MenuItem Header="Normal Size" IsChecked="{Binding IsSystemRowsFontNormal}" IsCheckable="True" cal:Bind.Model="{Binding Path=DataContext, ElementName=Root}" />
             <MenuItem Header="Mini Size" IsChecked="{Binding IsSystemRowsFontMini}" IsCheckable="True" cal:Bind.Model="{Binding Path=DataContext, ElementName=Root}" />
         </ContextMenu>

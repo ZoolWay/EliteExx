@@ -12,8 +12,9 @@ namespace Zw.EliteExx.Core.Config
         public double SrWidthDiscovered { get; }
         public double SrWidthExtra { get; }
         public double SrWidthOrigin { get; }
+        public bool? HideBelts { get; }
 
-        public PositionSettings(bool? isMiniMode, bool? showSystemData, double srWidthType, double srWidthDescription, double srWidthDone, double srWidthDiscovered, double srWidthExtra, double srWidthOrigin)
+        public PositionSettings(bool? isMiniMode, bool? showSystemData, double srWidthType, double srWidthDescription, double srWidthDone, double srWidthDiscovered, double srWidthExtra, double srWidthOrigin, bool? hideBelts)
         {
             this.IsMiniMode = isMiniMode;
             this.ShowSystemData = showSystemData;
@@ -23,6 +24,7 @@ namespace Zw.EliteExx.Core.Config
             this.SrWidthDiscovered = srWidthDiscovered;
             this.SrWidthExtra = srWidthExtra;
             this.SrWidthOrigin = srWidthOrigin;
+            this.HideBelts = hideBelts;
         }
     }
 }
