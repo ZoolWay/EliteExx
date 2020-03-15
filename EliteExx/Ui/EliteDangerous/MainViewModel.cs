@@ -175,6 +175,7 @@ namespace Zw.EliteExx.Ui.EliteDangerous
                 if (value == this.filterHideBoringScans) return;
                 this.filterHideBoringScans = value;
                 NotifyOfPropertyChange();
+                PersistLayout();
                 this.eventsView.Refresh();
             }
         }
@@ -242,14 +243,15 @@ namespace Zw.EliteExx.Ui.EliteDangerous
 
         private void LoadLayout()
         {
-            this.ShowPosition = this.configuration.Instance.MainLayout?.ShowPosition.GetValueOrDefault(false) ?? false;
-            this.ShowShip = this.configuration.Instance.MainLayout?.ShowShip.GetValueOrDefault(true) ?? true;
-            this.ShowRouter = this.configuration.Instance.MainLayout?.ShowRouter.GetValueOrDefault(false) ?? false;
+            this.showPosition = this.configuration.Instance.MainLayout?.ShowPosition.GetValueOrDefault(false) ?? false;
+            this.showShip = this.configuration.Instance.MainLayout?.ShowShip.GetValueOrDefault(true) ?? true;
+            this.showRouter = this.configuration.Instance.MainLayout?.ShowRouter.GetValueOrDefault(false) ?? false;
+            this.filterHideBoringScans = this.configuration.Instance.MainLayout?.FilterHideBoringScans.GetValueOrDefault(false) ?? false;
         }
 
         private void PersistLayout()
         {
-            Core.Config.MainLayout newLayout = new Core.Config.MainLayout(this.ShowShip, this.ShowRouter, this.ShowPosition);
+            Core.Config.MainLayout newLayout = new Core.Config.MainLayout(this.ShowShip, this.ShowRouter, this.ShowPosition, this.FilterHideBoringScans);
             this.configuration.SaveMainLayout(newLayout);
         }
 
