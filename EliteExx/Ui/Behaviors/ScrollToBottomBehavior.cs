@@ -48,6 +48,7 @@ namespace Zw.EliteExx.Ui.Behaviors
                 log.Error($"Used on incompatible itemssource '{listBox.Items}'");
                 return;
             }
+            listBox.SizeChanged += ScrollToBottomBehavior_ListboxSizeChanged;
             collection.CollectionChanged += ScrollToBottomBehavior_CollectionChanged;
         }
 
@@ -66,7 +67,19 @@ namespace Zw.EliteExx.Ui.Behaviors
                 log.Error($"Used on incompatible itemssource '{listBox.Items}'");
                 return;
             }
+            listBox.SizeChanged -= ScrollToBottomBehavior_ListboxSizeChanged;
             collection.CollectionChanged -= ScrollToBottomBehavior_CollectionChanged;
+        }
+
+        private void ScrollToBottomBehavior_ListboxSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            ListBox listBox = AssociatedObject;
+            bool isb = GetIsScrollToBottom(listBox as DependencyObject);
+            if (!isb) return;
+            if (listBox.Items.Count <= 0) return;
+            var lastItem = listBox.Items[listBox.Items.Count - 1];
+            this.actorSystemManager = this.actorSystemManager ?? IoC.Get<ActorSystemManager>();
+            this.actorSystemManager.UiProcessor.Tell(new UiProcessorMessage.QueueBufferedScrollToBottom(listBox, lastItem));
         }
 
         private void ScrollToBottomBehavior_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
