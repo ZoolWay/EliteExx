@@ -179,7 +179,7 @@ namespace Zw.EliteExx.Ui.EliteDangerous
                     de.Symbol2Tooltip = "ammonia world";
                 }
             }
-            de.IsBoring = (!de.IsHighlighted) && (!ds.WasDiscovered);
+            de.IsBoring = (!de.IsHighlighted) && (ds.WasDiscovered);
             this.receiver.Events.Add(de);
         }
 
