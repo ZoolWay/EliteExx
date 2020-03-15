@@ -257,7 +257,7 @@ namespace Zw.EliteExx.Ui.EliteDangerous
         {
             if (!this.filterHideBoringScans) return true;
             DisplayEvent de = o as DisplayEvent;
-            if ((de.EventType == DisplayEventType.Scan) && (de.IsBoring)) return false;
+            if (de.IsBoring) return false;
             return true;
         }
     }
