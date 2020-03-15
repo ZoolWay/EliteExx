@@ -79,6 +79,7 @@ namespace Zw.EliteExx.Ui.EliteDangerous
             {
                 Text = $"Mapped {ssc.BodyName} with {ssc.ProbesUsed} probes",
                 EventType = DisplayEventType.Scan,
+                Symbol1 = '\xf279', // map
             });
         }
 
@@ -108,6 +109,7 @@ namespace Zw.EliteExx.Ui.EliteDangerous
             {
                 Text = $"{fabf.Count} bodies in {fabf.SystemName}, completed",
                 EventType = DisplayEventType.Scan,
+                Symbol1 = '\xf00c', // check
             });
         }
 
