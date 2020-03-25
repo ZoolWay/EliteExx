@@ -31,7 +31,7 @@ namespace Zw.EliteExx.Edsm.Responses
         public double Gravity { get; set; }
         public double EarthMasses { get; set; }
         public double Radius { get; set; }
-        public int SurfacePressure { get; set; }
+        public double SurfacePressure { get; set; }
         public string VolcanismType { get; set; }
         public string AtmopshereType { get; set; }
         // AtmosphereComposition
@@ -47,7 +47,7 @@ namespace Zw.EliteExx.Edsm.Responses
         public double? ArgOfPeriapsis { get; set; }
         public double RotationalPeriod { get; set; }
         public bool RotationalPeriodTidallyLocked { get; set; }
-        public int? AxialTilt { get; set; }
+        public double? AxialTilt { get; set; }
         public Materials Materials { get; set; }
         public Belt[] Belts { get; set; }
         public Ring[] Rings { get; set; }
