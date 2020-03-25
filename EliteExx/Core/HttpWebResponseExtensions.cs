@@ -2,7 +2,6 @@
 using System.IO;
 using System.Net;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Zw.EliteExx.Core
 {
@@ -12,11 +11,18 @@ namespace Zw.EliteExx.Core
         {
             if (response.ContentLength == 0) return String.Empty;
             Encoding encoding = null;
-            try
+            if (!String.IsNullOrWhiteSpace(response.ContentEncoding))
             {
-                encoding = Encoding.GetEncoding(response.ContentEncoding);
+                try
+                {
+                    encoding = Encoding.GetEncoding(response.ContentEncoding);
+                }
+                catch (ArgumentException)
+                {
+                    encoding = Encoding.UTF8;
+                }
             }
-            catch (ArgumentException)
+            else
             {
                 encoding = Encoding.UTF8;
             }
