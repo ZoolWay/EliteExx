@@ -87,6 +87,7 @@ namespace Zw.EliteExx
                 string contents = File.ReadAllText(configFile, CONFIGFILE_ENCODING);
                 this.Instance = JsonConvert.DeserializeObject<Core.Config.Config>(contents);
                 if (notify) NotifyChangedConfiguration();
+                log.InfoFormat("Loaded configuration from '{0}', contains {1} waypoints", configFile, this.Instance?.RouterSettings?.Waypoints.Length ?? 0);
                 return true;
             }
             catch (Exception ex)

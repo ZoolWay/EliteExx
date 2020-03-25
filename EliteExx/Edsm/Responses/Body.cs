@@ -40,11 +40,11 @@ namespace Zw.EliteExx.Edsm.Responses
         public string ReserveLevel { get; set; }
 
         public int SurfaceTemperature { get; set; }
-        public double OrbitalPeriod { get; set; }
-        public double SemiMajorAxis { get; set; }
-        public double OrbitalEccentricity { get; set; }
-        public double OrbitalInclination { get; set; }
-        public double ArgOfPeriapsis { get; set; }
+        public double? OrbitalPeriod { get; set; }
+        public double? SemiMajorAxis { get; set; }
+        public double? OrbitalEccentricity { get; set; }
+        public double? OrbitalInclination { get; set; }
+        public double? ArgOfPeriapsis { get; set; }
         public double RotationalPeriod { get; set; }
         public bool RotationalPeriodTidallyLocked { get; set; }
         public int? AxialTilt { get; set; }
