@@ -34,7 +34,6 @@ namespace Zw.EliteExx.Edsm
             {
                 HttpWebRequest reqInfo = WebRequest.CreateHttp($"{BASE_URL}api-v1/system?systemName={message.SystemName}&showId=1&showCoordinates=1&showPermit=1&showInformation=0&showPrimaryStar=1");
                 reqInfo.Timeout = 5000;
-                var x1 = reqInfo.GetResponse();
                 HttpWebResponse respInfo = (await reqInfo.GetResponseAsync()) as HttpWebResponse;
                 string dataInfo = respInfo.GetContent();
                 if ((String.IsNullOrWhiteSpace(dataInfo)) || (dataInfo == "[]") || (respInfo.StatusCode == HttpStatusCode.NotFound))
