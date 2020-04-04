@@ -111,5 +111,25 @@ namespace Zw.EliteExx.Core
                 this.ErrorMessage = errorMessage;
             }
         }
+
+        /// <summary>
+        /// Notifies the directory scanner that its FileSystemWatcher detected an event.
+        /// Sent by: directory scanners (SequenceFilesReader).
+        /// Received by: directory scanners (SequenceFilesReader).
+        /// Rate: Unlimited.
+        /// </summary>
+        public class NotifyFilesystemEvent : ReaderMessage
+        { 
+            public string AffectedFullPath { get; }
+            public string AffectedName { get; }
+            public System.IO.WatcherChangeTypes ChangeType { get; }
+
+            public NotifyFilesystemEvent(string affectedFullPath, string affectedName, System.IO.WatcherChangeTypes changeType)
+            {
+                this.AffectedFullPath = affectedFullPath;
+                this.AffectedName = affectedName;
+                this.ChangeType = changeType;
+            }
+        }
     }
 }

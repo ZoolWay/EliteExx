@@ -38,6 +38,7 @@ namespace Zw.EliteExx.Core
             this.firstScanCompleted = false;
 
             Receive((Action<ReaderMessage.ScanFiles>)ReceivedScanFiles);
+            Receive((Action<ReaderMessage.NotifyFilesystemEvent>)ReceivedNotifyFilesystemEvent);
             Receive((Action<ReaderMessage.Processed>)ReceivedProcessed);
             Receive((Action<ReaderMessage.SaveState>)ReceivedSaveState);
         }
@@ -51,8 +52,8 @@ namespace Zw.EliteExx.Core
                 EnableRaisingEvents = false,
             };
             IActorRef eventReceiver = Self;
-            ReaderMessage.ScanFiles eventMessage = new ReaderMessage.ScanFiles();
-            this.fileSystemWatcher.Changed += new FileSystemEventHandler((sender, e) => { eventReceiver.Tell(eventMessage); });
+            this.fileSystemWatcher.Changed += new FileSystemEventHandler((sender, e) => { eventReceiver.Tell(new ReaderMessage.NotifyFilesystemEvent(e.FullPath, e.Name, e.ChangeType)); });
+            this.fileSystemWatcher.Created += new FileSystemEventHandler((sender, e) => { eventReceiver.Tell(new ReaderMessage.NotifyFilesystemEvent(e.FullPath, e.Name, e.ChangeType)); });
         }
 
         protected override void PostStop()
@@ -62,6 +63,12 @@ namespace Zw.EliteExx.Core
             this.fileSystemWatcher.Dispose();
             this.fileSystemWatcher = null;
             SaveScanState();
+        }
+
+        private void ReceivedNotifyFilesystemEvent(ReaderMessage.NotifyFilesystemEvent message)
+        {
+            log.Info("Detected {0} in {1}", message.ChangeType, message.AffectedName);
+            Self.Tell(new ReaderMessage.ScanFiles());
         }
 
         private void ReceivedProcessed(ReaderMessage.Processed message)
