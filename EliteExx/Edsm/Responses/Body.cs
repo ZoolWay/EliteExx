@@ -31,7 +31,7 @@ namespace Zw.EliteExx.Edsm.Responses
         public double Gravity { get; set; }
         public double EarthMasses { get; set; }
         public double Radius { get; set; }
-        public double SurfacePressure { get; set; }
+        public double? SurfacePressure { get; set; }
         public string VolcanismType { get; set; }
         public string AtmopshereType { get; set; }
         // AtmosphereComposition
