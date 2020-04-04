@@ -42,12 +42,30 @@ namespace Zw.EliteExx.Edsm
                     this.uiMessenger.Tell(new UiMessengerMessage.Publish(new NoSystemData(message.SystemName)));
                     return;
                 }
-                var objInfo = JsonConvert.DeserializeObject<Responses.SystemReq>(dataInfo);
+                Responses.SystemReq objInfo;
+                try
+                {
+                    objInfo = JsonConvert.DeserializeObject<Responses.SystemReq>(dataInfo);
+                }
+                catch (Exception ex)
+                {
+                    log.Error($"Failed to deserialize EDSM systemdata for {message.SystemName} ({dataInfo.Length} chars): {ex.Message}");
+                    throw;
+                }
                 HttpWebRequest reqBodies = WebRequest.CreateHttp($"{BASE_URL}api-system-v1/bodies?systemName={message.SystemName}");
                 reqBodies.Timeout = 5000;
                 HttpWebResponse respBodies = (await reqBodies.GetResponseAsync()) as HttpWebResponse;
                 string dataBodies = respBodies.GetContent();
-                var objBodies = JsonConvert.DeserializeObject<Responses.BodiesReq>(dataBodies);
+                Responses.BodiesReq objBodies;
+                try
+                {
+                    objBodies = JsonConvert.DeserializeObject<Responses.BodiesReq>(dataBodies);
+                }
+                catch (Exception ex)
+                {
+                    log.Error($"Failed to deserialize EDSM bodiesdata for {message.SystemName} ({dataBodies.Length} chars): {ex.Message}");
+                    throw;
+                }
                 List<BodyData> bodies = new List<BodyData>();
                 foreach (var b in objBodies.Bodies)
                 {
@@ -62,7 +80,7 @@ namespace Zw.EliteExx.Edsm
             }
             catch (Exception ex)
             {
-                log.Error(ex, $"Failed to get system data for {message.SystemName}");
+                log.Error(ex, $"Failed to get EDSM data for {message.SystemName}");
             }
         }
 
